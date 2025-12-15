@@ -5,12 +5,12 @@
 
 {% block content %}
     <h2>Escolha uma Operação:</h2>
-    <ul>
-        <li><a href="{{ url_for('sum_sub') }}">Soma/Subtração de Matrizes</a></li>
-        <li><a href="{{ url_for('scalar') }}">Multiplicação por Escalar</a></li>
-        <li><a href="{{ url_for('multiply') }}">Multiplicação de Matrizes</a></li>
-        <li><a href="{{ url_for('determinant') }}">Determinante</a></li>
-        <li><a href="{{ url_for('inverse') }}">Matriz Inversa</a></li>
-        <li><a href="{{ url_for('encrypt') }}">Criptografia (Hill Cipher)</a></li>
-    </ul>
+    <div class="button-grid">
+        <a href="{{ url_for('sum_sub') }}" class="menu-button">Soma/Subtração de Matrizes</a>
+        <a href="{{ url_for('scalar') }}" class="menu-button">Multiplicação por Escalar</a>
+        <a href="{{ url_for('multiply') }}" class="menu-button">Multiplicação de Matrizes</a>
+        <a href="{{ url_for('determinant') }}" class="menu-button">Determinante</a>
+        <a href="{{ url_for('inverse') }}" class="menu-button">Matriz Inversa</a>
+        <a href="{{ url_for('encrypt') }}" class="menu-button">Criptografia (Hill Cipher)</a>
+    </div>
 {% endblock %}

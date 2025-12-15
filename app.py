@@ -18,6 +18,12 @@ def sum_sub():
     No POST, processa o cálculo. No GET, mostra o formulário.
     """
     if request.method == 'POST':
+       """
+       Referencia para o futuro de como usar a classe Matrix para soma:
+       # matriz_a = Matrix(2, 2, [[1, 2], [3, 4]])
+       # matriz_b = Matrix(2, 2, [[5, 6], [7, 8]])
+       # matriz_a.add(matriz_b)
+       """
         matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
         return matriz_a.add()
     return render_template('sum_sub.html')

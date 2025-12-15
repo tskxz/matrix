@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from core.matrix import Matrix
 
 app = Flask(__name__)
 
@@ -17,7 +18,8 @@ def sum_sub():
     No POST, processa o cálculo. No GET, mostra o formulário.
     """
     if request.method == 'POST':
-        return jsonify({'result': 'Cálculo de Soma/Subtração (a implementar)'})
+        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
+        return matriz_a.add()
     return render_template('sum_sub.html')
 
 @app.route('/scalar', methods=['GET', 'POST'])

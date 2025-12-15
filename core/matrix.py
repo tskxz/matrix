@@ -1,3 +1,5 @@
+from flask import jsonify
+
 class Matrix:
     """A custom Matrix class implementing basic linear algebra operations."""
     
@@ -38,7 +40,7 @@ class Matrix:
         return self.rows == other.rows and self.cols == other.cols
     
     def add(self):
-        """Soma de matrizes: C[i][j] = A[i][j] + B[i][j]"""
+        return jsonify({'result': 'Soma de matrizes: C[i][j] = A[i][j] + B[i][j]'})
     
     def subtract(self):
         """Subtração de matrizes: C[i][j] = A[i][j] - B[i][j]"""

@@ -1,0 +1,4 @@
+# requirements.txt
+Flask
+#Para usar operações matemáticas avançadas com matrizes
+numpy

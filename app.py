@@ -24,8 +24,8 @@ def sum_sub():
        # matriz_b = Matrix(2, 2, [[5, 6], [7, 8]])
        # matriz_a.add(matriz_b)
        """
-        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
-        return matriz_a.add()
+       matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
+       return matriz_a.add()
     return render_template('sum_sub.html')
 
 @app.route('/scalar', methods=['GET', 'POST'])
@@ -35,7 +35,8 @@ def scalar():
     """
     if request.method == 'POST':
         # Lógica para Multiplicação por escalar
-        return jsonify({'result': 'Cálculo de Multiplicação por Escalar (a implementar)'})
+        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
+        return matriz_a.scalar_multiply(2)
     return render_template('scalar.html')
 
 @app.route('/multiply', methods=['GET', 'POST'])
@@ -45,7 +46,9 @@ def multiply():
     """
     if request.method == 'POST':
         # Lógica para Multiplicação de matrizes
-        return jsonify({'result': 'Cálculo de Multiplicação de Matrizes (a implementar)'})
+        matriz_a = Matrix(2, 2)
+        matriz_b = Matrix(2, 2) 
+        return matriz_a.multiply(matriz_b)
     return render_template('multiply.html')
 
 @app.route('/determinant', methods=['GET', 'POST'])
@@ -55,7 +58,8 @@ def determinant():
     """
     if request.method == 'POST':
         # Lógica para Determinante
-        return jsonify({'result': 'Cálculo de Determinante (a implementar)'})
+        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
+        return matriz_a.determinant()
     return render_template('determinant.html')
 
 @app.route('/inverse', methods=['GET', 'POST'])
@@ -65,7 +69,8 @@ def inverse():
     """
     if request.method == 'POST':
         # Lógica para Matriz Inversa
-        return jsonify({'result': 'Cálculo de Matriz Inversa (a implementar)'})
+        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
+        return matriz_a.inverse()
     return render_template('inverse.html')
 
 @app.route('/encrypt', methods=['GET', 'POST'])

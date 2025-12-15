@@ -43,22 +43,23 @@ class Matrix:
         return jsonify({'result': 'Soma de matrizes: C[i][j] = A[i][j] + B[i][j]'})
     
     def subtract(self):
-        """Subtração de matrizes: C[i][j] = A[i][j] - B[i][j]"""
+        return jsonify({'result': 'Subtração de matrizes: C[i][j] = A[i][j] - B[i][j]'})
     
     def scalar_multiply(self, scalar):
-        """Multiplicação por escalar: B[i][j] = k × A[i][j]"""
+        return jsonify({'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'})
     
     def multiply(self, other):
-        """Multiplicação de matrizes: C[i][j] = Σ(A[i][k] × B[k][j])"""
+        return jsonify({'result': 'Multiplicação de matrizes: C[i][j] = Σ(A[i][k] × B[k][j])'})
     
     def determinant(self):
-        """Calcula determinante usando expansão de Laplace."""
+        return jsonify({'result': 'Cálculo do determinante usando expansão de Laplace'})
     
     def _get_minor(self, row, col):
         """Obtém matriz menor removendo linha e coluna."""
     
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""
+        return jsonify({'result': 'Cálculo da matriz inversa'})
     
     def to_list(self):
         """Converte matriz para lista de listas."""

@@ -1,2 +1,4 @@
 *.ppt
 *.docx
+*.log
+__pycache__

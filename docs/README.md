@@ -4,7 +4,7 @@ Uma calculadora para operações com matrizes, desenvolvida como projeto interdi
 
 ---
 
-## 📐 Operações Implementadas
+## Operações Implementadas
 
 ### 1. Soma e Subtração de Matrizes
 
@@ -144,7 +144,7 @@ $$
 
 ---
 
-## 🔐 Criptografia com Matrizes
+## Criptografia com Matrizes
 
 ### Matrizes de Codificação e Decodificação
 

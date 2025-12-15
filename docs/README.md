@@ -1,6 +1,6 @@
 # Matrix Project
 
 ## How to use
-- ```git clone https://github.com/tskxz/matrix``` the project
-- install packages using ```pip install requirements.txt```
+- Clone the project using ```git clone https://github.com/tskxz/matrix``` 
+- install packages using ```pip install -r requirements.txt```
 - then proceed to run ```python app.py```

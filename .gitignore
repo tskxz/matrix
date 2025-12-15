@@ -1,2 +1,30 @@
+# .gitignore
+
+# 1. Ambientes Virtuais (VENV)
+# Ignorar a pasta do ambiente virtual para não ser enviada para o Git.
+venv/
+.venv/
+.env
+
+# 2. Ficheiros e Pastas Geradas pelo Python
+# bytecode e cache
+__pycache__/
+*.pyc
+
+# Pacotes e artefatos de build
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# 3. Ficheiros do Flask/IDEs
+# Ficheiros de configuração da IDE (ex: VS Code, PyCharm)
+.idea/
+.vscode/
+
+# Ficheiros de sistema operacional
+.DS_Store
+Thumbs.db
+
 *.ppt
 *.docx

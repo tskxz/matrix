@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Menu Principal{% endblock %}
+{% block header_text %}Projeto Matrix - Menu{% endblock %}
+
+{% block content %}
+    <h2>Escolha uma Operação:</h2>
+    <ul>
+        <li><a href="{{ url_for('sum_sub') }}">Soma/Subtração de Matrizes</a></li>
+        <li><a href="{{ url_for('scalar') }}">Multiplicação por Escalar</a></li>
+        <li><a href="{{ url_for('multiply') }}">Multiplicação de Matrizes</a></li>
+        <li><a href="{{ url_for('determinant') }}">Determinante</a></li>
+        <li><a href="{{ url_for('inverse') }}">Matriz Inversa</a></li>
+        <li><a href="{{ url_for('encrypt') }}">Criptografia (Hill Cipher)</a></li>
+    </ul>
+{% endblock %}

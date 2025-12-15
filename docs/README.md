@@ -234,3 +234,9 @@ M = B \cdot N
 $$
 
 Resultado: **matriz original da mensagem**
+
+
+### Comandos para rodar o Programa
+git clone https://github.com/tskxz/matrix.git
+pip3 install -r requirements.txt
+python app.py

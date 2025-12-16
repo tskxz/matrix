@@ -54,12 +54,14 @@ class Matrix:
     def determinant(self):
         return jsonify({'result': 'Cálculo do determinante usando expansão de Laplace'})
     
-    def _get_minor(self, row, col):
-        """Obtém matriz menor removendo linha e coluna."""
-    
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""
         return jsonify({'result': 'Cálculo da matriz inversa'})
     
-    def to_list(self):
-        """Converte matriz para lista de listas."""
+    def encrypt(self):
+        """Encrypt the following message"""
+        return jsonify({'result': 'Mensagem Encryptada'})
+    
+    def des_Encrypt(self):
+        """Des-Encrypt the following message"""
+        return jsonify({'result': 'Mensagem Desencryptada'})

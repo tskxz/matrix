@@ -3,47 +3,6 @@ from core.matrix import Matrix
 
 app = Flask(__name__)
 
-def parse_matrix_from_form(form_data, prefix):
-    """Parse matrix from form data in text format - auto-detect dimensions."""
-    # Get the text from form data
-    text = form_data.get(prefix)
-    if not text:
-        raise ValueError(f"Matriz {prefix} vazia")
-    
-    # Parse the text - format is "1 2 3 4\n5 6 7 8"
-    lines = text.strip().split('\r\n')
-    
-    # Remove empty lines
-    lines = [line.strip() for line in lines if line.strip()]
-    
-    if not lines:
-        raise ValueError(f"Matriz {prefix} não contém dados")
-    
-    # Split each line by spaces
-    rows = []
-    num_cols = None
-    
-    for line in lines:
-        # Split by spaces and remove empty strings
-        values = [val for val in line.split() if val]
-        if not values:
-            continue
-            
-        # Convert to float
-        row = [float(val) for val in values]
-        rows.append(row)
-        
-        # Check if all rows have same number of columns
-        if num_cols is None:
-            num_cols = len(row)
-        elif len(row) != num_cols:
-            raise ValueError(f"Matriz {prefix}: linhas têm número diferente de colunas")
-    
-    if not rows:
-        raise ValueError(f"Matriz {prefix} não contém dados válidos")
-    
-    return rows, len(rows), num_cols
-
 @app.route('/')
 def index():
     """
@@ -60,35 +19,26 @@ def sum_sub():
     """
     if request.method == 'POST':
         try:
-            data = request.form
-            print(data) 
+            if not request.data:
+                return jsonify({'error': 'No data received'}), 400
+                
+            data = request.get_json(force=True)
             
-            # o resultado disto e ImmutableMultiDict([('matrix_a', '1 2 5 2\r\n1 2 2 1'), ('matrix_b', '1 3 4 5\r\n1 1 1 2')])
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
             
-            # isto da erro "int() argument must be a string, a bytes-like object or a real number, not 'NoneType'"
-            #rows = int(data.get('rows'))
-            #cols = int(data.get('cols'))
-
-            matrix_a_data, rows_a, cols_a = parse_matrix_from_form(data, 'matrix_a')
-            matrix_b_data, rows_b, cols_b = parse_matrix_from_form(data, 'matrix_b')
-                        # Verificar se as matrizes têm as mesmas dimensões
-            if rows_a != rows_b or cols_a != cols_b:
-                return jsonify({
-                    'error': f'Matrizes têm dimensões diferentes: A({rows_a}x{cols_a}) vs B({rows_b}x{cols_b})'
-                }), 400
+            matrix_a = Matrix(data['rows'], data['cols'], data['matrix_a'])
+            matrix_b = Matrix(data['rows'], data['cols'], data['matrix_b'])
             
-            # Criar objetos Matrix
-            matrix_a = Matrix(rows_a, cols_a, matrix_a_data)
-            matrix_b = Matrix(rows_b, cols_b, matrix_b_data)
-            
-            # Fazer a soma (por enquanto só soma)
-            result = matrix_a.add(matrix_b)
+            result = matrix_a.add(matrix_b) if data['operation'] == 'sum' else matrix_a.subtract(matrix_b)
+            op_name = 'Soma' if data['operation'] == 'sum' else 'Subtração'
             
             return jsonify({
-                'matrix_a': matrix_a_data,
-                'matrix_b': matrix_b_data,
-                'result': result.to_list() if hasattr(result, 'to_list') else str(result),
-                'dimensions': f'{rows_a}x{cols_a}'
+                'matrix_a': matrix_a.to_list(),
+                'matrix_b': matrix_b.to_list(),
+                'result': result['data'],
+                'operation': op_name,
+                'dimensions': f"{data['rows']}x{data['cols']}"
             })
             
         except Exception as e:
@@ -101,9 +51,6 @@ def scalar():
     """
     Multiplicação de matriz por escalar.
     """
-    if request.method == 'POST':
-        # Lógica para Multiplicação por escalar
-        return jsonify({'result': 'Cálculo de Multiplicação por Escalar (a implementar)'})
     return render_template('scalar.html')
 
 @app.route('/multiply', methods=['GET', 'POST'])
@@ -111,9 +58,6 @@ def multiply():
     """
     Multiplicação de matrizes.
     """
-    if request.method == 'POST':
-        # Lógica para Multiplicação de matrizes
-        return jsonify({'result': 'Cálculo de Multiplicação de Matrizes (a implementar)'})
     return render_template('multiply.html')
 
 @app.route('/determinant', methods=['GET', 'POST'])
@@ -121,9 +65,6 @@ def determinant():
     """
     Cálculo do Determinante.
     """
-    if request.method == 'POST':
-        # Lógica para Determinante
-        return jsonify({'result': 'Cálculo de Determinante (a implementar)'})
     return render_template('determinant.html')
 
 @app.route('/inverse', methods=['GET', 'POST'])
@@ -131,9 +72,6 @@ def inverse():
     """
     Matriz Inversa.
     """
-    if request.method == 'POST':
-        # Lógica para Matriz Inversa
-        return jsonify({'result': 'Cálculo de Matriz Inversa (a implementar)'})
     return render_template('inverse.html')
 
 @app.route('/encrypt', methods=['GET', 'POST'])
@@ -141,9 +79,6 @@ def encrypt():
     """
     Criptografia (provavelmente usando a matriz como chave ou método Hill).
     """
-    if request.method == 'POST':
-        # Lógica para Criptografia
-        return jsonify({'result': 'Funcionalidade de Criptografia (a implementar)'})
     return render_template('encrypt.html')
 
 # --- Execução do Servidor ---

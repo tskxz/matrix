@@ -13,10 +13,7 @@ class Matrix:
             self.data = [row[:] for row in data]
     
     def __str__(self):
-        result = ""
-        for row in self.data:
-            result += "[" + " ".join(f"{elem:8.2f}" if isinstance(elem, float) else f"{elem:8}" for elem in row) + "]\n"
-        return result
+        return "\n".join("[" + " ".join(f"{x:8.2f}" for x in row) + "]" for row in self.data)
     
     def __repr__(self):
         """Return representation of the matrix."""
@@ -40,21 +37,22 @@ class Matrix:
             raise TypeError("Can only compare with another Matrix")
         return self.rows == other.rows and self.cols == other.cols
     
+    def to_list(self):
+        return [row[:] for row in self.data]
+    
     def add(self, other):
         """Add two matrices: C[i][j] = A[i][j] + B[i][j]"""
         if not self.is_same_dimension(other):
-            raise ValueError(f"Incompatible dimensions: {self.dimensions()} vs {other.dimensions()}")
-        
+            raise ValueError(f"Dimensões incompatíveis: {self.dimensions()} vs {other.dimensions()}")
         result = [[self.data[i][j] + other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
-        return {'data': result, 'rows': self.rows, 'cols': self.cols, 'operation': 'add'}
+        return {'data': result}
     
     def subtract(self, other):
         """Subtract two matrices: C[i][j] = A[i][j] - B[i][j]"""
         if not self.is_same_dimension(other):
-            raise ValueError(f"Incompatible dimensions: {self.dimensions()} vs {other.dimensions()}")
-        
+            raise ValueError(f"Dimensões incompatíveis: {self.dimensions()} vs {other.dimensions()}")
         result = [[self.data[i][j] - other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
-        return {'data': result, 'rows': self.rows, 'cols': self.cols, 'operation': 'subtract'}
+        return {'data': result}
     
     def scalar_multiply(self, scalar):
         return {'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'}

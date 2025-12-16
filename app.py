@@ -3,19 +3,46 @@ from core.matrix import Matrix
 
 app = Flask(__name__)
 
-def parse_matrix_from_form(form_data, prefix, rows, cols):
-    """Parse matrix from form data."""
-    matrix = []
-    for i in range(rows):
-        row = []
-        for j in range(cols):
-            key = f"{prefix}_{i}_{j}"
-            value = form_data.get(key)
-            if value is None:
-                raise ValueError(f"Missing value at [{i+1}][{j+1}]")
-            row.append(float(value))
-        matrix.append(row)
-    return matrix
+def parse_matrix_from_form(form_data, prefix):
+    """Parse matrix from form data in text format - auto-detect dimensions."""
+    # Get the text from form data
+    text = form_data.get(prefix)
+    if not text:
+        raise ValueError(f"Matriz {prefix} vazia")
+    
+    # Parse the text - format is "1 2 3 4\n5 6 7 8"
+    lines = text.strip().split('\r\n')
+    
+    # Remove empty lines
+    lines = [line.strip() for line in lines if line.strip()]
+    
+    if not lines:
+        raise ValueError(f"Matriz {prefix} não contém dados")
+    
+    # Split each line by spaces
+    rows = []
+    num_cols = None
+    
+    for line in lines:
+        # Split by spaces and remove empty strings
+        values = [val for val in line.split() if val]
+        if not values:
+            continue
+            
+        # Convert to float
+        row = [float(val) for val in values]
+        rows.append(row)
+        
+        # Check if all rows have same number of columns
+        if num_cols is None:
+            num_cols = len(row)
+        elif len(row) != num_cols:
+            raise ValueError(f"Matriz {prefix}: linhas têm número diferente de colunas")
+    
+    if not rows:
+        raise ValueError(f"Matriz {prefix} não contém dados válidos")
+    
+    return rows, len(rows), num_cols
 
 @app.route('/')
 def index():
@@ -34,17 +61,39 @@ def sum_sub():
     if request.method == 'POST':
         try:
             data = request.form
-            rows = int(data.get('rows'))
-            cols = int(data.get('cols'))
-            operation = data.get('operation')
+            print(data) 
             
-            matrix_a = Matrix(rows, cols, parse_matrix_from_form(data, 'matrix_a', rows, cols))
-            matrix_b = Matrix(rows, cols, parse_matrix_from_form(data, 'matrix_b', rows, cols))
+            # o resultado disto e ImmutableMultiDict([('matrix_a', '1 2 5 2\r\n1 2 2 1'), ('matrix_b', '1 3 4 5\r\n1 1 1 2')])
             
-            result = matrix_a.add(matrix_b) if operation == 'sum' else matrix_a.subtract(matrix_b)
-            return jsonify(result)
+            # isto da erro "int() argument must be a string, a bytes-like object or a real number, not 'NoneType'"
+            #rows = int(data.get('rows'))
+            #cols = int(data.get('cols'))
+
+            matrix_a_data, rows_a, cols_a = parse_matrix_from_form(data, 'matrix_a')
+            matrix_b_data, rows_b, cols_b = parse_matrix_from_form(data, 'matrix_b')
+                        # Verificar se as matrizes têm as mesmas dimensões
+            if rows_a != rows_b or cols_a != cols_b:
+                return jsonify({
+                    'error': f'Matrizes têm dimensões diferentes: A({rows_a}x{cols_a}) vs B({rows_b}x{cols_b})'
+                }), 400
+            
+            # Criar objetos Matrix
+            matrix_a = Matrix(rows_a, cols_a, matrix_a_data)
+            matrix_b = Matrix(rows_b, cols_b, matrix_b_data)
+            
+            # Fazer a soma (por enquanto só soma)
+            result = matrix_a.add(matrix_b)
+            
+            return jsonify({
+                'matrix_a': matrix_a_data,
+                'matrix_b': matrix_b_data,
+                'result': result.to_list() if hasattr(result, 'to_list') else str(result),
+                'dimensions': f'{rows_a}x{cols_a}'
+            })
+            
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+    
     return render_template('sum_sub.html')
 
 @app.route('/scalar', methods=['GET', 'POST'])

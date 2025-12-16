@@ -6,10 +6,10 @@
 {% block content %}
     <p>Aqui será o formulário para inserir as matrizes.</p>
     <form method="post" action="{{ url_for('sum_sub') }}">
-        <label for="matrix_a">Matriz A (separe os elementos por vírgulas e as linhas por ponto e vírgula):</label><br>
+        <label for="matrix_a">Matriz A:</label><br>
         <textarea id="matrix_a" name="matrix_a" rows="4" cols="50"></textarea><br><br>
         
-        <label for="matrix_b">Matriz B (separe os elementos por vírgulas e as linhas por ponto e vírgula):</label><br>
+        <label for="matrix_b">Matriz B:</label><br>
         <textarea id="matrix_b" name="matrix_b" rows="4" cols="50"></textarea><br><br>
         
         <!--- isto e temporario --->

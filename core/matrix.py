@@ -1,5 +1,3 @@
-from flask import jsonify
-
 class Matrix:
     """A custom Matrix class implementing basic linear algebra operations."""
     
@@ -21,6 +19,7 @@ class Matrix:
         return result
     
     def __repr__(self):
+        """Return representation of the matrix."""
         return f"Matrix({self.rows}x{self.cols})"
     
     def get_element(self, row, col):
@@ -32,36 +31,48 @@ class Matrix:
         self.data[row - 1][col - 1] = value
     
     def dimensions(self):
+        """Return dimensions as tuple (rows, cols)."""
         return (self.rows, self.cols)
     
     def is_same_dimension(self, other):
+        """Check if two matrices have the same dimensions."""
         if not isinstance(other, Matrix):
-            raise TypeError("Pode apenas comparar com outra Matriz")
+            raise TypeError("Can only compare with another Matrix")
         return self.rows == other.rows and self.cols == other.cols
     
-    def add(self):
-        return jsonify({'result': 'Soma de matrizes: C[i][j] = A[i][j] + B[i][j]'})
+    def add(self, other):
+        """Add two matrices: C[i][j] = A[i][j] + B[i][j]"""
+        if not self.is_same_dimension(other):
+            raise ValueError(f"Incompatible dimensions: {self.dimensions()} vs {other.dimensions()}")
+        
+        result = [[self.data[i][j] + other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
+        return {'data': result, 'rows': self.rows, 'cols': self.cols, 'operation': 'add'}
     
-    def subtract(self):
-        return jsonify({'result': 'Subtração de matrizes: C[i][j] = A[i][j] - B[i][j]'})
+    def subtract(self, other):
+        """Subtract two matrices: C[i][j] = A[i][j] - B[i][j]"""
+        if not self.is_same_dimension(other):
+            raise ValueError(f"Incompatible dimensions: {self.dimensions()} vs {other.dimensions()}")
+        
+        result = [[self.data[i][j] - other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
+        return {'data': result, 'rows': self.rows, 'cols': self.cols, 'operation': 'subtract'}
     
     def scalar_multiply(self, scalar):
-        return jsonify({'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'})
+        return {'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'}
     
     def multiply(self, other):
-        return jsonify({'result': 'Multiplicação de matrizes: C[i][j] = Σ(A[i][k] × B[k][j])'})
+        return {'result': 'Multiplicação de matrizes: C[i][j] = Σ(A[i][k] × B[k][j])'}
     
     def determinant(self):
-        return jsonify({'result': 'Cálculo do determinante usando expansão de Laplace'})
+        return {'result': 'Cálculo do determinante usando expansão de Laplace'}
     
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""
-        return jsonify({'result': 'Cálculo da matriz inversa'})
+        return {'result': 'Cálculo da matriz inversa'}
     
     def encrypt(self):
         """Encrypt the following message"""
-        return jsonify({'result': 'Mensagem Encryptada'})
+        return {'result': 'Mensagem Encryptada'}
     
-    def des_Encrypt(self):
+    def des_encrypt(self):
         """Des-Encrypt the following message"""
-        return jsonify({'result': 'Mensagem Desencryptada'})
+        return {'result': 'Mensagem Desencryptada'}

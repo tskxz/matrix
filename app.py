@@ -3,6 +3,20 @@ from core.matrix import Matrix
 
 app = Flask(__name__)
 
+def parse_matrix_from_form(form_data, prefix, rows, cols):
+    """Parse matrix from form data."""
+    matrix = []
+    for i in range(rows):
+        row = []
+        for j in range(cols):
+            key = f"{prefix}_{i}_{j}"
+            value = form_data.get(key)
+            if value is None:
+                raise ValueError(f"Missing value at [{i+1}][{j+1}]")
+            row.append(float(value))
+        matrix.append(row)
+    return matrix
+
 @app.route('/')
 def index():
     """
@@ -18,14 +32,19 @@ def sum_sub():
     No POST, processa o cálculo. No GET, mostra o formulário.
     """
     if request.method == 'POST':
-       """
-       Referencia para o futuro de como usar a classe Matrix para soma:
-       # matriz_a = Matrix(2, 2, [[1, 2], [3, 4]])
-       # matriz_b = Matrix(2, 2, [[5, 6], [7, 8]])
-       # matriz_a.add(matriz_b)
-       """
-       matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
-       return matriz_a.add()
+        try:
+            data = request.form
+            rows = int(data.get('rows'))
+            cols = int(data.get('cols'))
+            operation = data.get('operation')
+            
+            matrix_a = Matrix(rows, cols, parse_matrix_from_form(data, 'matrix_a', rows, cols))
+            matrix_b = Matrix(rows, cols, parse_matrix_from_form(data, 'matrix_b', rows, cols))
+            
+            result = matrix_a.add(matrix_b) if operation == 'sum' else matrix_a.subtract(matrix_b)
+            return jsonify(result)
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
     return render_template('sum_sub.html')
 
 @app.route('/scalar', methods=['GET', 'POST'])
@@ -35,8 +54,7 @@ def scalar():
     """
     if request.method == 'POST':
         # Lógica para Multiplicação por escalar
-        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
-        return matriz_a.scalar_multiply(2)
+        return jsonify({'result': 'Cálculo de Multiplicação por Escalar (a implementar)'})
     return render_template('scalar.html')
 
 @app.route('/multiply', methods=['GET', 'POST'])
@@ -46,9 +64,7 @@ def multiply():
     """
     if request.method == 'POST':
         # Lógica para Multiplicação de matrizes
-        matriz_a = Matrix(2, 2)
-        matriz_b = Matrix(2, 2) 
-        return matriz_a.multiply(matriz_b)
+        return jsonify({'result': 'Cálculo de Multiplicação de Matrizes (a implementar)'})
     return render_template('multiply.html')
 
 @app.route('/determinant', methods=['GET', 'POST'])
@@ -58,8 +74,7 @@ def determinant():
     """
     if request.method == 'POST':
         # Lógica para Determinante
-        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
-        return matriz_a.determinant()
+        return jsonify({'result': 'Cálculo de Determinante (a implementar)'})
     return render_template('determinant.html')
 
 @app.route('/inverse', methods=['GET', 'POST'])
@@ -69,8 +84,7 @@ def inverse():
     """
     if request.method == 'POST':
         # Lógica para Matriz Inversa
-        matriz_a = Matrix(2, 2) # matriz 2 por 2 nula para testar
-        return matriz_a.inverse()
+        return jsonify({'result': 'Cálculo de Matriz Inversa (a implementar)'})
     return render_template('inverse.html')
 
 @app.route('/encrypt', methods=['GET', 'POST'])

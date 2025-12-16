@@ -12,17 +12,20 @@ class TestMatrixCreation(unittest.TestCase):
         self.assertEqual(m.rows, 2)
         self.assertEqual(m.cols, 2)
         self.assertEqual(m.data, data)
+        print(f"Created matrix: {m}")
     
     def test_create_matrix_zeros(self):
         """Test creating a matrix initialized with zeros."""
         m = Matrix(3, 3)
         expected = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.assertEqual(m.data, expected)
+        print(f"Zero matrix created correctly")
     
     def test_invalid_dimensions(self):
         """Test that wrong data dimensions raise error."""
         with self.assertRaises(ValueError):
             Matrix(2, 2, [[1, 2, 3], [4, 5, 6]])
+        print(f"Invalid dimensions error raised correctly")
 
 
 class TestMatrixElements(unittest.TestCase):
@@ -38,15 +41,19 @@ class TestMatrixElements(unittest.TestCase):
         self.assertEqual(self.matrix.get_element(1, 2), 2)
         self.assertEqual(self.matrix.get_element(2, 1), 3)
         self.assertEqual(self.matrix.get_element(2, 2), 4)
+        print(f"All elements retrieved correctly")
     
     def test_set_element(self):
         """Test setting elements in matrix."""
         self.matrix.set_element(1, 1, 10)
         self.assertEqual(self.matrix.get_element(1, 1), 10)
+        print(f"Element set correctly: {self.matrix}")
     
     def test_dimensions(self):
         """Test getting matrix dimensions."""
-        self.assertEqual(self.matrix.dimensions(), (2, 2))
+        dims = self.matrix.dimensions()
+        self.assertEqual(dims, (2, 2))
+        print(f"Dimensions correct: {dims}")
 
 
 class TestMatrixAddition(unittest.TestCase):
@@ -54,29 +61,44 @@ class TestMatrixAddition(unittest.TestCase):
     
     def test_add_2x2_matrices(self):
         """Test adding two 2×2 matrices."""
-        A = Matrix(2, 2, [[1, 2], [3, 4]])
-        B = Matrix(2, 2, [[5, 6], [7, 8]])
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+
+        B = Matrix(2, 2, [[5, 6], 
+                          [7, 8]])
+
         result = A.add(B)
-        
+
         expected = [[6, 8], [10, 12]]
         self.assertEqual(result['data'], expected)
-    
+        print(f"Addition result: {result['data']}")
+
     def test_add_with_negatives(self):
         """Test addition with negative numbers."""
-        A = Matrix(2, 2, [[1, -2], [-3, 4]])
-        B = Matrix(2, 2, [[-1, 2], [3, -4]])
+        A = Matrix(2, 2, [[1, -2],
+                          [-3, 4]])
+
+        B = Matrix(2, 2, [[-1, 2],
+                          [3, -4]])
         result = A.add(B)
-        
-        expected = [[0, 0], [0, 0]]
+
+        expected = [[0, 0],
+                    [0, 0]]
         self.assertEqual(result['data'], expected)
-    
+        print(f"Addition with negatives result: {result['data']}")
+
     def test_add_incompatible_dimensions(self):
         """Test that adding incompatible matrices raises error."""
-        A = Matrix(2, 2, [[1, 2], [3, 4]])
-        B = Matrix(3, 3, [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        A = Matrix(2, 2, [[1, 2],
+                          [3, 4]])
+
+        B = Matrix(3, 3, [[1, 2, 3], 
+                          [4, 5, 6], 
+                          [7, 8, 9]])
         
         with self.assertRaises(ValueError):
             A.add(B)
+        print(f"Incompatible dimensions error raised correctly")
 
 
 class TestMatrixSubtraction(unittest.TestCase):
@@ -84,28 +106,38 @@ class TestMatrixSubtraction(unittest.TestCase):
     
     def test_subtract_2x2_matrices(self):
         """Test subtracting two 2×2 matrices."""
-        A = Matrix(2, 2, [[5, 6], [7, 8]])
-        B = Matrix(2, 2, [[1, 2], [3, 4]])
+        A = Matrix(2, 2, [[5, 6], 
+                          [7, 8]])
+
+        B = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
         result = A.subtract(B)
-        
+
         expected = [[4, 4], [4, 4]]
         self.assertEqual(result['data'], expected)
-    
+        print(f"Subtraction result: {result['data']}")
+
     def test_subtract_same_matrix(self):
         """Test subtracting a matrix from itself gives zeros."""
         A = Matrix(2, 2, [[1, 2], [3, 4]])
         result = A.subtract(A)
-        
+
         expected = [[0, 0], [0, 0]]
         self.assertEqual(result['data'], expected)
+        print(f"Self-subtraction result: {result['data']}")
     
     def test_subtract_incompatible_dimensions(self):
         """Test that subtracting incompatible matrices raises error."""
-        A = Matrix(2, 2, [[1, 2], [3, 4]])
-        B = Matrix(3, 3, [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+
+        B = Matrix(3, 3, [[1, 2, 3], 
+                          [4, 5, 6], 
+                          [7, 8, 9]])
         
         with self.assertRaises(ValueError):
             A.subtract(B)
+        print(f"Incompatible dimensions error raised correctly")
 
 
 # class TestScalarMultiplication(unittest.TestCase):

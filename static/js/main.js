@@ -1,14 +1,4 @@
 /**
- * Matrix Calculator - Main JavaScript File
- * Handles form submissions, matrix operations, and UI interactions
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Matrix Calculator initialized');
-    attachEventListeners();
-});
-
-/**
  * Attach event listeners to form elements
  */
 function attachEventListeners() {
@@ -133,17 +123,11 @@ function showLoading(show) {
  * Show alert message
  */
 function showAlert(type, message) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type}`;
-    alertDiv.innerHTML = `<p>${message}</p>`;
-    
-    const main = document.querySelector('main');
-    main.insertBefore(alertDiv, main.firstChild);
-    
-    // Auto-remove alert after 5 seconds
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 5000);
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type}`;
+    alert.innerHTML = `<p>${message}</p>`;
+    document.querySelector('main').prepend(alert);
+    setTimeout(() => alert.remove(), 5000);
 }
 
 /**
@@ -244,4 +228,4 @@ function showMatrixInfo(matrix) {
     return `Dimensões: ${dims.rows}×${dims.columns}`;
 }
 
-console.log('✓ main.js loaded successfully');
+console.log('✓ main.js loaded');

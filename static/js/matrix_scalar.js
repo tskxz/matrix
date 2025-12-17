@@ -12,7 +12,7 @@ function generateInputs() {
 
   elements.matrices.innerHTML = `
                 <div class="matrix-container">
-                    ${["A", "B"]
+                    ${["A"]
                       .map(
                         (name) => `
                         <div class="matrix-input">
@@ -44,20 +44,16 @@ function generateInputs() {
 function collectMatrixData() {
   const r = parseInt(elements.rows.value);
   const c = parseInt(elements.cols.value);
-  const matrices = { matrix_a: [], matrix_b: [] };
+  const matrices = { matrix_a: [] };
 
   for (let i = 0; i < r; i++) {
     matrices.matrix_a[i] = [];
-    matrices.matrix_b[i] = [];
     for (let j = 0; j < c; j++) {
       const a = document.querySelector(
         `input[data-matrix="A"][data-row="${i}"][data-col="${j}"]`
       );
-      const b = document.querySelector(
-        `input[data-matrix="B"][data-row="${i}"][data-col="${j}"]`
-      );
+      
       matrices.matrix_a[i][j] = parseFloat(a.value);
-      matrices.matrix_b[i][j] = parseFloat(b.value);
     }
   }
   return matrices;
@@ -97,7 +93,6 @@ function displayResult(data) {
                     <p><strong>Dimensões:</strong> ${data.dimensions}</p>
                     <div class="matrix-container">
                         ${matrixToHTML(data.matrix_a, "Matriz A")}
-                        ${matrixToHTML(data.matrix_b, "Matriz B")}
                         ${matrixToHTML(data.result, "Resultado")}
                     </div>
                 </div>

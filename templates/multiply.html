@@ -7,22 +7,14 @@
     <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
 
     <form id="matrixForm">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
             <div>
-                <label for="rowsA">Linhas de A:</label>
-                <input type="number" id="rowsA" min="1" max="10" value="2" required>
+                <label for="rows">Linhas:</label>
+                <input type="number" id="rows" min="1" max="10" value="2" required>
             </div>
             <div>
-                <label for="colsA">Colunas de A:</label>
-                <input type="number" id="colsA" min="1" max="10" value="2" required>
-            </div>
-            <div>
-                <label for="rowsB">Linhas de B:</label>
-                <input type="number" id="rowsB" min="1" max="10" value="2" required readonly>
-            </div>
-            <div>
-                <label for="colsB">Colunas de B:</label>
-                <input type="number" id="colsB" min="1" max="10" value="2" required>
+                <label for="cols">Colunas:</label>
+                <input type="number" id="cols" min="1" max="10" value="2" required>
             </div>
         </div>
 

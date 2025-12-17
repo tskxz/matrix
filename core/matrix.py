@@ -58,7 +58,9 @@ class Matrix:
         return {'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'}
     
     def multiply(self, other):
-        return {'result': 'Multiplicação de matrizes: C[i][j] = Σ(A[i][k] × B[k][j])'}
+        # Funcao para multiplicar matrizes, verificar aqui
+        result = [[self.data[i][j] * other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
+        return {'data': result}
     
     def determinant(self):
         return {'result': 'Cálculo do determinante usando expansão de Laplace'}

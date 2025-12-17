@@ -59,49 +59,36 @@ def scalar():
 def multiply():
     if request.method == 'POST':
         try:
-            print("[v0] Request content-type:", request.content_type)
-            print("[v0] Request data:", request.data)
             
             data = request.get_json(force=True)
-            print("[v0] Parsed JSON:", data)
+            print(data)
             
-            if not data or 'matrixA' not in data or 'matrixB' not in data:
-                print("[v0] Missing matrixA or matrixB in request")
-                return jsonify({'success': False, 'error': 'Dados de matriz inválidos'}), 400
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
             
-            matrix_a_data = data['matrixA']
-            matrix_b_data = data['matrixB']
+            matrix_a_data = data['matrix_a']
+            matrix_b_data = data['matrix_b']
             
             rows_a = len(matrix_a_data)
             cols_a = len(matrix_a_data[0]) if matrix_a_data else 0
             rows_b = len(matrix_b_data)
             cols_b = len(matrix_b_data[0]) if matrix_b_data else 0
-            
-            print(f"[v0] Matrix A: {rows_a}x{cols_a}, Matrix B: {rows_b}x{cols_b}")
+        
             
             matrix_a = Matrix(rows_a, cols_a, matrix_a_data)
             matrix_b = Matrix(rows_b, cols_b, matrix_b_data)
             
             result = matrix_a.multiply(matrix_b)
-            print("[v0] Multiplication successful")
+            print("resultado: ",result)
             
             return jsonify({
-                'success': True,
-                'result': result['data'],
                 'matrix_a': matrix_a.to_list(),
                 'matrix_b': matrix_b.to_list(),
-                'operation': 'Multiplicação',
-                'dimensions_a': f"{rows_a}x{cols_a}",
-                'dimensions_b': f"{rows_b}x{cols_b}",
-                'dimensions_result': f"{result['rows']}x{result['cols']}"
+                'result': result['data'],
             })
             
-        except ValueError as e:
-            print("[v0] ValueError:", str(e))
-            return jsonify({'success': False, 'error': str(e)}), 400
         except Exception as e:
-            print("[v0] Exception:", str(e))
-            return jsonify({'success': False, 'error': str(e)}), 400
+            return jsonify({'error': str(e)}), 400
     
     return render_template('multiply.html')
 

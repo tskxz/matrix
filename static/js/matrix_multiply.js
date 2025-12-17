@@ -1,196 +1,144 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const rowsAInput = document.getElementById("rowsA")
-    const colsAInput = document.getElementById("colsA")
-    const rowsBInput = document.getElementById("rowsB")
-    const colsBInput = document.getElementById("colsB")
-    const form = document.getElementById("matrixForm")
-    const matricesDiv = document.getElementById("matrices")
-  
-    function updateRowsB() {
-      rowsBInput.value = colsAInput.value
+const elements = {
+  rows: document.getElementById("rows"),
+  cols: document.getElementById("cols"),
+  matrices: document.getElementById("matrices"),
+  form: document.getElementById("matrixForm"),
+  result: document.getElementById("result"),
+};
+
+function generateInputs() {
+  const r = parseInt(elements.rows.value);
+  const c = parseInt(elements.cols.value);
+
+  elements.matrices.innerHTML = `
+                <div class="matrix-container">
+                    ${["A", "B"]
+                      .map(
+                        (name) => `
+                        <div class="matrix-input">
+                            <h3>Matriz ${name}</h3>
+                            ${Array(r)
+                              .fill()
+                              .map(
+                                (_, i) => `
+                                <div class="matrix-row">
+                                    ${Array(c)
+                                      .fill()
+                                      .map(
+                                        (_, j) =>
+                                          `<input type="number" step="0.01" value="0" data-matrix="${name}" data-row="${i}" data-col="${j}" required>`
+                                      )
+                                      .join("")}
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    `
+                      )
+                      .join("")}
+                </div>
+            `;
+}
+
+function collectMatrixData() {
+  const r = parseInt(elements.rows.value);
+  const c = parseInt(elements.cols.value);
+  const matrices = { matrix_a: [], matrix_b: [] };
+
+  for (let i = 0; i < r; i++) {
+    matrices.matrix_a[i] = [];
+    matrices.matrix_b[i] = [];
+    for (let j = 0; j < c; j++) {
+      const a = document.querySelector(
+        `input[data-matrix="A"][data-row="${i}"][data-col="${j}"]`
+      );
+      const b = document.querySelector(
+        `input[data-matrix="B"][data-row="${i}"][data-col="${j}"]`
+      );
+      matrices.matrix_a[i][j] = parseFloat(a.value);
+      matrices.matrix_b[i][j] = parseFloat(b.value);
     }
-  
-    colsAInput.addEventListener("change", updateRowsB)
-  
-    function generateMatrices() {
-      const rowsA = Number.parseInt(rowsAInput.value)
-      const colsA = Number.parseInt(colsAInput.value)
-      const rowsB = Number.parseInt(rowsBInput.value)
-      const colsB = Number.parseInt(colsBInput.value)
-  
-      matricesDiv.innerHTML = ""
-  
-      const matrixADiv = document.createElement("div")
-      matrixADiv.style.marginBottom = "2rem"
-      matrixADiv.innerHTML = "<h3>Matriz A (" + rowsA + " × " + colsA + ")</h3>"
-  
-      const matrixATable = document.createElement("table")
-      matrixATable.style.borderCollapse = "collapse"
-      matrixATable.style.marginBottom = "1rem"
-  
-      for (let i = 0; i < rowsA; i++) {
-        const row = document.createElement("tr")
-        for (let j = 0; j < colsA; j++) {
-          const cell = document.createElement("td")
-          const input = document.createElement("input")
-          input.type = "number"
-          input.name = `matrixA[${i}][${j}]`
-          input.id = `matrixA_${i}_${j}`
-          input.step = "any"
-          input.value = "0"
-          input.style.width = "60px"
-          input.style.padding = "8px"
-          input.style.margin = "2px"
-          input.style.border = "1px solid #ccc"
-          input.style.textAlign = "center"
-          cell.appendChild(input)
-          row.appendChild(cell)
-        }
-        matrixATable.appendChild(row)
-      }
-  
-      matrixADiv.appendChild(matrixATable)
-      matricesDiv.appendChild(matrixADiv)
-  
-      const matrixBDiv = document.createElement("div")
-      matrixBDiv.style.marginBottom = "2rem"
-      matrixBDiv.innerHTML = "<h3>Matriz B (" + rowsB + " × " + colsB + ")</h3>"
-  
-      const matrixBTable = document.createElement("table")
-      matrixBTable.style.borderCollapse = "collapse"
-      matrixBTable.style.marginBottom = "1rem"
-  
-      for (let i = 0; i < rowsB; i++) {
-        const row = document.createElement("tr")
-        for (let j = 0; j < colsB; j++) {
-          const cell = document.createElement("td")
-          const input = document.createElement("input")
-          input.type = "number"
-          input.name = `matrixB[${i}][${j}]`
-          input.id = `matrixB_${i}_${j}`
-          input.step = "any"
-          input.value = "0"
-          input.style.width = "60px"
-          input.style.padding = "8px"
-          input.style.margin = "2px"
-          input.style.border = "1px solid #ccc"
-          input.style.textAlign = "center"
-          cell.appendChild(input)
-          row.appendChild(cell)
-        }
-        matrixBTable.appendChild(row)
-      }
-  
-      matrixBDiv.appendChild(matrixBTable)
-      matricesDiv.appendChild(matrixBDiv)
-    }
-  
-    updateRowsB()
-    generateMatrices()
-  
-    rowsAInput.addEventListener("change", () => {
-      updateRowsB()
-      generateMatrices()
-    })
-    colsAInput.addEventListener("change", () => {
-      updateRowsB()
-      generateMatrices()
-    })
-    colsBInput.addEventListener("change", generateMatrices)
-  
-    form.addEventListener("submit", (e) => {
-      e.preventDefault()
-  
-      const rowsA = Number.parseInt(rowsAInput.value)
-      const colsA = Number.parseInt(colsAInput.value)
-      const rowsB = Number.parseInt(rowsBInput.value)
-      const colsB = Number.parseInt(colsBInput.value)
-  
-      // Extrai os Valores da A
-      const matrixA = []
-      for (let i = 0; i < rowsA; i++) {
-        const row = []
-        for (let j = 0; j < colsA; j++) {
-          const input = document.getElementById(`matrixA_${i}_${j}`)
-          row.push(Number.parseFloat(input.value) || 0)
-        }
-        matrixA.push(row)
-      }
-  
-      // Extrai os Valores da B
-      const matrixB = []
-      for (let i = 0; i < rowsB; i++) {
-        const row = []
-        for (let j = 0; j < colsB; j++) {
-          const input = document.getElementById(`matrixB_${i}_${j}`)
-          row.push(Number.parseFloat(input.value) || 0)
-        }
-        matrixB.push(row)
-      }
-  
-      fetch("/multiply", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          matrixA: matrixA,
-          matrixB: matrixB,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            displayResult(data.result)
-          } else {
-            alert("Erro: " + data.error)
-          }
-        })
-        .catch((error) => {
-          console.error("Erro:", error)
-          alert("Erro ao conectar com o servidor")
-        })
-    })
-  
-    // function multiplyMatrices(a, b) {
-    //   const result = []
-    //   for (let i = 0; i < a.length; i++) {
-    //     const row = []
-    //     for (let j = 0; j < b[0].length; j++) {
-    //       let sum = 0
-    //       for (let k = 0; k < a[i].length; k++) {
-    //         sum += a[i][k] * b[k][j]
-    //       }
-    //       row.push(sum)
-    //     }
-    //     result.push(row)
-    //   }
-    //   return result
-    // }
-  
-    // Mostar Resultados
-    function displayResult(matrix) {
-      const resultDiv = document.getElementById("result")
-      resultDiv.innerHTML = "<h3>Resultado (" + matrix.length + " × " + matrix[0].length + ")</h3>"
-  
-      const resultTable = document.createElement("table")
-      resultTable.style.borderCollapse = "collapse"
-      resultTable.style.marginTop = "1rem"
-      resultTable.style.backgroundColor = "#f0f0f0"
-  
-      for (let i = 0; i < matrix.length; i++) {
-        const row = document.createElement("tr")
-        for (let j = 0; j < matrix[i].length; j++) {
-          const cell = document.createElement("td")
-          cell.textContent = Number.isInteger(matrix[i][j]) ? matrix[i][j] : matrix[i][j].toFixed(4)
-          cell.style.padding = "10px"
-          cell.style.border = "1px solid #999"
-          cell.style.textAlign = "center"
-          row.appendChild(cell)
-        }
-        resultTable.appendChild(row)
-      }
-  
-      resultDiv.appendChild(resultTable)
-    }
-  })
+  }
+  return matrices;
+}
+
+function matrixToHTML(matrix, title) {
+  return `
+                <div class="matrix-result">
+                    <h4>${title}</h4>
+                    <table>
+                        <tbody>
+                            ${matrix
+                              .map(
+                                (row) => `
+                                <tr>
+                                    ${row
+                                      .map(
+                                        (val) =>
+                                          `<td>${parseFloat(val).toFixed(
+                                            2
+                                          )}</td>`
+                                      )
+                                      .join("")}
+                                </tr>
+                            `
+                              )
+                              .join("")}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+}
+
+function displayResult(data) {
+  elements.result.innerHTML = `
+                <div class="result-container show">
+                    <p><strong>Dimensões:</strong> ${data.dimensions}</p>
+                    <div class="matrix-container">
+                        ${matrixToHTML(data.matrix_a, "Matriz A")}
+                        ${matrixToHTML(data.matrix_b, "Matriz B")}
+                        ${matrixToHTML(data.result, "Resultado")}
+                    </div>
+                </div>
+            `;
+  elements.result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function showError(msg) {
+  elements.result.innerHTML = `<div class="alert alert-error show"><p>${msg}</p></div>`;
+}
+
+elements.rows.addEventListener("change", generateInputs);
+elements.cols.addEventListener("change", generateInputs);
+
+elements.form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const payload = {
+    rows: parseInt(elements.rows.value),
+    cols: parseInt(elements.cols.value),
+    ...collectMatrixData(),
+  };
+
+  console.log("Sending:", payload);
+
+  try {
+    const response = await fetch("/multiply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    console.log("Response:", data);
+
+    response.ok ? displayResult(data) : showError(data.error);
+  } catch (error) {
+    console.error("Error:", error);
+    showError("Erro de comunicação");
+  }
+});
+
+generateInputs();

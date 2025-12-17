@@ -4,6 +4,7 @@ const elements = {
   matrices: document.getElementById("matrices"),
   form: document.getElementById("matrixForm"),
   result: document.getElementById("result"),
+  scalar: document.getElementById("scalar")
 };
 
 function generateInputs() {
@@ -114,6 +115,7 @@ elements.form.addEventListener("submit", async (e) => {
   const payload = {
     rows: parseInt(elements.rows.value),
     cols: parseInt(elements.cols.value),
+    scalar: parseInt(elements.scalar.value),
     ...collectMatrixData(),
   };
 

@@ -51,6 +51,25 @@ def scalar():
     """
     Multiplicação de matriz por escalar.
     """
+    if request.method == "POST":
+        try:
+            if not request.data:
+                return jsonify({'error': 'No data received'}), 400
+            data = request.get_json(force=True)
+            print(data)
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
+            matrix_a = Matrix(data['rows'], data['cols'], data['matrix_a'])
+            result = matrix_a.scalar_multiply(data['scalar'])
+
+            return jsonify({
+                'matrix_a': matrix_a.to_list(),
+                'result': result['data'],
+                'dimensions': f"{data['rows']}x{data['cols']}"
+            })
+            
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
     return render_template('scalar.html')
 
 @app.route('/multiply', methods=['GET', 'POST'])

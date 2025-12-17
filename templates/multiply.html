@@ -4,15 +4,37 @@
 {% block header_text %}Multiplicação de Matrizes{% endblock %}
 
 {% block content %}
-    <p>Aqui será o formulário para inserir as matrizes.</p>
-    <form method="post" action="{{ url_for('multiply') }}">
-        <label for="matrix_a">Matriz A (separe os elementos por vírgulas e as linhas por ponto e vírgula):</label><br>
-        <textarea id="matrix_a" name="matrix_a" rows="4" cols="50"></textarea><br><br>
-        
-        <label for="matrix_b">Matriz B (separe os elementos por vírgulas e as linhas por ponto e vírgula):</label><br>
-        <textarea id="matrix_b" name="matrix_b" rows="4" cols="50"></textarea><br><br>
-        
-        <!--- isto e temporario --->
-        <input type="submit" value="Calcular">
-    <p><a href="{{ url_for('index') }}">← Voltar ao Menu</a></p>
+    <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
+
+    <form id="matrixForm">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div>
+                <label for="rowsA">Linhas de A:</label>
+                <input type="number" id="rowsA" min="1" max="10" value="2" required>
+            </div>
+            <div>
+                <label for="colsA">Colunas de A:</label>
+                <input type="number" id="colsA" min="1" max="10" value="2" required>
+            </div>
+            <div>
+                <label for="rowsB">Linhas de B:</label>
+                <input type="number" id="rowsB" min="1" max="10" value="2" required readonly>
+            </div>
+            <div>
+                <label for="colsB">Colunas de B:</label>
+                <input type="number" id="colsB" min="1" max="10" value="2" required>
+            </div>
+        </div>
+
+        <p style="color: #666; font-size: 0.9rem; margin: 1rem 0;">
+            <strong>Nota:</strong> Para multiplicação, o número de colunas de A deve ser igual ao número de linhas de B.
+        </p>
+
+        <div id="matrices"></div>
+        <button type="submit" class="btn-success">Calcular</button>
+    </form>
+
+    <div id="result"></div>
+    <script src="../static/js/matrix_multiply.js"></script> 
+    
 {% endblock %}

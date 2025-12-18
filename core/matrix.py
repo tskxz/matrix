@@ -58,9 +58,24 @@ class Matrix:
         return {'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'}
     
     def multiply(self, other):
-        # Funcao para multiplicar matrizes, verificar aqui
-        result = [[self.data[i][j] * other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
-        return {'data': result}
+        if not isinstance(other, Matrix):
+            raise TypeError("Operando deve ser uma Matrix")
+    
+        if self.cols != other.rows:
+            raise ValueError(f"Não é possível multiplicar: A.cols({self.cols}) ≠ B.rows({other.rows})")
+        
+        # Inicializar matriz resultado
+        result = Matrix(self.rows, other.cols)
+        
+        # Multiplicação matricial
+        for i in range(self.rows):
+            for j in range(other.cols):
+                soma = 0
+                for k in range(self.cols):  # ou other.rows
+                    soma += self.data[i][k] * other.data[k][j]
+                result.data[i][j] = soma
+        
+        return result
     
     def determinant(self):
         return {'result': 'Cálculo do determinante usando expansão de Laplace'}

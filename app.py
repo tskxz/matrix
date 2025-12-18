@@ -73,7 +73,10 @@ def multiply():
             cols_a = len(matrix_a_data[0]) if matrix_a_data else 0
             rows_b = len(matrix_b_data)
             cols_b = len(matrix_b_data[0]) if matrix_b_data else 0
-        
+            if cols_a != rows_b:
+                return jsonify({
+                    'error': f'Matrizes incompatíveis: A.cols({cols_a}) ≠ B.rows({rows_b})'
+                }), 400
             
             matrix_a = Matrix(rows_a, cols_a, matrix_a_data)
             matrix_b = Matrix(rows_b, cols_b, matrix_b_data)
@@ -84,7 +87,7 @@ def multiply():
             return jsonify({
                 'matrix_a': matrix_a.to_list(),
                 'matrix_b': matrix_b.to_list(),
-                'result': result['data'],
+                'result': result.to_list(),
             })
             
         except Exception as e:

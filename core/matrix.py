@@ -55,7 +55,8 @@ class Matrix:
         return {'data': result}
     
     def scalar_multiply(self, scalar):
-        return {'result': 'Multiplicação por escalar: B[i][j] = k × A[i][j]'}
+        result = [[self.data[i][j] * scalar for j in range(self.cols)] for i in range(self.rows)]
+        return {'data': result}
     
     def multiply(self, other):
         if not isinstance(other, Matrix):

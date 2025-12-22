@@ -11,6 +11,7 @@ def index():
     """
     return render_template('index.html')
 
+#Soma&Subtracao
 @app.route('/sum', methods=['GET', 'POST'])
 def sum_sub():
     """
@@ -53,14 +54,47 @@ def scalar():
     """
     return render_template('scalar.html')
 
+#Multiplicacao
 @app.route('/multiply', methods=['GET', 'POST'])
 def multiply():
-    """
-    Multiplicação de matrizes.
-    """
+    if request.method == 'POST':
+        try:
+            
+            data = request.get_json(force=True)
+            
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
+            
+            matrix_a_data = data['matrix_a']
+            matrix_b_data = data['matrix_b']
+            
+            rows_a = len(matrix_a_data)
+            cols_a = len(matrix_a_data[0]) if matrix_a_data else 0
+            rows_b = len(matrix_b_data)
+            cols_b = len(matrix_b_data[0]) if matrix_b_data else 0
+            if cols_a != rows_b:
+                return jsonify({
+                    'error': f'Matrizes incompatíveis: A.cols({cols_a}) ≠ B.rows({rows_b})'
+                }), 400
+            
+            matrix_a = Matrix(rows_a, cols_a, matrix_a_data)
+            matrix_b = Matrix(rows_b, cols_b, matrix_b_data)
+            
+            result = matrix_a.multiply(matrix_b)
+            
+            return jsonify({
+                'matrix_a': matrix_a.to_list(),
+                'matrix_b': matrix_b.to_list(),
+                'result': result.to_list(),
+            })
+            
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+    
     return render_template('multiply.html')
 
-@app.route('/determinant', methods=['GET', 'POST'])
+@app.route('/determinant', methods=['GET', 'POST'])     
+
 def determinant():
     """
     Cálculo do Determinante.

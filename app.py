@@ -61,7 +61,6 @@ def multiply():
         try:
             
             data = request.get_json(force=True)
-            print(data)
             
             if not data:
                 return jsonify({'error': 'Invalid JSON'}), 400
@@ -82,7 +81,6 @@ def multiply():
             matrix_b = Matrix(rows_b, cols_b, matrix_b_data)
             
             result = matrix_a.multiply(matrix_b)
-            print("resultado: ",result)
             
             return jsonify({
                 'matrix_a': matrix_a.to_list(),

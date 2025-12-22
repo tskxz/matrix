@@ -159,8 +159,6 @@ elements.form.addEventListener("submit", async (e) => {
     ...collectMatrixData(),
   };
 
-  console.log("Sending:", payload);
-
   try {
     const response = await fetch("/multiply", {
       method: "POST",
@@ -169,7 +167,6 @@ elements.form.addEventListener("submit", async (e) => {
     });
 
     const data = await response.json();
-    console.log("Response:", data);
 
     response.ok ? displayResult(data) : showError(data.error);
   } catch (error) {

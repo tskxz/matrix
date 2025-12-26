@@ -177,9 +177,74 @@ def determinant():
 
 @app.route('/inverse', methods=['GET', 'POST'])
 def inverse():
-    """
-    Matriz Inversa.
-    """
+    if request.method == 'POST':
+        try:
+            data = request.get_json(force=True)
+            
+            size = data['size']
+            matrix_data = data['matrix']
+            method = data.get('method', 'adjugate')  # 'adjugate' ou 'gauss-jordan'
+            
+            # Validar se é matriz quadrada
+            if len(matrix_data) != size or any(len(row) != size for row in matrix_data):
+                return jsonify({'error': 'A matriz deve ser quadrada'}), 400
+            
+            # Criar objeto Matrix
+            matrix = Matrix(size, size, matrix_data)
+            
+            # Verificar se é quadrada
+            if not matrix.is_square():
+                return jsonify({'error': 'Matriz inversa só existe para matrizes quadradas'}), 400
+            
+            # Calcular determinante primeiro
+            determinant_value = matrix.determinant()
+            
+            # Verificar se é singular
+            if abs(determinant_value) < 1e-10:
+                result = {
+                    'matrix': matrix.to_list(),
+                    'determinant': 0.0,
+                    'is_singular': True,
+                    'error': 'Matriz singular (determinante = 0). Não tem inversa.',
+                    'size': size
+                }
+                return jsonify(result)
+            
+            # Calcular inversa com método escolhido
+            if method == 'gauss-jordan':
+                inverse_matrix = matrix.gauss_jordan_inverse()
+            else:
+                inverse_matrix = matrix.inverse()
+            
+            # Verificar o resultado
+            verification = matrix.verify_inverse(inverse_matrix)
+            
+            # Preparar resposta
+            result = {
+                'matrix': matrix.to_list(),
+                'inverse': inverse_matrix.to_list(),
+                'determinant': determinant_value,
+                'is_singular': False,
+                'size': size,
+                'method': method,
+                'verification': verification,
+                'verification_ok': verification['is_correct']
+            }
+            
+            # Adicionar detalhes para matrizes 2x2
+            if size == 2:
+                a, b = matrix_data[0][0], matrix_data[0][1]
+                c, d = matrix_data[1][0], matrix_data[1][1]
+                det = determinant_value
+                result['formula_details'] = f"Inversa 2×2: (1/det) × [[d, -b], [-c, a]] = (1/{det}) × [[{d}, -{b}], [-{c}, {a}]]"
+            
+            return jsonify(result)
+            
+        except ValueError as e:
+            return jsonify({'error': str(e)}), 400
+        except Exception as e:
+            return jsonify({'error': f'Erro ao calcular inversa: {str(e)}'}), 500
+    
     return render_template('inverse.html')
 
 @app.route('/encrypt', methods=['GET', 'POST'])

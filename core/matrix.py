@@ -44,11 +44,11 @@ class Matrix:
         # Validar que a matriz é quadrada (mesmo número de linhas e colunas)
         return self.cols == self.rows
     
-    def _get_minor(self, rows, col):
+    def _get_minor(self, row, col):
         # ter a matriz menor, remover linha e coluna para calcular determinante com metodo laplace
         minor_data = []
         for i in range(self.rows):
-            if i == rows:
+            if i == row:
                 continue
             new_row = []
             for j in range(self.cols):
@@ -125,11 +125,217 @@ class Matrix:
             cofactor = ((-1) ** j) * self.data[0][j] * minor.determinant()
             det += cofactor
         return det
-    
+
+    def get_cofactor(self, row, col):
+        """Calculate the cofactor at position (row, col)."""
+        minor = self._get_minor(row, col)
+        sign = 1 if (row + col) % 2 == 0 else -1
+        return sign * minor.determinant()
+
+    def adjugate(self):
+        """Calculate the adjugate (adjoint) matrix."""
+        if not self.is_square():
+            raise ValueError("Adjunta só existe para matrizes quadradas")
+        
+        n = self.rows
+        adj_data = [[0 for _ in range(n)] for _ in range(n)]
+        
+        for i in range(n):
+            for j in range(n):
+                # adjunta é a transposta da matriz de cofatores
+                adj_data[j][i] = self.get_cofactor(i, j)
+        
+        return Matrix(n, n, adj_data)
+
+    def transpose(self):
+        """Return the transpose of the matrix."""
+        transposed_data = [[self.data[j][i] for j in range(self.rows)] for i in range(self.cols)]
+        return Matrix(self.cols, self.rows, transposed_data)
+  
+    def identity(self, n=None):
+        """Create an identity matrix of size n×n."""
+        if n is None:
+            n = self.rows
+        identity_data = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+        return Matrix(n, n, identity_data)
+
     def inverse(self):
-        """Calculate matrix inverse using cofactor method."""
-        return {'result': 'Cálculo da matriz inversa'}
+        """Calculate matrix inverse using adjugate method."""
+        # Verificar se é quadrada
+        if not self.is_square():
+            raise ValueError("Matriz inversa só existe para matrizes quadradas")
+        
+        # Calcular determinante
+        det = self.determinant()
+        
+        # Verificar se é singular
+        if abs(det) < 1e-10:
+            raise ValueError("Matriz singular (determinante = 0). Não tem inversa.")
+        
+        n = self.rows
+        
+        # matriz 1x1
+        if n == 1:
+            inverse_data = [[1 / self.data[0][0]]]
+            return Matrix(1, 1, inverse_data)
+        
+        # matriz 2x2
+        if n == 2:
+            a, b = self.data[0][0], self.data[0][1]
+            c, d = self.data[1][0], self.data[1][1]
+            
+            inverse_data = [
+                [d / det, -b / det],
+                [-c / det, a / det]
+            ]
+            return Matrix(2, 2, inverse_data)
+        
+        # Matrizes maiores: método da adjunta
+        # A⁻¹ = (1/det(A)) * adj(A)
+        adj = self.adjugate()
+        scalar = 1 / det
+        
+        # Multiplicar adjunta pelo escalar 1/det
+        inverse_data = [[adj.data[i][j] * scalar for j in range(n)] for i in range(n)]
+        
+        # Arredondar valores próximos de zero
+        for i in range(n):
+            for j in range(n):
+                if abs(inverse_data[i][j]) < 1e-10:
+                    inverse_data[i][j] = 0.0
+        
+        return Matrix(n, n, inverse_data)
+
+    def gauss_jordan_inverse(self):
+        """Calculate inverse using Gauss-Jordan elimination (método alternativo)."""
+        if not self.is_square():
+            raise ValueError("Matriz deve ser quadrada para ter inversa")
+        
+        n = self.rows
+        det = self.determinant()
+        
+        if abs(det) < 1e-10:
+            raise ValueError("Matriz singular (determinante = 0)")
+        
+        # Criar matriz aumentada [A|I]
+        augmented = [[0 for _ in range(2*n)] for _ in range(n)]
+        
+        for i in range(n):
+            for j in range(n):
+                augmented[i][j] = self.data[i][j]
+            augmented[i][n + i] = 1
+        
+        # Aplicar eliminação de Gauss-Jordan
+        for i in range(n):
+            # Pivot
+            pivot = augmented[i][i]
+            
+            # Normalizar linha
+            for j in range(2*n):
+                augmented[i][j] /= pivot
+            
+            # Eliminar outras linhas
+            for k in range(n):
+                if k != i:
+                    factor = augmented[k][i]
+                    for j in range(2*n):
+                        augmented[k][j] -= factor * augmented[i][j]
+        
+        # Extrair a inversa da parte direita
+        inverse_data = [[augmented[i][n + j] for j in range(n)] for i in range(n)]
+        
+        # Arredondar valores próximos de zero
+        for i in range(n):
+            for j in range(n):
+                if abs(inverse_data[i][j]) < 1e-10:
+                    inverse_data[i][j] = 0.0
+        
+        return Matrix(n, n, inverse_data)
+
+    def verify_inverse(self, inverse_matrix):
+        """Verify that A × A⁻¹ = I."""
+        n = self.rows
+        
+        # Multiplicar A × A⁻¹
+        product = self.multiply(inverse_matrix)
+        
+        # Criar matriz identidade
+        identity = self.identity(n)
+        
+        # Verificar se o produto é aproximadamente a identidade
+        is_correct = True
+        max_error = 0
+        
+        for i in range(n):
+            for j in range(n):
+                error = abs(product.data[i][j] - identity.data[i][j])
+                max_error = max(max_error, error)
+                if error > 1e-8:
+                    is_correct = False
+        
+        return {
+            'is_correct': is_correct,
+            'product_matrix': product.to_list(),
+            'identity_matrix': identity.to_list(),
+            'max_error': max_error
+        }
     
+    def verify_inverse(self, inverse_matrix):
+        """Verify that A × A⁻¹ = I."""
+        n = self.rows
+        
+        # Multiplicar A × A⁻¹
+        product = self.multiply(inverse_matrix)
+        
+        # Criar matriz identidade
+        identity = self.identity(n)
+        
+        # Verificar se o produto é aproximadamente a identidade
+        is_correct = True
+        max_error = 0
+        
+        for i in range(n):
+            for j in range(n):
+                error = abs(product.data[i][j] - identity.data[i][j])
+                max_error = max(max_error, error)
+                if error > 1e-8:
+                    is_correct = False
+        
+        return {
+            'is_correct': is_correct,
+            'product_matrix': product.to_list(),
+            'identity_matrix': identity.to_list(),
+            'max_error': max_error
+        }
+    
+    def verify_inverse(self, inverse_matrix):
+        """Verify that A × A⁻¹ = I."""
+        n = self.rows
+        
+        # Multiplicar A × A⁻¹
+        product = self.multiply(inverse_matrix)
+        
+        # Criar matriz identidade
+        identity = self.identity(n)
+        
+        # Verificar se o produto é aproximadamente a identidade
+        is_correct = True
+        max_error = 0
+        
+        for i in range(n):
+            for j in range(n):
+                error = abs(product.data[i][j] - identity.data[i][j])
+                max_error = max(max_error, error)
+                if error > 1e-8:
+                    is_correct = False
+        
+        return {
+            'is_correct': is_correct,
+            'product_matrix': product.to_list(),
+            'identity_matrix': identity.to_list(),
+            'max_error': max_error
+        }
+
     def encrypt(self):
         """Encrypt the following message"""
         return {'result': 'Mensagem Encryptada'}

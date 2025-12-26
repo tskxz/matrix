@@ -151,6 +151,13 @@ class Matrix:
         """Return the transpose of the matrix."""
         transposed_data = [[self.data[j][i] for j in range(self.rows)] for i in range(self.cols)]
         return Matrix(self.cols, self.rows, transposed_data)
+  
+    def identity(self, n=None):
+        """Create an identity matrix of size n×n."""
+        if n is None:
+            n = self.rows
+        identity_data = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+        return Matrix(n, n, identity_data)
 
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""

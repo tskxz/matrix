@@ -44,11 +44,11 @@ class Matrix:
         # Validar que a matriz é quadrada (mesmo número de linhas e colunas)
         return self.cols == self.rows
     
-    def _get_minor(self, rows, col):
+    def _get_minor(self, row, col):
         # ter a matriz menor, remover linha e coluna para calcular determinante com metodo laplace
         minor_data = []
         for i in range(self.rows):
-            if i == rows:
+            if i == row:
                 continue
             new_row = []
             for j in range(self.cols):

@@ -44,6 +44,20 @@ class Matrix:
         # Validar que a matriz é quadrada (mesmo número de linhas e colunas)
         return self.cols == self.rows
     
+    def _get_minor(self, rows, col):
+        # ter a matriz menor, remover linha e coluna para calcular determinante com metodo laplace
+        minor_data = []
+        for i in range(self.rows):
+            if i == row:
+                continue
+            new_row = []
+            for j in range(self.cols):
+                if j == col:
+                    continue
+                new_row.append(self.data[i][j])
+            minor_data.append(new_row)
+        return Matrix(self.rows - 1, self.cols - 1, minor_data)
+        
     def add(self, other):
         """Add two matrices: C[i][j] = A[i][j] + B[i][j]"""
         if not self.is_same_dimension(other):

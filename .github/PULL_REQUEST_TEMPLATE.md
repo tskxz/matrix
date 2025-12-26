@@ -1,5 +1,3 @@
-# Pull Request Template
-
 ## Descrição
 [Descreva brevemente o que este PR faz]
 
@@ -23,19 +21,6 @@ Relacionado a #[número-da-issue]
 
 ## Screenshots/Evidências
 [Adicione screenshots se aplicável, ou mostre exemplos de funcionamento]
-
-## Como Testar?
-[Descreva os passos para testar as alterações]
-
-1. [Passo 1]
-2. [Passo 2]
-3. [Passo 3]
-
-**Cenários de teste:**
-- [ ] [Cenário 1]
-- [ ] [Cenário 2]
-- [ ] [Cenário 3]
-
 
 ## Notas Adicionais
 [Qualquer informação adicional]

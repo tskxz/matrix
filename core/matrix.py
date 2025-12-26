@@ -125,6 +125,12 @@ class Matrix:
             cofactor = ((-1) ** j) * self.data[0][j] * minor.determinant()
             det += cofactor
         return det
+
+    def get_cofactor(self, row, col):
+        """Calculate the cofactor at position (row, col)."""
+        minor = self._get_minor(row, col)
+        sign = 1 if (row + col) % 2 == 0 else -1
+        return sign * minor.determinant()
     
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""

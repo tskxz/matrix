@@ -160,9 +160,52 @@ class Matrix:
         return Matrix(n, n, identity_data)
 
     def inverse(self):
-        """Calculate matrix inverse using cofactor method."""
-        return {'result': 'Cálculo da matriz inversa'}
-    
+        """Calculate matrix inverse using adjugate method."""
+        # Verificar se é quadrada
+        if not self.is_square():
+            raise ValueError("Matriz inversa só existe para matrizes quadradas")
+        
+        # Calcular determinante
+        det = self.determinant()
+        
+        # Verificar se é singular
+        if abs(det) < 1e-10:
+            raise ValueError("Matriz singular (determinante = 0). Não tem inversa.")
+        
+        n = self.rows
+        
+        # matriz 1x1
+        if n == 1:
+            inverse_data = [[1 / self.data[0][0]]]
+            return Matrix(1, 1, inverse_data)
+        
+        # matriz 2x2
+        if n == 2:
+            a, b = self.data[0][0], self.data[0][1]
+            c, d = self.data[1][0], self.data[1][1]
+            
+            inverse_data = [
+                [d / det, -b / det],
+                [-c / det, a / det]
+            ]
+            return Matrix(2, 2, inverse_data)
+        
+        # Matrizes maiores: método da adjunta
+        # A⁻¹ = (1/det(A)) * adj(A)
+        adj = self.adjugate()
+        scalar = 1 / det
+        
+        # Multiplicar adjunta pelo escalar 1/det
+        inverse_data = [[adj.data[i][j] * scalar for j in range(n)] for i in range(n)]
+        
+        # Arredondar valores próximos de zero
+        for i in range(n):
+            for j in range(n):
+                if abs(inverse_data[i][j]) < 1e-10:
+                    inverse_data[i][j] = 0.0
+        
+        return Matrix(n, n, inverse_data)
+
     def encrypt(self):
         """Encrypt the following message"""
         return {'result': 'Mensagem Encryptada'}

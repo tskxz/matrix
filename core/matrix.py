@@ -147,6 +147,11 @@ class Matrix:
         
         return Matrix(n, n, adj_data)
 
+    def transpose(self):
+        """Return the transpose of the matrix."""
+        transposed_data = [[self.data[j][i] for j in range(self.rows)] for i in range(self.cols)]
+        return Matrix(self.cols, self.rows, transposed_data)
+
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""
         return {'result': 'Cálculo da matriz inversa'}

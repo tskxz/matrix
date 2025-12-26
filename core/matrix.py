@@ -205,7 +205,52 @@ class Matrix:
                     inverse_data[i][j] = 0.0
         
         return Matrix(n, n, inverse_data)
-
+        
+    def gauss_jordan_inverse(self):
+        """Calculate inverse using Gauss-Jordan elimination (método alternativo)."""
+        if not self.is_square():
+            raise ValueError("Matriz deve ser quadrada para ter inversa")
+        
+        n = self.rows
+        det = self.determinant()
+        
+        if abs(det) < 1e-10:
+            raise ValueError("Matriz singular (determinante = 0)")
+        
+        # Criar matriz aumentada [A|I]
+        augmented = [[0 for _ in range(2*n)] for _ in range(n)]
+        
+        for i in range(n):
+            for j in range(n):
+                augmented[i][j] = self.data[i][j]
+            augmented[i][n + i] = 1
+        
+        # Aplicar eliminação de Gauss-Jordan
+        for i in range(n):
+            # Pivot
+            pivot = augmented[i][i]
+            
+            # Normalizar linha
+            for j in range(2*n):
+                augmented[i][j] /= pivot
+            
+            # Eliminar outras linhas
+            for k in range(n):
+                if k != i:
+                    factor = augmented[k][i]
+                    for j in range(2*n):
+                        augmented[k][j] -= factor * augmented[i][j]
+        
+        # Extrair a inversa da parte direita
+        inverse_data = [[augmented[i][n + j] for j in range(n)] for i in range(n)]
+        
+        # Arredondar valores próximos de zero
+        for i in range(n):
+            for j in range(n):
+                if abs(inverse_data[i][j]) < 1e-10:
+                    inverse_data[i][j] = 0.0
+        
+        return Matrix(n, n, inverse_data)
     def encrypt(self):
         """Encrypt the following message"""
         return {'result': 'Mensagem Encryptada'}

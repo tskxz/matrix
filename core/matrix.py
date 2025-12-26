@@ -48,7 +48,7 @@ class Matrix:
         # ter a matriz menor, remover linha e coluna para calcular determinante com metodo laplace
         minor_data = []
         for i in range(self.rows):
-            if i == row:
+            if i == rows:
                 continue
             new_row = []
             for j in range(self.cols):
@@ -111,7 +111,7 @@ class Matrix:
         
         # matrizes 3x3 (regra sarras)
         if self.rows == 3:
-            a, b, c = self.data[0,0], self.data[0][1], self.data[0][2]
+            a, b, c = self.data[0][0], self.data[0][1], self.data[0][2]
             d, e, f = self.data[1][0], self.data[1][1], self.data[1][2]
             g, h, i = self.data[2][0], self.data[2][1], self.data[2][2]
             

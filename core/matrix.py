@@ -131,7 +131,22 @@ class Matrix:
         minor = self._get_minor(row, col)
         sign = 1 if (row + col) % 2 == 0 else -1
         return sign * minor.determinant()
-    
+
+    def adjugate(self):
+        """Calculate the adjugate (adjoint) matrix."""
+        if not self.is_square():
+            raise ValueError("Adjunta só existe para matrizes quadradas")
+        
+        n = self.rows
+        adj_data = [[0 for _ in range(n)] for _ in range(n)]
+        
+        for i in range(n):
+            for j in range(n):
+                # adjunta é a transposta da matriz de cofatores
+                adj_data[j][i] = self.get_cofactor(i, j)
+        
+        return Matrix(n, n, adj_data)
+
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""
         return {'result': 'Cálculo da matriz inversa'}

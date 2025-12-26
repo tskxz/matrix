@@ -115,9 +115,64 @@ def multiply():
 @app.route('/determinant', methods=['GET', 'POST'])     
 
 def determinant():
-    """
-    Cálculo do Determinante.
-    """
+    if request.method == 'POST':
+        try:
+            data = request.get_json(force=True)
+            
+            size = data['size']
+            matrix_data = data['matrix']
+            method = data.get('method', 'auto')
+            
+            # Validar se é matriz quadrada
+            if len(matrix_data) != size or any(len(row) != size for row in matrix_data):
+                return jsonify({'error': 'A matriz deve ser quadrada'}), 400
+            
+            # Criar objeto Matrix
+            matrix = Matrix(size, size, matrix_data)
+            
+            if not matrix.is_square():
+                return jsonify({'error': 'Determinante só existe para matrizes quadradas'}), 400
+            
+            # Calcular determinante
+            try:
+                determinant_value = matrix.determinant()
+                
+                # Arredondar para evitar -0.0000000000001
+                if abs(determinant_value) < 1e-10:
+                    determinant_value = 0.0
+                
+                result = {
+                    'matrix': matrix.to_list(),
+                    'determinant': determinant_value,
+                    'size': size,
+                    'method': method,
+                    'is_singular': determinant_value == 0
+                }
+                
+                # Adicionar detalhes do método se for pequena
+                if size <= 3:
+                    if size == 2:
+                        a, b = matrix_data[0][0], matrix_data[0][1]
+                        c, d = matrix_data[1][0], matrix_data[1][1]
+                        result['method_details'] = f"2×2: det = ad - bc = ({a}×{d}) - ({b}×{c}) = {a*d} - {b*c} = {determinant_value}"
+                    elif size == 3:
+                        a, b, c = matrix_data[0][0], matrix_data[0][1], matrix_data[0][2]
+                        d, e, f = matrix_data[1][0], matrix_data[1][1], matrix_data[1][2]
+                        g, h, i = matrix_data[2][0], matrix_data[2][1], matrix_data[2][2]
+                        result['method_details'] = f"3×3 (Sarrus):\n"
+                        result['method_details'] += f"  (a*e*i + b*f*g + c*d*h) - (c*e*g + b*d*i + a*f*h)\n"
+                        result['method_details'] += f"  = ({a}×{e}×{i} + {b}×{f}×{g} + {c}×{d}×{h}) - ({c}×{e}×{g} + {b}×{d}×{i} + {a}×{f}×{h})\n"
+                        result['method_details'] += f"  = ({a*e*i} + {b*f*g} + {c*d*h}) - ({c*e*g} + {b*d*i} + {a*f*h})\n"
+                        result['method_details'] += f"  = {determinant_value}"
+                
+                return jsonify(result)
+                
+            except Exception as e:
+                return jsonify({'error': f'Erro ao calcular determinante: {str(e)}'}), 400
+            
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+    
     return render_template('determinant.html')
 
 @app.route('/inverse', methods=['GET', 'POST'])

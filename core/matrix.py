@@ -40,6 +40,24 @@ class Matrix:
     def to_list(self):
         return [row[:] for row in self.data]
     
+    def is_square(self):
+        # Validar que a matriz é quadrada (mesmo número de linhas e colunas)
+        return self.cols == self.rows
+    
+    def _get_minor(self, rows, col):
+        # ter a matriz menor, remover linha e coluna para calcular determinante com metodo laplace
+        minor_data = []
+        for i in range(self.rows):
+            if i == rows:
+                continue
+            new_row = []
+            for j in range(self.cols):
+                if j == col:
+                    continue
+                new_row.append(self.data[i][j])
+            minor_data.append(new_row)
+        return Matrix(self.rows - 1, self.cols - 1, minor_data)
+
     def add(self, other):
         """Add two matrices: C[i][j] = A[i][j] + B[i][j]"""
         if not self.is_same_dimension(other):
@@ -79,7 +97,34 @@ class Matrix:
         return result
     
     def determinant(self):
-        return {'result': 'Cálculo do determinante usando expansão de Laplace'}
+        # calcular determinante com o uso de laplace
+        if not self.is_square():
+            raise ValueError("Determinante so tem pa matrizes quadradas")
+
+        # matrizes 1x1
+        if self.rows == 1:
+            return self.data[0][0]
+        
+        # matrizes 2x2
+        if self.rows == 2:
+            return self.data[0][0] * self.data[1][1] - self.data[0][1] * self.data[1][0]
+        
+        # matrizes 3x3 (regra sarras)
+        if self.rows == 3:
+            a, b, c = self.data[0][0], self.data[0][1], self.data[0][2]
+            d, e, f = self.data[1][0], self.data[1][1], self.data[1][2]
+            g, h, i = self.data[2][0], self.data[2][1], self.data[2][2]
+            
+            # aquela cena de diagonal principal vezes diagonal secundaria
+            return (a*e*i + b*f*g + c*d*h) - (c*e*g + b*d*i + a*f*h)
+        
+        # matrizes 4x4 ou maiores (cpfatores)
+        det = 0
+        for j in range(self.cols):
+            minor = self._get_minor(0, j)
+            cofactor = ((-1) ** j) * self.data[0][j] * minor.determinant()
+            det += cofactor
+        return det
     
     def inverse(self):
         """Calculate matrix inverse using cofactor method."""

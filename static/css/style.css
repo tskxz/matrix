@@ -647,3 +647,72 @@ footer {
     font-size: 0.9rem;
     opacity: 0.9;
 }
+
+/* Formatação de números decimais */
+.matrix-result td {
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    min-width: 70px;
+    position: relative;
+}
+
+/* Números formatados para 2 casas decimais */
+.matrix-result td.number {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Estilo especial para números inteiros */
+.matrix-result td.integer {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Estilo para números decimais */
+.matrix-result td.decimal {
+    color: var(--secondary-color);
+}
+
+/* Container para resultado com formatação */
+.result-details {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+}
+
+.determinant-value {
+    font-size: 1.8rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+    border-radius: 6px;
+    margin: 1rem 0;
+    border: 2px solid var(--border-color);
+}
+
+/* Badge para indicar se é float ou inteiro */
+.value-type {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.value-type.float {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.value-type.integer {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}

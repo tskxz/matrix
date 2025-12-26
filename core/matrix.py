@@ -40,6 +40,10 @@ class Matrix:
     def to_list(self):
         return [row[:] for row in self.data]
     
+    def is_square(self):
+        # Validar que a matriz é quadrada (mesmo número de linhas e colunas)
+        return self.cols == self.rows
+    
     def add(self, other):
         """Add two matrices: C[i][j] = A[i][j] + B[i][j]"""
         if not self.is_same_dimension(other):

@@ -23,7 +23,7 @@ build/
 .idea/
 .vscode/
 
-# Ficheiros de sistema operativo
+# Ficheiros de sistema operacional
 .DS_Store
 Thumbs.db
 

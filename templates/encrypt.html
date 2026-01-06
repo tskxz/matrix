@@ -426,11 +426,6 @@
                                     <div class="matrix-display">${matrixToHTML(data.decoding_matrix)}</div>
                                 ` : ''}
                                 
-                                ${data.message_matrix ? `
-                                    <h4>Matriz da Mensagem</h4>
-                                    <div class="matrix-display">${matrixToHTML(data.message_matrix)}</div>
-                                ` : ''}
-                                
                                 ${data.numeric_sequence ? `
                                     <h4>Sequência Numérica</h4>
                                     <div class="numeric-sequence">${data.numeric_sequence.join(', ')}</div>

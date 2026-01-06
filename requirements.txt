@@ -1,6 +1,7 @@
-# requirements.txt
+# Flask Web Framework
 Flask
-#Para usar operações matemáticas avançadas com matrizes
+# Math Library
 numpy
 # Unit Tests
 pytest
+pytest-sugar

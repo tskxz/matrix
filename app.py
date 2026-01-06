@@ -367,6 +367,48 @@ def encrypt():
     
     return render_template('encrypt.html')
 
+@app.route('/check_matrix', methods=['POST'])
+def check_matrix():
+    """Endpoint para verificar se uma matriz é válida para criptografia."""
+    try:
+        data = request.get_json(force=True)
+        
+        matrix_data = data['matrix']
+        size = data['size']
+        
+        # Validar tamanho
+        if len(matrix_data) != size or any(len(row) != size for row in matrix_data):
+            return jsonify({'valid': False, 'error': 'Matriz não é quadrada'})
+        
+        # Criar objeto Matrix
+        matrix = Matrix(size, size, matrix_data)
+        
+        # Verificar se é quadrada
+        if not matrix.is_square():
+            return jsonify({'valid': False, 'error': 'Matriz não é quadrada'})
+        
+        # Calcular determinante
+        try:
+            det = matrix.determinant()
+            if abs(det) < 1e-10:
+                return jsonify({
+                    'valid': False, 
+                    'error': 'Matriz singular (determinante = 0)',
+                    'determinant': det
+                })
+            
+            return jsonify({
+                'valid': True,
+                'determinant': det,
+                'message': 'Matriz válida para criptografia'
+            })
+            
+        except Exception as e:
+            return jsonify({'valid': False, 'error': f'Erro ao calcular determinante: {str(e)}'})
+        
+    except Exception as e:
+        return jsonify({'valid': False, 'error': str(e)})
+        
 # --- Execução do Servidor ---
 
 if __name__ == '__main__':

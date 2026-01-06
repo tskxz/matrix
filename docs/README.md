@@ -12,5 +12,5 @@ pip install -r ./requirements.txt
 
 ## Run unit tests
 ```
-python -m unittest tests.test_matrix -v
+python -m pytest tests/test_matrix.py -v -s
 ```

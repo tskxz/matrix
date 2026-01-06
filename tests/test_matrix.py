@@ -346,5 +346,83 @@ class TestMatrixDimensions(unittest.TestCase):
         self.assertFalse(A.is_same_dimension(B))
 
 
+class TestMatrixEncryption(unittest.TestCase):
+    """Test matrix encryption and decryption."""
+    
+    def setUp(self):
+        """Set up encoding and decoding matrices."""
+        self.encoding_matrix = Matrix(2, 2, [[5, 7], [2, 3]])
+        self.decoding_matrix = Matrix(2, 2, [[3, -7], [-2, 5]])
+    
+    def test_encrypt_decrypt_example_message(self):
+        """Test encrypting and decrypting the example message."""
+        message = "OS NÚMEROS GOVERNAM O MUNDO."
+        
+        result = self.encoding_matrix.encrypt_message(message, self.encoding_matrix)
+        encrypted = result['encrypted_matrix']
+        
+        decrypted_result = self.encoding_matrix.decrypt_message(encrypted, self.decoding_matrix)
+        decrypted_message = decrypted_result['decrypted_message']
+        
+        self.assertEqual(decrypted_message, message)
+    
+    def test_encrypt_message_structure(self):
+        """Test that encryption returns expected structure."""
+        message = "HELLO"
+        result = self.encoding_matrix.encrypt_message(message, self.encoding_matrix)
+        
+        self.assertIn('encrypted_matrix', result)
+        self.assertIn('message_matrix', result)
+        self.assertIn('numeric_sequence', result)
+        self.assertIn('original_message', result)
+    
+    def test_encrypt_short_message(self):
+        """Test encrypting a short message."""
+        message = "HI"
+        result = self.encoding_matrix.encrypt_message(message, self.encoding_matrix)
+        
+        self.assertIsInstance(result['encrypted_matrix'], Matrix)
+    
+    def test_encrypt_with_padding(self):
+        """Test that odd-length messages get padded correctly."""
+        message = "HELLO"
+        result = self.encoding_matrix.encrypt_message(message, self.encoding_matrix)
+        
+        self.assertEqual(len(result['numeric_sequence']), 6)
+    
+    def test_decrypt_returns_original(self):
+        """Test that decrypt returns original message."""
+        message = "TEST MESSAGE"
+        
+        encrypted = self.encoding_matrix.encrypt_message(message, self.encoding_matrix)
+        decrypted = self.encoding_matrix.decrypt_message(
+            encrypted['encrypted_matrix'],
+            self.decoding_matrix
+        )
+        
+        self.assertEqual(decrypted['decrypted_message'], message)
+    
+    def test_encryption_with_special_chars(self):
+        """Test encryption with special characters."""
+        message = "HELLO WORLD."
+        
+        result = self.encoding_matrix.encrypt_message(message, self.encoding_matrix)
+        decrypted = self.encoding_matrix.decrypt_message(
+            result['encrypted_matrix'],
+            self.decoding_matrix
+        )
+        
+        self.assertEqual(decrypted['decrypted_message'], message)
+    
+    def test_verify_encoding_decoding_matrices(self):
+        """Test that encoding and decoding matrices are inverses."""
+        identity = self.encoding_matrix.multiply(self.decoding_matrix)
+        
+        self.assertAlmostEqual(identity.get_element(1, 1), 1, places=5)
+        self.assertAlmostEqual(identity.get_element(1, 2), 0, places=5)
+        self.assertAlmostEqual(identity.get_element(2, 1), 0, places=5)
+        self.assertAlmostEqual(identity.get_element(2, 2), 1, places=5)
+
+
 if __name__ == '__main__':
     unittest.main()

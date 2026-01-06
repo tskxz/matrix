@@ -716,3 +716,228 @@ footer {
     background-color: #e8f5e9;
     color: #2e7d32;
 }
+/* Estilos específicos para criptografia */
+.operation-selector {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.radio-group {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.radio-group input[type="radio"] {
+    width: auto;
+    margin: 0;
+}
+
+.message-section,
+.matrix-section {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.message-section h3,
+.matrix-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.message-box {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-family: 'Courier New', monospace;
+    margin: 0.5rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.message-box.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.numeric-sequence {
+    background: #e9ecef;
+    padding: 1rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.encrypted-sequence {
+    background: #fff3cd;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ffc107;
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.encrypted-sequence code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    overflow-x: auto;
+}
+
+.result-section {
+    margin-top: 1.5rem;
+}
+
+.result-section h4 {
+    color: var(--primary-color);
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.matrix-table {
+    width: auto;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.matrix-table td {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    min-width: 60px;
+    font-family: 'Courier New', monospace;
+}
+
+.matrix-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.matrix-table tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Estilo para matriz pequena */
+.matrix-table.small {
+    font-size: 0.9rem;
+}
+
+.matrix-table.small td {
+    padding: 0.25rem 0.5rem;
+    min-width: 40px;
+}
+
+/* Estilos para resultados de criptografia */
+.result-section {
+    margin-top: 1.5rem;
+}
+
+.result-section h4 {
+    color: var(--primary-color);
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.encrypted-sequence {
+    background: #fff3cd;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ffc107;
+    margin: 0.5rem 0;
+}
+
+.encrypted-numbers {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+}
+
+.matrix-error {
+    color: #dc3545;
+    padding: 1rem;
+    background: #f8d7da;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.message-box {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-family: 'Courier New', monospace;
+    margin: 0.5rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+}
+
+.numeric-sequence {
+    background: #e9ecef;
+    padding: 1rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.matrix-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    overflow: hidden;
+    background: white;
+}
+
+.matrix-table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    min-width: 60px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.matrix-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.matrix-table tr:hover {
+    background-color: #e9ecef;
+}

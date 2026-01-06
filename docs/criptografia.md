@@ -104,4 +104,4 @@ M = \begin{bmatrix}
 $$
 
 Convertendo de volta para texto:
-"OS NUMEROS GOVERNAM O MUNDO."
+"OS NÚMEROS GOVERNAM O MUNDO."

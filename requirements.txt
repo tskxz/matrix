@@ -2,3 +2,5 @@
 Flask
 #Para usar operações matemáticas avançadas com matrizes
 numpy
+# Unit Tests
+pytest

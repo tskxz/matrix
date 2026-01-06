@@ -279,62 +279,6 @@ class Matrix:
             'identity_matrix': identity.to_list(),
             'max_error': max_error
         }
-    
-    def verify_inverse(self, inverse_matrix):
-        """Verify that A × A⁻¹ = I."""
-        n = self.rows
-        
-        # Multiplicar A × A⁻¹
-        product = self.multiply(inverse_matrix)
-        
-        # Criar matriz identidade
-        identity = self.identity(n)
-        
-        # Verificar se o produto é aproximadamente a identidade
-        is_correct = True
-        max_error = 0
-        
-        for i in range(n):
-            for j in range(n):
-                error = abs(product.data[i][j] - identity.data[i][j])
-                max_error = max(max_error, error)
-                if error > 1e-8:
-                    is_correct = False
-        
-        return {
-            'is_correct': is_correct,
-            'product_matrix': product.to_list(),
-            'identity_matrix': identity.to_list(),
-            'max_error': max_error
-        }
-    
-    def verify_inverse(self, inverse_matrix):
-        """Verify that A × A⁻¹ = I."""
-        n = self.rows
-        
-        # Multiplicar A × A⁻¹
-        product = self.multiply(inverse_matrix)
-        
-        # Criar matriz identidade
-        identity = self.identity(n)
-        
-        # Verificar se o produto é aproximadamente a identidade
-        is_correct = True
-        max_error = 0
-        
-        for i in range(n):
-            for j in range(n):
-                error = abs(product.data[i][j] - identity.data[i][j])
-                max_error = max(max_error, error)
-                if error > 1e-8:
-                    is_correct = False
-        
-        return {
-            'is_correct': is_correct,
-            'product_matrix': product.to_list(),
-            'identity_matrix': identity.to_list(),
-            'max_error': max_error
-        }
 
     def encrypt(self):
         """Encrypt the following message"""

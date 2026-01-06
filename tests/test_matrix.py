@@ -54,6 +54,18 @@ class TestMatrixElements(unittest.TestCase):
         dims = self.matrix.dimensions()
         self.assertEqual(dims, (2, 2))
         print(f"Dimensions correct: {dims}")
+    
+    def test_to_list(self):
+        """Test converting matrix to list."""
+        result = self.matrix.to_list()
+        expected = [[1, 2], [3, 4]]
+        self.assertEqual(result, expected)
+    
+    def test_is_square(self):
+        """Test checking if matrix is square."""
+        self.assertTrue(self.matrix.is_square())
+        non_square = Matrix(2, 3)
+        self.assertFalse(non_square.is_square())
 
 
 class TestMatrixAddition(unittest.TestCase):
@@ -68,7 +80,6 @@ class TestMatrixAddition(unittest.TestCase):
                           [7, 8]])
 
         result = A.add(B)
-
         expected = [[6, 8], [10, 12]]
         self.assertEqual(result['data'], expected)
         print(f"Addition result: {result['data']}")
@@ -112,7 +123,6 @@ class TestMatrixSubtraction(unittest.TestCase):
         B = Matrix(2, 2, [[1, 2], 
                           [3, 4]])
         result = A.subtract(B)
-
         expected = [[4, 4], [4, 4]]
         self.assertEqual(result['data'], expected)
         print(f"Subtraction result: {result['data']}")
@@ -121,7 +131,6 @@ class TestMatrixSubtraction(unittest.TestCase):
         """Test subtracting a matrix from itself gives zeros."""
         A = Matrix(2, 2, [[1, 2], [3, 4]])
         result = A.subtract(A)
-
         expected = [[0, 0], [0, 0]]
         self.assertEqual(result['data'], expected)
         print(f"Self-subtraction result: {result['data']}")
@@ -140,150 +149,202 @@ class TestMatrixSubtraction(unittest.TestCase):
         print(f"Incompatible dimensions error raised correctly")
 
 
-# class TestScalarMultiplication(unittest.TestCase):
-#     """Test scalar multiplication."""
+class TestScalarMultiplication(unittest.TestCase):
+    """Test scalar multiplication."""
     
-#     def test_scalar_multiply_by_2(self):
-#         """Test multiplying matrix by scalar 2."""
-#         A = Matrix(2, 2, [[1, 2], [3, 4]])
-#         B = A.scalar_multiply(2)
-        
-#         expected = [[2, 4], [6, 8]]
-#         self.assertEqual(B.to_list(), expected)
+    def test_scalar_multiply_by_2(self):
+        """Test multiplying matrix by scalar 2."""
+        A = Matrix(2, 2, [[1, 2],
+                          [3, 4]])
+        result = A.scalar_multiply(2)
+        expected = [[2, 4], 
+                    [6, 8]]
+        self.assertEqual(result['data'], expected)
+        print(f"Scalar multiply by 2 result: {result['data']}")
+
+    def test_scalar_multiply_by_0(self):
+        """Test multiplying matrix by 0."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+        result = A.scalar_multiply(0)
+        expected = [[0, 0], 
+                    [0, 0]]
+        self.assertEqual(result['data'], expected)
     
-#     def test_scalar_multiply_by_0(self):
-#         """Test multiplying matrix by 0."""
-#         A = Matrix(2, 2, [[1, 2], [3, 4]])
-#         B = A.scalar_multiply(0)
-        
-#         expected = [[0, 0], [0, 0]]
-#         self.assertEqual(B.to_list(), expected)
-    
-#     def test_scalar_multiply_by_negative(self):
-#         """Test multiplying matrix by negative scalar."""
-#         A = Matrix(2, 2, [[1, 2], [3, 4]])
-#         B = A.scalar_multiply(-1)
-        
-#         expected = [[-1, -2], [-3, -4]]
-#         self.assertEqual(B.to_list(), expected)
+    def test_scalar_multiply_by_negative(self):
+        """Test multiplying matrix by negative scalar."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+        result = A.scalar_multiply(-1)
+        expected = [[-1, -2], 
+                    [-3, -4]]
+        self.assertEqual(result['data'], expected)
+        print(f"Scalar multiply by negative result: {result['data']}")
 
 
-# class TestMatrixMultiplication(unittest.TestCase):
-#     """Test matrix multiplication."""
+class TestMatrixMultiplication(unittest.TestCase):
+    """Test matrix multiplication."""
     
-#     def test_multiply_2x2_matrices(self):
-#         """Test multiplying two 2×2 matrices."""
-#         A = Matrix(2, 2, [[1, 2], [3, 4]])
-#         B = Matrix(2, 2, [[5, 6], [7, 8]])
-#         C = A.multiply(B)
-        
-#         # (1×5 + 2×7), (1×6 + 2×8)
-#         # (3×5 + 4×7), (3×6 + 4×8)
-#         expected = [[19, 22], [43, 50]]
-#         self.assertEqual(C.to_list(), expected)
+    def test_multiply_2x2_matrices(self):
+        """Test multiplying two 2×2 matrices."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+        B = Matrix(2, 2, [[5, 6], 
+                          [7, 8]])
+        C = A.multiply(B)
+        expected = [[19, 22], [43, 50]]
+        self.assertEqual(C.to_list(), expected)
     
-#     def test_multiply_2x3_by_3x2(self):
-#         """Test multiplying 2×3 by 3×2 matrices."""
-#         A = Matrix(2, 3, [[1, 2, 3], [4, 5, 6]])
-#         B = Matrix(3, 2, [[7, 8], [9, 10], [11, 12]])
-#         C = A.multiply(B)
-        
-#         self.assertEqual(C.dimensions(), (2, 2))
+    def test_multiply_2x3_by_3x2(self):
+        """Test multiplying 2×3 by 3×2 matrices."""
+        A = Matrix(2, 3, [[1, 2, 3], 
+                          [4, 5, 6]])
+        B = Matrix(3, 2, [[7, 8], 
+                          [9, 10], 
+                          [11, 12]])
+        C = A.multiply(B)
+        self.assertEqual(C.dimensions(), (2, 2))
     
-#     def test_multiply_incompatible_dimensions(self):
-#         """Test that incompatible matrices raise error."""
-#         A = Matrix(2, 2, [[1, 2], [3, 4]])
-#         B = Matrix(3, 3, [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        
-#         with self.assertRaises(ValueError):
-#             A.multiply(B)
+    def test_multiply_incompatible_dimensions(self):
+        """Test that incompatible matrices raise error."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+        B = Matrix(3, 3, [[1, 2, 3], 
+                          [4, 5, 6], 
+                          [7, 8, 9]])
+        with self.assertRaises(ValueError):
+            A.multiply(B)
 
 
-# class TestDeterminant(unittest.TestCase):
-#     """Test determinant calculation."""
+class TestDeterminant(unittest.TestCase):
+    """Test determinant calculation."""
     
-#     def test_determinant_1x1(self):
-#         """Test determinant of 1×1 matrix."""
-#         A = Matrix(1, 1, [[5]])
-#         self.assertEqual(A.determinant(), 5)
+    def test_determinant_1x1(self):
+        """Test determinant of 1×1 matrix."""
+        A = Matrix(1, 1, [[5]])
+        self.assertEqual(A.determinant(), 5)
     
-#     def test_determinant_2x2(self):
-#         """Test determinant of 2×2 matrix."""
-#         # det = 1×4 - 2×3 = 4 - 6 = -2
-#         A = Matrix(2, 2, [[1, 2], [3, 4]])
-#         self.assertEqual(A.determinant(), -2)
+    def test_determinant_2x2(self):
+        """Test determinant of 2×2 matrix."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+        self.assertEqual(A.determinant(), -2)
     
-#     def test_determinant_identity_2x2(self):
-#         """Test determinant of 2×2 identity matrix."""
-#         A = Matrix(2, 2, [[1, 0], [0, 1]])
-#         self.assertEqual(A.determinant(), 1)
+    def test_determinant_3x3(self):
+        """Test determinant of 3×3 matrix."""
+        A = Matrix(3, 3, [[1, 2, 3], 
+                          [0, 1, 4], 
+                          [5, 6, 0]])
+        self.assertEqual(A.determinant(), 1)
     
-#     def test_determinant_zero_determinant(self):
-#         """Test determinant of singular matrix."""
-#         # Rows are proportional, so det = 0
-#         A = Matrix(2, 2, [[1, 2], [2, 4]])
-#         self.assertEqual(A.determinant(), 0)
+    def test_determinant_identity_2x2(self):
+        """Test determinant of 2×2 identity matrix."""
+        A = Matrix(2, 2, [[1, 0], 
+                          [0, 1]])
+        self.assertEqual(A.determinant(), 1)
     
-#     def test_determinant_non_square_matrix(self):
-#         """Test that non-square matrix raises error."""
-#         A = Matrix(2, 3, [[1, 2, 3], [4, 5, 6]])
-        
-#         with self.assertRaises(ValueError):
-#             A.determinant()
+    def test_determinant_zero_determinant(self):
+        """Test determinant of singular matrix."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [2, 4]])
+        self.assertEqual(A.determinant(), 0)
+    
+    def test_determinant_non_square_matrix(self):
+        """Test that non-square matrix raises error."""
+        A = Matrix(2, 3, [[1, 2, 3], 
+                          [4, 5, 6]])
+        with self.assertRaises(ValueError):
+            A.determinant()
 
 
-# class TestMatrixInverse(unittest.TestCase):
-#     """Test matrix inverse calculation."""
+class TestMatrixTranspose(unittest.TestCase):
+    """Test matrix transpose."""
     
-#     def test_inverse_2x2(self):
-#         """Test inverse of 2×2 matrix."""
-#         A = Matrix(2, 2, [[4, 7], [2, 6]])
-#         A_inv = A.inverse()
-        
-#         # Multiply A × A_inv should give identity
-#         I = A.multiply(A_inv)
-#         identity = [[1, 0], [0, 1]]
-        
-#         for i in range(2):
-#             for j in range(2):
-#                 self.assertAlmostEqual(I.to_list()[i][j], identity[i][j], places=5)
+    def test_transpose_2x2(self):
+        """Test transpose of 2×2 matrix."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [3, 4]])
+        A_T = A.transpose()
+        expected = [[1, 3], 
+                    [2, 4]]
+        self.assertEqual(A_T.to_list(), expected)
     
-#     def test_inverse_singular_matrix(self):
-#         """Test that singular matrix raises error."""
-#         A = Matrix(2, 2, [[1, 2], [2, 4]])  # Singular matrix
-        
-#         with self.assertRaises(ValueError):
-#             A.inverse()
-    
-#     def test_inverse_non_square(self):
-#         """Test that non-square matrix raises error."""
-#         A = Matrix(2, 3, [[1, 2, 3], [4, 5, 6]])
-        
-#         with self.assertRaises(ValueError):
-#             A.inverse()
+    def test_transpose_2x3(self):
+        """Test transpose of 2×3 matrix."""
+        A = Matrix(2, 3, [[1, 2, 3], 
+                          [4, 5, 6]])
+        A_T = A.transpose()
+        self.assertEqual(A_T.dimensions(), (3, 2))
+        expected = [[1, 4], 
+                    [2, 5], 
+                    [3, 6]]
+        self.assertEqual(A_T.to_list(), expected)
 
 
-# class TestMatrixDimensions(unittest.TestCase):
-#     """Test dimension comparison."""
+class TestMatrixInverse(unittest.TestCase):
+    """Test matrix inverse calculation."""
     
-#     def test_same_dimensions(self):
-#         """Test comparing matrices with same dimensions."""
-#         A = Matrix(2, 3)
-#         B = Matrix(2, 3)
-#         self.assertTrue(A.is_same_dimension(B))
+    def test_inverse_2x2(self):
+        """Test inverse of 2×2 matrix."""
+        A = Matrix(2, 2, [[4, 7], 
+                          [2, 6]])
+        A_inv = A.inverse()
+        I = A.multiply(A_inv)
+        identity = [[1, 0], 
+                    [0, 1]]
+        for i in range(2):
+            for j in range(2):
+                self.assertAlmostEqual(I.to_list()[i][j], identity[i][j], places=5)
     
-#     def test_different_rows(self):
-#         """Test comparing matrices with different rows."""
-#         A = Matrix(2, 3)
-#         B = Matrix(3, 3)
-#         self.assertFalse(A.is_same_dimension(B))
+    def test_inverse_singular_matrix(self):
+        """Test that singular matrix raises error."""
+        A = Matrix(2, 2, [[1, 2], 
+                          [2, 4]])
+        with self.assertRaises(ValueError):
+            A.inverse()
     
-#     def test_different_columns(self):
-#         """Test comparing matrices with different columns."""
-#         A = Matrix(2, 3)
-#         B = Matrix(2, 4)
-#         self.assertFalse(A.is_same_dimension(B))
+    def test_inverse_non_square(self):
+        """Test that non-square matrix raises error."""
+        A = Matrix(2, 3, [[1, 2, 3], 
+                          [4, 5, 6]])
+        with self.assertRaises(ValueError):
+            A.inverse()
 
 
-# if __name__ == '__main__':
-#     unittest.main()
+class TestMatrixIdentity(unittest.TestCase):
+    """Test identity matrix creation."""
+    
+    def test_identity_3x3(self):
+        """Test creating 3×3 identity matrix."""
+        A = Matrix(3, 3)
+        I = A.identity(3)
+        expected = [[1, 0, 0], 
+                    [0, 1, 0], 
+                    [0, 0, 1]]
+        self.assertEqual(I.to_list(), expected)
+
+
+class TestMatrixDimensions(unittest.TestCase):
+    """Test dimension comparison."""
+    
+    def test_same_dimensions(self):
+        """Test comparing matrices with same dimensions."""
+        A = Matrix(2, 3)
+        B = Matrix(2, 3)
+        self.assertTrue(A.is_same_dimension(B))
+    
+    def test_different_rows(self):
+        """Test comparing matrices with different rows."""
+        A = Matrix(2, 3)
+        B = Matrix(3, 3)
+        self.assertFalse(A.is_same_dimension(B))
+    
+    def test_different_columns(self):
+        """Test comparing matrices with different columns."""
+        A = Matrix(2, 3)
+        B = Matrix(2, 4)
+        self.assertFalse(A.is_same_dimension(B))
+
+
+if __name__ == '__main__':
+    unittest.main()

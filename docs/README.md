@@ -9,3 +9,8 @@ source ./venv/bin/activate
 pip install -r ./requirements.txt
 ```
 - then proceed to run ```python app.py```
+
+## Run unit tests
+```
+python -m unittest tests.test_matrix -v
+```

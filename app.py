@@ -28,6 +28,12 @@ def sum_sub():
             if not data:
                 return jsonify({'error': 'Invalid JSON'}), 400
             
+            if 'rows' not in data or 'cols' not in data:
+                return jsonify({'error': 'Dimensões não fornecidas'}), 400
+            
+            if 'matrix_a' not in data or 'matrix_b' not in data:
+                return jsonify({'error': 'Matrizes não fornecidas'}), 400
+            
             matrix_a = Matrix(data['rows'], data['cols'], data['matrix_a'])
             matrix_b = Matrix(data['rows'], data['cols'], data['matrix_b'])
             
@@ -60,6 +66,16 @@ def scalar():
             print(data)
             if not data:
                 return jsonify({'error': 'Invalid JSON'}), 400
+            
+            if 'rows' not in data or 'cols' not in data:
+                return jsonify({'error': 'Dimensões não fornecidas'}), 400
+            
+            if 'matrix_a' not in data:
+                return jsonify({'error': 'Matriz não fornecida'}), 400
+            
+            if 'scalar' not in data:
+                return jsonify({'error': 'Escalar não fornecido'}), 400
+            
             matrix_a = Matrix(data['rows'], data['cols'], data['matrix_a'])
             result = matrix_a.scalar_multiply(data['scalar'])
 
@@ -83,6 +99,9 @@ def multiply():
             
             if not data:
                 return jsonify({'error': 'Invalid JSON'}), 400
+            
+            if 'matrix_a' not in data or 'matrix_b' not in data:
+                return jsonify({'error': 'Matrizes não fornecidas'}), 400
             
             matrix_a_data = data['matrix_a']
             matrix_b_data = data['matrix_b']
@@ -118,6 +137,12 @@ def determinant():
     if request.method == 'POST':
         try:
             data = request.get_json(force=True)
+            
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
+            
+            if 'size' not in data or 'matrix' not in data:
+                return jsonify({'error': 'Tamanho ou matriz não fornecidos'}), 400
             
             size = data['size']
             matrix_data = data['matrix']
@@ -180,6 +205,12 @@ def inverse():
     if request.method == 'POST':
         try:
             data = request.get_json(force=True)
+            
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
+            
+            if 'size' not in data or 'matrix' not in data:
+                return jsonify({'error': 'Tamanho ou matriz não fornecidos'}), 400
             
             size = data['size']
             matrix_data = data['matrix']
@@ -250,8 +281,90 @@ def inverse():
 @app.route('/encrypt', methods=['GET', 'POST'])
 def encrypt():
     """
-    Criptografia (provavelmente usando a matriz como chave ou método Hill).
+    Criptografia de mensagens usando multiplicação matricial.
     """
+    if request.method == 'POST':
+        try:
+            data = request.get_json(force=True)
+            
+            if not data:
+                return jsonify({'error': 'Invalid JSON'}), 400
+            
+            message = data.get('message', '')
+            matrix_data = data.get('encoding_matrix', [])
+            operation = data.get('operation', 'encrypt')
+            
+            if not message:
+                return jsonify({'error': 'Mensagem não pode estar vazia'}), 400
+            
+            if not matrix_data:
+                return jsonify({'error': 'Matriz codificadora não fornecida'}), 400
+            
+            size = len(matrix_data)
+            
+            # Validar matriz quadrada
+            if any(len(row) != size for row in matrix_data):
+                return jsonify({'error': 'A matriz deve ser quadrada'}), 400
+            
+            # Criar matriz codificadora
+            encoding_matrix = Matrix(size, size, matrix_data)
+            
+            # Verificar se a matriz é invertível
+            det = encoding_matrix.determinant()
+            if abs(det) < 1e-10:
+                return jsonify({
+                    'error': 'Matriz singular (det=0). Escolha uma matriz invertível para criptografia.'
+                }), 400
+            
+            if operation == 'encrypt':
+                # Criptografar
+                result = encoding_matrix.encrypt_message(message, encoding_matrix)
+                
+                return jsonify({
+                    'operation': 'encrypt',
+                    'original_message': message,
+                    'encoding_matrix': encoding_matrix.to_list(),
+                    'message_matrix': result['message_matrix'].to_list(),
+                    'encrypted_matrix': result['encrypted_matrix'].to_list(),
+                    'numeric_sequence': result['numeric_sequence'],
+                    'determinant': det
+                })
+            
+            elif operation == 'decrypt':
+                # Para descriptografar, precisamos da matriz criptografada
+                encrypted_data = data.get('encrypted_matrix', [])
+                
+                if not encrypted_data:
+                    return jsonify({'error': 'Matriz criptografada não fornecida'}), 400
+                
+                # Criar matriz criptografada
+                encrypted_rows = len(encrypted_data)
+                encrypted_cols = len(encrypted_data[0]) if encrypted_data else 0
+                encrypted_matrix = Matrix(encrypted_rows, encrypted_cols, encrypted_data)
+                
+                # Calcular matriz decodificadora (inversa)
+                decoding_matrix = encoding_matrix.inverse()
+                
+                # Descriptografar
+                result = encoding_matrix.decrypt_message(encrypted_matrix, decoding_matrix)
+                
+                return jsonify({
+                    'operation': 'decrypt',
+                    'encrypted_matrix': encrypted_matrix.to_list(),
+                    'decoding_matrix': decoding_matrix.to_list(),
+                    'message_matrix': result['message_matrix'].to_list(),
+                    'decrypted_message': result['decrypted_message'],
+                    'numeric_sequence': result['numeric_sequence']
+                })
+            
+            else:
+                return jsonify({'error': 'Operação inválida. Use "encrypt" ou "decrypt"'}), 400
+                
+        except ValueError as e:
+            return jsonify({'error': str(e)}), 400
+        except Exception as e:
+            return jsonify({'error': f'Erro: {str(e)}'}), 500
+    
     return render_template('encrypt.html')
 
 # --- Execução do Servidor ---

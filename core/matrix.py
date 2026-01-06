@@ -280,10 +280,105 @@ class Matrix:
             'max_error': max_error
         }
 
-    def encrypt(self):
-        """Encrypt the following message"""
-        return {'result': 'Mensagem Encryptada'}
+    def encrypt_message(self, message, encoding_matrix):
+        """
+        Encrypt a message using matrix multiplication.
+        
+        Args:
+            message: String to encrypt (letters, spaces, punctuation)
+            encoding_matrix: Matrix object used for encoding (must be square)
+        
+        Returns:
+            dict with 'encrypted_matrix', 'message_matrix', 'numeric_sequence'
+        """
+        if not isinstance(encoding_matrix, Matrix):
+            raise ValueError("Encoding matrix must be a Matrix object")
+        
+        if not encoding_matrix.is_square():
+            raise ValueError("Encoding matrix must be square")
+        
+        # Mapping de letras para números
+        char_map = {
+            'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9,
+            'J': 10, 'K': 11, 'L': 12, 'M': 13, 'N': 14, 'O': 15, 'P': 16, 'Q': 17,
+            'R': 18, 'S': 19, 'T': 20, 'U': 21, 'V': 22, 'W': 23, 'X': 24, 'Y': 25,
+            'Z': 26, ' ': 27, '.': 28, 'Ú': 29, 'Ã': 30, 'Ç': 31, 'Õ': 32, 'É': 33
+        }
+        
+        #  Converter mensagem para sequência numérica
+        message = message.upper()
+        numeric_sequence = [char_map.get(char, 27) for char in message]
+        
+        # Determinar dimensões da matriz
+        rows = encoding_matrix.rows
+        cols = len(numeric_sequence) // rows
+        
+        # Preencher com espaços (27) se necessário
+        if len(numeric_sequence) % rows != 0:
+            cols += 1
+            padding_needed = (rows * cols) - len(numeric_sequence)
+            numeric_sequence.extend([27] * padding_needed)
+        
+        # Criar a mensagem
+        message_data = []
+        for i in range(rows):
+            row = []
+            for j in range(cols):
+                index = j * rows + i
+                row.append(numeric_sequence[index])
+            message_data.append(row)
+        
+        message_matrix = Matrix(rows, cols, message_data)
+        
+        # Encriptar: A × M = C
+        encrypted_matrix = encoding_matrix.multiply(message_matrix)
+        
+        return {
+            'encrypted_matrix': encrypted_matrix,
+            'message_matrix': message_matrix,
+            'numeric_sequence': numeric_sequence,
+            'original_message': message
+        }
     
-    def des_encrypt(self):
-        """Des-Encrypt the following message"""
-        return {'result': 'Mensagem Desencryptada'}
+    def decrypt_message(self, encrypted_matrix, decoding_matrix):
+        """
+        Decrypt an encrypted matrix using the inverse matrix.
+        
+        Args:
+            encrypted_matrix: Matrix object with encrypted data
+            decoding_matrix: Inverse of the encoding matrix
+        
+        Returns:
+            dict with 'decrypted_message', 'numeric_sequence', 'message_matrix'
+        """
+        if not isinstance(encrypted_matrix, Matrix):
+            raise ValueError("Encrypted matrix must be a Matrix object")
+        
+        if not isinstance(decoding_matrix, Matrix):
+            raise ValueError("Decoding matrix must be a Matrix object")
+        
+        # Mapping reverso
+        reverse_map = {
+            1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'I',
+            10: 'J', 11: 'K', 12: 'L', 13: 'M', 14: 'N', 15: 'O', 16: 'P', 17: 'Q',
+            18: 'R', 19: 'S', 20: 'T', 21: 'U', 22: 'V', 23: 'W', 24: 'X', 25: 'Y',
+            26: 'Z', 27: ' ', 28: '.', 29: 'Ú', 30: 'Ã', 31: 'Ç', 32: 'Õ', 33: 'É'
+        }
+        
+        # Decriptar: B × C = M
+        message_matrix = decoding_matrix.multiply(encrypted_matrix)
+        
+        # Extrair numeros da matriz
+        numeric_sequence = []
+        for j in range(message_matrix.cols):
+            for i in range(message_matrix.rows):
+                numeric_sequence.append(round(message_matrix.get_element(i + 1, j + 1)))
+        
+        # Converter para mensagem
+        decrypted_message = ''.join([reverse_map.get(num, ' ') for num in numeric_sequence])
+        
+        return {
+            'decrypted_message': decrypted_message.rstrip(),
+            'numeric_sequence': numeric_sequence,
+            'message_matrix': message_matrix
+        }

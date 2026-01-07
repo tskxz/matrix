@@ -1,16 +1,74 @@
 {% extends "base.html" %}
 
 {% block title %}Menu Principal{% endblock %}
-{% block header_text %}Projeto Matrix - Menu{% endblock %}
+{% block header_text %}Calculadora de Matrizes{% endblock %}
 
 {% block content %}
-    <h2>Escolha uma Operação:</h2>
+    <h2>Escolha uma Operação</h2>
+    <h3>Selecione a operação matemática que deseja realizar</h3>
     <div class="button-grid">
-        <a href="{{ url_for('sum_sub') }}" class="menu-button">Soma/Subtração de Matrizes</a>
-        <a href="{{ url_for('scalar') }}" class="menu-button">Multiplicação por Escalar</a>
-        <a href="{{ url_for('multiply') }}" class="menu-button">Multiplicação de Matrizes</a>
-        <a href="{{ url_for('determinant') }}" class="menu-button">Determinante</a>
-        <a href="{{ url_for('inverse') }}" class="menu-button">Matriz Inversa</a>
-        <a href="{{ url_for('encrypt') }}" class="menu-button">Criptografia (Hill Cipher)</a>
+        <div class="grid-container">
+
+            <a href="{{ url_for('sum_sub') }}" class="card">
+                <div class="icon">
+                    <img width="30" height="30" src="https://img.icons8.com/?size=100&id=pY1CjHvHcJ9i&format=png&color=66ff00"/>
+                </div>
+            
+                <div class="card-text">
+                    <h3>Soma & Subtração</h3>
+                    <p>Adicione ou subtraia duas matrizes</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('scalar') }}" class="card">
+                <div class="icon">
+                    <img width="30" height="30" src="https://img.icons8.com/?size=100&id=3859&format=png&color=66ff00"/>
+                </div>
+                <div class="card-text">
+                    <h3>Multiplicação por Escalar</h3>
+                    <p>Multiplique uma matriz por um número constante</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('multiply') }}" class="card">
+                <div class="icon">
+                    <img width="30" height="30" src="https://img.icons8.com/?size=100&id=6483&format=png&color=66ff00"/>
+                </div>
+                <div class="card-text">
+                    <h3>Multiplicação</h3>
+                    <p>Multiplique duas matrizes para obter uma nova matriz</p>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('determinant') }}" class="card">
+                <div class="icon">
+                    <img width="30" height="30" src="https://img.icons8.com/?size=100&id=vzxOBDhFVxNW&format=png&color=66ff00"/>
+                </div>
+                <div class="card-text">
+                    <h3>Determinante</h3>
+                    <p>Calcule o determinante de qualquer matriz quadrada</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('inverse') }}" class="card">
+                <div class="icon">
+                    <img width="30" height="30" src="https://img.icons8.com/?size=100&id=8168&format=png&color=66ff00"/>
+                </div>
+                <div class="card-text">
+                    <h3>Matriz Inversa</h3>
+                    <p>Encontre a matriz inversa, se existir</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('encrypt') }}" class="card">
+                <div class="icon">
+                    <img width="30" height="30" src="https://img.icons8.com/?size=100&id=K8COE1RePcOm&format=png&color=66ff00"/>
+                </div>
+                <div class="card-text">
+                    <h3>Criptografia (Hill Cipher)</h3>
+                    <p>Criptografe mensagens usando matrizes</p>
+                </div>
+            </a>
+        </div>
     </div>
 {% endblock %}

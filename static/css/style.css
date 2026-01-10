@@ -57,12 +57,11 @@ header h1 {
 .matrix-pattern {
   position: relative;
   background:
-    linear-gradient(rgba(0,255,65,0.08) 1px, transparent 1px),
+    linear-gradient(rgba(0,255,65,0.08) 2px, transparent 2px),
     linear-gradient(90deg, rgba(0,255,65,0.08) 1px, transparent 1px),
-    radial-gradient(circle at center, rgba(0,255,65,0.15), #0f1116 65%);
-  background-size: 40px 40px, 40px 40px, cover;
+    radial-gradient(circle at center, rgba(0,255,65,0.15), #0f1116 45%);
+  background-size: 50px 50px, 50px 50px, cover;
   background-position: center;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -70,8 +69,8 @@ header h1 {
 .matrix-pattern::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 40%, #0f1116 75%);
+  inset: 1;
+  background: radial-gradient(circle at center, transparent 65%, #0f1116 75%);
   pointer-events: none;
 }
 
@@ -142,7 +141,7 @@ ul li:hover {
 }
 
 a {
-    color: var(--secondary-color);
+    color: #66ff00;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
@@ -170,8 +169,8 @@ ul li a:hover {
     gap: 0.5rem;
     margin: 1.5rem 0;
     padding: 0.75rem 1.25rem;
-    background-color: var(--secondary-color);
-    color: var(--white);
+    background-color: #66ff00;
+    color: #0d0d0d;
     border-radius: 6px;
     transition: all 0.3s ease;
     font-weight: 500;
@@ -179,23 +178,24 @@ ul li a:hover {
 }
 
 .back-link:hover {
-    background-color: var(--secondary-light);
+    background-color: #e5f9e0;
     transform: translateX(-3px);
     box-shadow: var(--shadow-lg);
-    color: var(--white);
+    color: #0d0d0d;
 }
 
 /* Form Styles */
 form {
-    background: var(--white);
     padding: 2rem;
-    border-radius: 8px;
+    background-color: #0f1116;
+    border: 2px solid #90ff7a17;
+    border-radius: 12px;
     box-shadow: var(--shadow);
     margin: 2rem 0;
 }
 
 form h3 {
-    color: var(--primary-color);
+    color: #e5f9e0;
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
     font-weight: 600;
@@ -206,7 +206,7 @@ label {
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--dark-text);
+    color: #e5f9e0;
     font-size: 0.95rem;
 }
 
@@ -220,12 +220,14 @@ textarea,
 select {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid var(--border-color);
-    border-radius: 6px;
+    background-color: #0f1116;
+    border: 2px solid #90ff7a17;
+    border-radius: 12px;
     font-size: 1rem;
     font-family: inherit;
     transition: all 0.3s ease;
-    background-color: var(--white);
+    color: #e5f9e0;
+    
 }
 
 input[type="text"]:focus,
@@ -233,7 +235,7 @@ input[type="number"]:focus,
 textarea:focus,
 select:focus {
     outline: none;
-    border-color: var(--secondary-color);
+    border-color: #66ff00;
     box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
 }
 
@@ -245,13 +247,13 @@ textarea {
 /* Button Styles */
 button,
 input[type="submit"] {
-    background-color: var(--secondary-color);
-    color: var(--white);
+    background-color: #66ff00;
+    color: rgb(13, 13, 13);
     padding: 0.75rem 2rem;
     border: none;
     border-radius: 6px;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1.5rem;
@@ -261,9 +263,10 @@ input[type="submit"] {
 
 button:hover,
 input[type="submit"]:hover {
-    background-color: var(--secondary-light);
-    transform: translateY(-2px);
+    background-color: #e5f9e0;
+    transform: translateX(-3px);
     box-shadow: var(--shadow-lg);
+    color: #0d0d0d;
 }
 
 button:active,
@@ -286,11 +289,25 @@ input[type="submit"]:disabled {
 }
 
 .btn-success {
-    background-color: var(--success-color);
+      background-color: #66ff00;
+    color: rgb(13, 13, 13);
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    margin-right: 0.75rem;
+    box-shadow: var(--shadow);
 }
 
 .btn-success:hover {
-    background-color: #2e7d32;
+    background-color: #e5f9e0;
+    transform: translateX(-3px);
+    box-shadow: var(--shadow-lg);
+    color: #0d0d0d;
 }
 
 .btn-warning {
@@ -315,28 +332,30 @@ input[type="submit"]:disabled {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin: 2rem 0;
+  
 }
 
 .matrix-input {
-    background: var(--light-bg);
     padding: 1.5rem;
-    border-radius: 8px;
-    border: 2px solid var(--border-color);
     transition: border-color 0.3s ease;
     gap: 16px;
     max-height: 400px; 
     overflow-y: auto;
+    border: 2px solid #90ff7a17;
+    border-radius: 12px;
 }
 
 .matrix-input:focus-within {
-    border-color: var(--secondary-color);
+    border-color: #66ff00;
 }
 
 .matrix-input h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+    color: #e5f9e0;
+    margin-top: 1px;
     font-size: 1.1rem;
     font-weight: 600;
+    text-align: left;
+
 }
 
 .matrix-row {
@@ -352,6 +371,7 @@ input[type="submit"]:disabled {
     padding: 0.5rem;
     text-align: center;
     max-width: 100px;
+    
 }
 
 /* Result Styles */
@@ -365,6 +385,12 @@ input[type="submit"]:disabled {
 .result-container.show {
     display: block;
     animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 50px;
+
+}
+
+.result-container.show h3{
+    color: #e5f9e0;
 }
 
 @keyframes slideIn {
@@ -386,11 +412,12 @@ input[type="submit"]:disabled {
 }
 
 .matrix-result {
-    background: var(--white);
     padding: 1.5rem;
-    border-radius: 8px;
     margin: 1rem 0;
     box-shadow: var(--shadow);
+    border: 2px solid #90ff7a17;
+    border-radius: 12px;
+    color: #c3e6cb;
 }
 
 .matrix-result h4 {

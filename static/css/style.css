@@ -289,7 +289,7 @@ input[type="submit"]:disabled {
 }
 
 .btn-success {
-      background-color: #66ff00;
+    background-color: #66ff00;
     color: rgb(13, 13, 13);
     padding: 0.75rem 2rem;
     border: none;
@@ -392,6 +392,7 @@ input[type="submit"]:disabled {
 .result-container.show h3{
     color: #e5f9e0;
 }
+
 
 @keyframes slideIn {
     from {
@@ -744,11 +745,17 @@ footer {
 
 /* Container para resultado com formatação */
 .result-details {
-    background: var(--white);
     padding: 1.5rem;
     border-radius: 8px;
     margin: 1.5rem 0;
     box-shadow: var(--shadow);
+    display: grid;
+    border: 2px solid #90ff7a17;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    color: #e5f9e0;
 }
 
 .determinant-value {
@@ -757,10 +764,19 @@ footer {
     font-weight: bold;
     text-align: center;
     padding: 1rem;
-    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
     border-radius: 6px;
     margin: 1rem 0;
     border: 2px solid var(--border-color);
+    color: #e5f9e0;
+}
+
+.matrix-display {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: var(--shadow);
+    border: 2px solid #90ff7a17;
+    border-radius: 12px;
+    color: #c3e6cb;
 }
 
 /* Badge para indicar se é float ou inteiro */

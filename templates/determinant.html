@@ -6,18 +6,21 @@
 {% block content %}
     <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
     
-    <div class="info-box">
-        <p><strong>Regras importantes:</strong></p>
+    <div class="info-box-det">
+        <h3><strong>Regras importantes</strong></h3>
         <ul>
             <li style="height:100px;">Só existe determinante para matrizes quadradas</li>
             <li style="height:100px;">Se determinante = 0, a matriz é <strong>singular</strong> (não tem inversa)</li>
-            <li>Métodos usados:
-                <ul>
-                    <li>1×1: Direto</li>
-                    <li>2×2: Fórmula ad - bc</li>
-                    <li>3×3: Regra de Sarrus</li>
-                    <li>4×4+: Expansão por cofatores</li>
-                </ul>
+            <li>
+                <details>
+                    <summary>Métodos usados</summary>
+                    <ul>
+                        <li>1×1: Direto</li>
+                        <li>2×2: Fórmula ad − bc</li>
+                        <li>3×3: Regra de Sarrus</li>
+                        <li>4×4+: Expansão por cofatores</li>
+                    </ul>
+                </details>
             </li>
         </ul>
     </div>
@@ -135,7 +138,7 @@
                 const valueType = isInteger ? 'integer' : 'float';
                 
                 elements.result.innerHTML = `
-                    <div class="result-container">Resultado do Determinante</h3>
+                    <div class="result-container" style="color:#e5f9e0; font-weight:500;">Resultado do Determinante</h3>
                         
                         <div class="matrix-display" style="margin-bottom: 1.5rem;">
                             <h4 style="text-align: center;">Matriz Informada (${data.size}×${data.size})</h4>

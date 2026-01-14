@@ -1,5 +1,5 @@
 sequenceDiagram
-    participant User as User (Browser)
+    participant User as Client (Browser)
     participant JS as JavaScript<br/>(static/js/*.js)
     participant Flask as Flask Server<br/>(app.py)
     participant Matrix as Matrix Class<br/>(core/matrix.py)

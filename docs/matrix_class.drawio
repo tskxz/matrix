@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0" version="29.3.1">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1783" dy="964" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2194" dy="1186" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="kP_Cz3f4TCv501D0UJdX-42" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Matrix&lt;/div&gt;" vertex="1">
-          <mxGeometry height="390" width="380" x="70" y="40" as="geometry" />
+          <mxGeometry height="390" width="380" x="60" y="195" as="geometry" />
         </mxCell>
         <mxCell id="kP_Cz3f4TCv501D0UJdX-43" parent="kP_Cz3f4TCv501D0UJdX-42" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ rows: int" vertex="1">
           <mxGeometry height="26" width="380" y="26" as="geometry" />
@@ -103,13 +103,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="kP_Cz3f4TCv501D0UJdX-151" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Adjugate&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ matrix: Matrix&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ calculate(): float&lt;br&gt;+ get_cofactor(): float&lt;/p&gt;" vertex="1">
-          <mxGeometry height="140" width="190" x="1360" y="240" as="geometry" />
+          <mxGeometry height="140" width="190" x="1400" y="270" as="geometry" />
         </mxCell>
         <mxCell id="kP_Cz3f4TCv501D0UJdX-152" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;get_cofactor&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ matrix: Matrix&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ calculate(): float&lt;/p&gt;" vertex="1">
-          <mxGeometry height="140" width="190" x="1480" y="460" as="geometry" />
+          <mxGeometry height="140" width="190" x="1780" y="515" as="geometry" />
         </mxCell>
         <mxCell id="kP_Cz3f4TCv501D0UJdX-154" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;get_minor&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ matrix: Matrix&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ calculate(): float&lt;/p&gt;" vertex="1">
-          <mxGeometry height="140" width="190" x="600" y="470" as="geometry" />
+          <mxGeometry height="140" width="190" x="660" y="500" as="geometry" />
         </mxCell>
         <mxCell id="kP_Cz3f4TCv501D0UJdX-157" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="kP_Cz3f4TCv501D0UJdX-145" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;curved=1;" target="kP_Cz3f4TCv501D0UJdX-143">
           <mxGeometry relative="1" as="geometry">
@@ -145,10 +145,48 @@
         <mxCell id="kP_Cz3f4TCv501D0UJdX-168" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="kP_Cz3f4TCv501D0UJdX-152" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.595;entryY=1.006;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;endArrow=none;endFill=0;" target="kP_Cz3f4TCv501D0UJdX-154">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
+              <mxPoint x="1780" y="650" />
               <mxPoint x="1480" y="650" />
-              <mxPoint x="713" y="650" />
+              <mxPoint x="1480" y="670" />
+              <mxPoint x="773" y="670" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-169" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Adjunta (adjugate)&lt;/h1&gt;Matriz transposta da matriz de cofatores.&lt;br&gt;Usada para calcular a matriz inversa&lt;br&gt;A⁻¹ = (1/det(A)) × adj(A). Cada elemento adj(A)[i][j] = cofator de A[j][i]." vertex="1">
+          <mxGeometry height="120" width="390" x="591" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-170" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1&gt;&lt;strong&gt;&lt;span&gt;Cofator (Cofactor)&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;/h1&gt;&lt;span&gt;Número calculado para cada elemento de uma matriz&lt;br&gt;Cof(A[i][j]) = (-1)^(i+j) × det(M[i][j]), onde M[i][j] é a matriz menor (sem linha i e coluna j).&lt;br&gt;Usado em determinantes e matriz inversa.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="120" width="470" x="591" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-171" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1&gt;&lt;strong&gt;&lt;span&gt;Matriz Transposta (Transpose)&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;/h1&gt;&lt;br&gt;&lt;p class=&quot;ds-markdown-paragraph&quot;&gt;&lt;span&gt;Matriz obtida trocando linhas por colunas:&lt;br&gt;&lt;br&gt;Exemplo: A = [1 2] → Aᵀ = [1 3]&lt;/span&gt;&lt;br&gt;&lt;span&gt;[3 4]          [2 4].&lt;/span&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="160" width="391" x="200" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-172" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1&gt;&lt;strong&gt;&lt;span&gt;Matriz Transposta (Transpose)&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;/h1&gt;&lt;br&gt;&lt;p class=&quot;ds-markdown-paragraph&quot;&gt;&lt;span&gt;Matriz obtida trocando linhas por colunas:&lt;br&gt;&lt;br&gt;Exemplo: A = [1 2] → Aᵀ = [1 3]&lt;/span&gt;&lt;br&gt;&lt;span&gt;[3 4]          [2 4].&lt;/span&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="160" width="391" x="200" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-173" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1&gt;&lt;strong&gt;&lt;span&gt;Matriz Menor (Minor)&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;&lt;h1&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;/h1&gt;&lt;span&gt;Submatriz obtida removendo uma linha e uma coluna da matriz original.&amp;nbsp;&lt;br&gt;Usada para calcular cofatores e determinantes por expansão de Laplace.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="120" width="420" x="1020" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-175" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1&gt;&lt;strong&gt;&lt;span&gt;Matriz Identidade (Identity)&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;&lt;h1&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;/h1&gt;&lt;p class=&quot;ds-markdown-paragraph&quot;&gt;&lt;span&gt;Matriz quadrada com 1 na diagonal principal e 0 nos outros elementos&lt;br&gt;I = [1 0 ... 0]&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;[0 1 ... 0]&lt;/span&gt;&lt;br&gt;&lt;span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;[0 0 ... 1]&lt;/span&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="120" width="470" x="1100" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-179" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="kP_Cz3f4TCv501D0UJdX-176" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;curved=1;" target="kP_Cz3f4TCv501D0UJdX-178">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-176" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;VerifyInverse&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ matrix_inverse: Matrix&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ calculate(): float&lt;/p&gt;" vertex="1">
+          <mxGeometry height="140" width="190" x="1390" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-177" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="kP_Cz3f4TCv501D0UJdX-176" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1.002;entryY=0.142;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;" target="kP_Cz3f4TCv501D0UJdX-146">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-178" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Identity&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ rows: int&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ create(): float&lt;/p&gt;" vertex="1">
+          <mxGeometry height="140" width="190" x="1640" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-180" parent="WIyWlLk6GJQsqaUBKTNV-1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Multiply&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ matrix_b: Matrix&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ calculate(): float&lt;/p&gt;" vertex="1">
+          <mxGeometry height="140" width="190" x="1770" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="kP_Cz3f4TCv501D0UJdX-181" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="kP_Cz3f4TCv501D0UJdX-176" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.289;entryY=-0.007;entryDx=0;entryDy=0;entryPerimeter=0;curved=1;" target="kP_Cz3f4TCv501D0UJdX-180">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

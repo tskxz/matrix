@@ -1,18 +1,18 @@
 sequenceDiagram
     autonumber
-    participant User
+    participant Client
     participant JS as JavaScript<br/>(matrix_operations.js)
     participant Flask as Flask<br/>(/multiply route)
     participant MatrixA as Matrix A Object
     participant MatrixB as Matrix B Object
     participant Result as Result Matrix
 
-    User->>JS: Fill matrices & click "Multiply"
+    Client->>JS: Fill matrices & click "Multiply"
     JS->>JS: collectMatrixData()
     JS->>JS: Validate dimensions<br/>(cols_A == rows_B)
     
     alt Incompatible Dimensions
-        JS->>User: showError("Incompatible dimensions")
+        JS->>Client: showError("Incompatible dimensions")
     else Compatible
         JS->>Flask: POST /multiply<br/>{matrixA: {...}, matrixB: {...}}
         Flask->>Flask: request.get_json()
@@ -34,5 +34,5 @@ sequenceDiagram
         Flask-->>JS: JSON {result: {...}}
         JS->>JS: displayResult(data)
         JS->>JS: matrixToHTML(result)
-        JS->>User: Display result matrix
+        JS->>Client: Display result matrix
     end

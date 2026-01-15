@@ -1,13 +1,13 @@
 sequenceDiagram
     autonumber
-    participant User
+    participant Client
     participant JS as JavaScript<br/>(matrix_advanced.js)
     participant Flask as Flask<br/>(/inverse route)
     participant Matrix as Matrix Object
     participant Det as determinant()
     participant Minor as _get_minor()
 
-    User->>JS: Fill matrix & click "Calculate Inverse"
+    Client->>JS: Fill matrix & click "Calculate Inverse"
     JS->>JS: collectMatrixData()
     JS->>Flask: POST /inverse<br/>{matrix: {...}}
     
@@ -17,14 +17,14 @@ sequenceDiagram
     
     alt Not Square
         Flask-->>JS: Error 400 "Must be square"
-        JS->>User: showError()
+        JS->>Client: showError()
     else Square
         Matrix->>Det: determinant()
         Det-->>Matrix: det_value
         
         alt det == 0
             Flask-->>JS: Error 400 "Singular matrix"
-            JS->>User: showError("Matrix is not invertible")
+            JS->>Client: showError("Matrix is not invertible")
         else det ≠ 0
             Matrix->>Matrix: inverse()
             
@@ -50,6 +50,6 @@ sequenceDiagram
             Flask-->>JS: JSON {result: {...}}
             JS->>JS: displayResult(data)
             JS->>JS: matrixToHTML(inverse)
-            JS->>User: Display inverse matrix
+            JS->>Client: Display inverse matrix
         end
     end

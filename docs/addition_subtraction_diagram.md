@@ -1,12 +1,12 @@
 sequenceDiagram
     autonumber
-    participant User
+    participant Client
     participant JS as JavaScript<br/>(matrix_operations.js)
     participant Flask as Flask<br/>(/add or /subtract route)
     participant MatrixA as Matrix A
     participant MatrixB as Matrix B
 
-    User->>JS: Fill two matrices & select operation
+    Client->>JS: Fill two matrices & select operation
     JS->>JS: collectMatrixData()
     
     alt Addition Selected
@@ -23,7 +23,7 @@ sequenceDiagram
     
     alt Different Dimensions
         Flask-->>JS: Error 400 "Incompatible dimensions"
-        JS->>User: showError("Matrices must have same dimensions")
+        JS->>Client: showError("Matrices must have same dimensions")
     else Same Dimensions
         alt Addition Operation
             MatrixA->>MatrixB: add(matrixB)
@@ -48,5 +48,5 @@ sequenceDiagram
         MatrixA-->>Flask: {rows, cols, data}
         Flask-->>JS: JSON {result: {...}}
         JS->>JS: displayResult(data)
-        JS->>User: Display result matrix
+        JS->>Client: Display result matrix
     end

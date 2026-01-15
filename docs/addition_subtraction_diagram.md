@@ -1,7 +1,7 @@
 sequenceDiagram
     autonumber
     participant Client
-    participant JS as JavaScript<br/>(static/js/*.js)
+    participant JS as JavaScript<br/>
     participant Flask as Flask<br/>(/add or /subtract route)
     participant MatrixA as Matrix A
     participant MatrixB as Matrix B

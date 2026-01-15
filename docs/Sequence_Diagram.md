@@ -1,6 +1,6 @@
 sequenceDiagram
     participant Client as Client (Browser)
-    participant JS as JavaScript<br/>(static/js/*.js)
+    participant JS as JavaScript<br/>
     participant Flask as Flask Server<br/>(app.py)
     participant Matrix as Matrix Class<br/>(core/matrix.py)
     participant Template as HTML Templates<br>(templates/*.html)

@@ -1,7 +1,7 @@
 sequenceDiagram
     autonumber
     participant Client
-    participant JS as JavaScript<br/>(static/js/*.js)
+    participant JS as JavaScript<br/>
     participant Flask as Flask<br/>(/decrypt route)
     participant Matrix as Encoding Matrix
     participant Inverse as Inverse Matrix

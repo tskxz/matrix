@@ -697,12 +697,16 @@ input[type="submit"]:disabled {
     }
 }
 
-/* Info-Box*/
-.info-box-det {
+/* Info-Boxs*/
+.info-box-det, 
+.info-box-inversa,
+.info-box-criptografia {
     margin-bottom: 100px;
 }
 
-.info-box-det li {
+.info-box-det li,
+.info-box-inversa li,
+.info-box-criptografia li {
     background-color: #0f1116;
     border: 2px solid #90ff7a17;
     border-radius: 12px;
@@ -736,6 +740,10 @@ details ul {
    
 }
 
+.info-box-criptografia h4 {
+    text-align: left;
+
+}
 /* Utility Classes */
 .text-center {
     text-align: center;
@@ -857,7 +865,6 @@ footer {
 }
 /* Estilos específicos para criptografia */
 .operation-selector {
-    background: var(--white);
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -885,7 +892,6 @@ footer {
 
 .message-section,
 .matrix-section {
-    background: var(--white);
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;

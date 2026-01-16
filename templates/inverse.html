@@ -6,17 +6,20 @@
 {% block content %}
     <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
     
-    <div class="info-box">
-        <p><strong>Regras importantes:</strong></p>
+    <div class="info-box-inversa">
+        <h3><strong>Regras importantes:</strong></h3    >
         <ul>
             <li>Só existe inversa para matrizes quadradas</li>
             <li>Determinante deve ser diferente de zero (matriz não-singular)</li>
             <li>Propriedade: A × A⁻¹ = I (matriz identidade)</li>
-            <li>Métodos disponíveis:
+            <li>
+                <details>
+                    <summary>Métodos usados</summary>
                 <ul>
                     <li>Adjunta: A⁻¹ = (1/det(A)) × adj(A)</li>
                     <li>Gauss-Jordan: Eliminação na matriz aumentada [A|I]</li>
                 </ul>
+                </details>
             </li>
         </ul>
     </div>
@@ -48,10 +51,9 @@
     <style>
         .result-container {
             margin-top: 2rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
+            padding: 5rem;
             border-radius: 8px;
-            border-left: 4px solid #007bff;
+            border: 2px solid #90ff7a17;
             animation: fadeIn 0.5s ease-in;
         }
         
@@ -64,18 +66,17 @@
         }
         
         .matrix-box {
-            background: white;
+            border: 2px solid #90ff7a17;
             padding: 1rem;
             border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .verification-box {
-            background: #e7f3ff;
             padding: 1rem;
             border-radius: 6px;
             margin: 1rem 0;
-            border: 1px solid #b8daff;
+            border: 2px solid #90ff7a17;
         }
         
         .det-value {
@@ -87,7 +88,7 @@
         }
         
         .singular-alert {
-            background: #fff3cd;
+            
             color: #856404;
             padding: 1rem;
             border-radius: 6px;

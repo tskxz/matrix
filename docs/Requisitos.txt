@@ -48,11 +48,6 @@ O sistema deve permitir a multiplicação de uma matriz
 A por um escalar real 
 𝑘
 k, produzindo a matriz resultante 
-𝐵
-=
-𝑘
-⋅
-𝐴
 B=k⋅A.
 
 RF05 – Multiplicação de Matrizes

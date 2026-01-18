@@ -20,11 +20,6 @@ B, desde que ambas pertençam a
 R
 m×n
 , devolvendo a matriz resultante 
-𝐶
-=
-𝐴
-+
-𝐵
 C=A+B.
 
 RF03 – Subtração de Matrizes

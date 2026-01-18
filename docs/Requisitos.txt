@@ -1,5 +1,4 @@
-1. Requisitos Funcionais
-(O que o sistema deve fazer)
+- Requisitos Funcionais
 
 RF01 – Introdução de Matrizes
 O sistema deve permitir ao utilizador introduzir matrizes de dimensão variável, definindo explicitamente o número de linhas e colunas, bem como os respetivos valores reais.
@@ -40,8 +39,7 @@ O sistema deve validar:
 	- Valores numéricos introduzidos
 	- Condições matemáticas necessárias para cada operação
 
-2. Requisitos Não Funcionais
-(Atributos de qualidade do software)
+- Requisitos Não Funcionais
 
 RNF01 – Desempenho
 O sistema deve executar operações matriciais de pequena e média dimensão num tempo de resposta inferior a 1 segundo, garantindo fluidez na interação com o utilizador.

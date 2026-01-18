@@ -102,12 +102,9 @@ O sistema deve permitir a recuperação da mensagem original através da multipl
 RF11 – Validação de Dados
 
 O sistema deve validar:
-
-Dimensões das matrizes
-
-Valores numéricos introduzidos
-
-Condições matemáticas necessárias para cada operação
+    - Dimensões das matrizes
+    - Valores numéricos introduzidos
+    - Condições matemáticas necessárias para cada operação
 
 2. Requisitos Não Funcionais
 

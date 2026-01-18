@@ -129,13 +129,10 @@ O sistema não deve armazenar permanentemente mensagens introduzidas para cripto
 RNF05 – Robustez
 
 O sistema deve lidar corretamente com erros, como:
-
-Matrizes incompatíveis
-
-Determinantes nulos
-
-Introdução de dados inválidos
-apresentando mensagens claras ao utilizador.
+    - Matrizes incompatíveis
+    - Determinantes nulos
+    - Introdução de dados inválidos
+    - Apresentando mensagens claras ao utilizador.
 
 RNF06 – Escalabilidade
 

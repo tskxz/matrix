@@ -29,11 +29,6 @@ O sistema deve permitir a subtração de duas matrizes
 A e 
 𝐵
 B com as mesmas dimensões, devolvendo a matriz 
-𝐶
-=
-𝐴
-−
-𝐵
 C=A−B.
 
 RF04 – Multiplicação de Matriz por Escalar

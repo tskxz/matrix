@@ -1,123 +1,61 @@
 1. Requisitos Funcionais
-
 (O que o sistema deve fazer)
 
 RF01 – Introdução de Matrizes
-
 O sistema deve permitir ao utilizador introduzir matrizes de dimensão variável, definindo explicitamente o número de linhas e colunas, bem como os respetivos valores reais.
 
 RF02 – Soma de Matrizes
-
 O sistema deve permitir a soma de duas matrizes 
-𝐴
-A e 
-𝐵
-B, desde que ambas pertençam a 
-𝑅
-𝑚
-×
-𝑛
-R
-m×n
-, devolvendo a matriz resultante 
-C=A+B.
 
 RF03 – Subtração de Matrizes
-
 O sistema deve permitir a subtração de duas matrizes 
-𝐴
-A e 
-𝐵
-B com as mesmas dimensões, devolvendo a matriz 
-C=A−B.
 
 RF04 – Multiplicação de Matriz por Escalar
-
 O sistema deve permitir a multiplicação de uma matriz 
-𝐴
-A por um escalar real 
-𝑘
-k, produzindo a matriz resultante 
-B=k⋅A.
 
 RF05 – Multiplicação de Matrizes
-
 O sistema deve permitir a multiplicação de duas matrizes 
-𝐴
-A e 
-𝐵
-B, desde que o número de colunas de 
-𝐴
-A seja igual ao número de linhas de 
-𝐵
-B.
 
 RF06 – Cálculo do Determinante
-
 O sistema deve calcular o determinante de uma matriz quadrada:
-
-Matriz 
-1
-×
-1
-1×1
-
-Matriz 
-2
-×
-2
-2×2
-
-Matrizes de ordem superior através da expansão por cofatores
-
-Caso a matriz não seja quadrada, o sistema deve informar o utilizador.
+	- Matrizes de ordem superior através da expansão por cofatores
+	- Caso a matriz não seja quadrada, o sistema deve informar o utilizador.
 
 RF07 – Cálculo da Matriz Inversa
-
 O sistema deve calcular a matriz inversa de uma matriz quadrada, desde que o determinante seja diferente de zero.
 Caso contrário, o sistema deve apresentar uma mensagem de erro adequada.
 
 RF08 – Conversão de Texto para Matriz Numérica
-
 O sistema deve converter uma mensagem de texto numa matriz numérica com base numa tabela de codificação pré-definida (A=1, B=2, …, Z=26, sinais especiais).
 
 RF09 – Criptografia de Mensagens
-
 O sistema deve permitir a criptografia de mensagens através da multiplicação da matriz da mensagem por uma matriz de codificação.
 
 RF10 – Descriptografia de Mensagens
-
 O sistema deve permitir a recuperação da mensagem original através da multiplicação da matriz criptografada pela matriz inversa de decodificação.
 
 RF11 – Validação de Dados
-
 O sistema deve validar:
-    - Dimensões das matrizes
-    - Valores numéricos introduzidos
-    - Condições matemáticas necessárias para cada operação
+	- Dimensões das matrizes
+	- Valores numéricos introduzidos
+	- Condições matemáticas necessárias para cada operação
 
 2. Requisitos Não Funcionais
-
 (Atributos de qualidade do software)
 
 RNF01 – Desempenho
-
 O sistema deve executar operações matriciais de pequena e média dimensão num tempo de resposta inferior a 1 segundo, garantindo fluidez na interação com o utilizador.
 
 RNF02 – Usabilidade
-
 O sistema deve apresentar uma interface simples e intuitiva, permitindo que utilizadores com conhecimentos básicos de matemática consigam realizar operações sem dificuldade.
 
 RNF03 – Fiabilidade
-
 O sistema deve garantir resultados matematicamente corretos, respeitando rigorosamente as definições formais das operações matriciais.
 
 RNF04 – Segurança dos Dados
-
 O sistema não deve armazenar permanentemente mensagens introduzidas para criptografia, garantindo a confidencialidade dos dados do utilizador durante a execução.
 
 RNF05 – Robustez
-
 O sistema deve lidar corretamente com erros, como:
     - Matrizes incompatíveis
     - Determinantes nulos
@@ -125,13 +63,7 @@ O sistema deve lidar corretamente com erros, como:
     - Apresentando mensagens claras ao utilizador.
 
 RNF06 – Escalabilidade
-
 O sistema deve ser projetado de forma a permitir, no futuro, a adição de novas operações matemáticas ou métodos de criptografia sem necessidade de reestruturação profunda.
 
-RNF07 – Portabilidade
-
-O sistema deve ser executável em diferentes ambientes (por exemplo, desktop ou web), dependendo da tecnologia escolhida.
-
-RNF08 – Conformidade
-
+RNF07 – Conformidade
 O sistema deve respeitar boas práticas de desenvolvimento de software e normas académicas, garantindo clareza, organização e manutenção do código.

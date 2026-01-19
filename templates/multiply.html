@@ -1,41 +1,38 @@
-{% extends "base.html" %}
-
-{% block title %}Multiplicação{% endblock %}
-{% block header_text %}Multiplicação de Matrizes{% endblock %}
-
-{% block content %}
-    <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
-
-    <form id="matrixForm">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-    <div>
-        <h4>Matriz A</h4>
-        <label for="rows_a">Linhas:</label>
-        <input type="number" id="rows_a" min="1" max="10" value="2" required>
-        <label for="cols_a">Colunas:</label>
-        <input type="number" id="cols_a" min="1" max="10" value="2" required>
-    </div>
-    <div>
-        <h4>Matriz B</h4>
-        <label for="rows_b">Linhas:</label>
-        <input type="number" id="rows_b" min="1" max="10" value="2" required>
-        <label for="cols_b">Colunas:</label>
-        <input type="number" id="cols_b" min="1" max="10" value="2" required>
-    </div>
-</div>
-
-<button type="button" id="generateBtn" class="btn-secondary">Gerar Matrizes</button>
-<p id="compatibilityMessage"></p>
-
-        <p style="color: #666; font-size: 0.9rem; margin: 1rem 0;">
-            <strong>Nota:</strong> Para multiplicação, o número de colunas de A deve ser igual ao número de linhas de B.
-        </p>
-
-        <div id="matrices"></div>
-        <button type="submit" class="btn-success">Calcular</button>
-    </form>
-
-    <div id="result"></div>
-    <script src="../static/js/matrix_multiply.js"></script> 
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplicação - Calculadora de Matrizes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
     
-{% endblock %}
+    <main>
+        <h2>Multiplicação de Matrizes</h2>
+        
+        <form id="matrix-form">
+            <label for="rows-a">Linhas da Matriz A:</label>
+            <input type="number" id="rows-a" name="rows-a" min="1" value="2">
+            
+            <label for="cols-a">Colunas da Matriz A:</label>
+            <input type="number" id="cols-a" name="cols-a" min="1" value="2">
+            
+            <label for="rows-b">Linhas da Matriz B:</label>
+            <input type="number" id="rows-b" name="rows-b" min="1" value="2">
+            
+            <label for="cols-b">Colunas da Matriz B:</label>
+            <input type="number" id="cols-b" name="cols-b" min="1" value="2">
+            
+            <button type="button" id="generate-btn">Gerar Matrizes</button>
+            
+            <div id="matrix-inputs"></div>
+            
+            <button type="submit">Calcular</button>
+        </form>
+        
+        <div id="result"></div>
+    </main>
+</body>
+</html>

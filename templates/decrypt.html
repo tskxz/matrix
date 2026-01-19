@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encriptação - Calculadora de Matrizes</title>
+    <title>Desencriptação - Calculadora de Matrizes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     {% include 'header.html' %}
     
     <main>
-        <h2>Encriptação de Mensagens</h2>
+        <h2>Desencriptação de Mensagens</h2>
         
         <form id="encrypt-form">
             <label for="message">Mensagem:</label>
@@ -23,7 +23,7 @@
             
             <div id="matrix-inputs"></div>
             
-            <button type="button" id="encrypt-btn">Encriptar</button>
+            <button type="button" id="decrypt-btn">Desencriptar</button>
         </form>
         
         <div id="result"></div>

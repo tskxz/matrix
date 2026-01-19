@@ -1,16 +1,24 @@
-{% extends "base.html" %}
-
-{% block title %}Menu Principal{% endblock %}
-{% block header_text %}Projeto Matrix - Menu{% endblock %}
-
-{% block content %}
-    <h2>Escolha uma Operação:</h2>
-    <div class="button-grid">
-        <a href="{{ url_for('sum_sub') }}" class="menu-button">Soma/Subtração de Matrizes</a>
-        <a href="{{ url_for('scalar') }}" class="menu-button">Multiplicação por Escalar</a>
-        <a href="{{ url_for('multiply') }}" class="menu-button">Multiplicação de Matrizes</a>
-        <a href="{{ url_for('determinant') }}" class="menu-button">Determinante</a>
-        <a href="{{ url_for('inverse') }}" class="menu-button">Matriz Inversa</a>
-        <a href="{{ url_for('encrypt') }}" class="menu-button">Criptografia (Hill Cipher)</a>
-    </div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Matrizes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <main>
+        <h2>Selecione uma Operação</h2>
+        <ul>
+            <li><a href="/sum-sub">Adição / Subtração</a></li>
+            <li><a href="/multiply">Multiplicação de Matrizes</a></li>
+            <li><a href="/scalar">Multiplicação por Escalar</a></li>
+            <li><a href="/determinant">Determinante</a></li>
+            <li><a href="/inverse">Matriz Inversa</a></li>
+            <li><a href="/encrypt">Encriptar/Desencriptar Mensagens</a></li>
+        </ul>
+    </main>
+</body>
+</html>

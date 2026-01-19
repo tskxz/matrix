@@ -18,6 +18,11 @@ def multiply():
     """Multiplicação de matrizes."""
     return render_template('multiply.html')
 
+@app.route('/transpose', methods=['GET', 'POST'])
+def transpose():
+    """Transpor uma Matriz"""
+    return render_template('transpose.html')
+
 @app.route('/scalar', methods=['GET', 'POST'])
 def scalar():
     """Multiplicação de matriz por escalar."""

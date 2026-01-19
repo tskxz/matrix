@@ -1,67 +1,67 @@
-- Requisitos Funcionais
-
-RF01 – Introdução de Matrizes
+## Requisitos funcionais
+O sistema deve ter as seguintes funcionalidades:
+##### RF01 – Introdução de Matrizes
 O sistema deve permitir ao utilizador introduzir matrizes de dimensão variável, definindo explicitamente o número de linhas e colunas, bem como os respetivos valores reais.
 
-RF02 – Soma de Matrizes
+##### RF02 – Soma de Matrizes
 O sistema deve permitir a soma de duas matrizes 
 
-RF03 – Subtração de Matrizes
+##### RF03 – Subtração de Matrizes
 O sistema deve permitir a subtração de duas matrizes 
 
-RF04 – Multiplicação de Matriz por Escalar
+##### RF04 – Multiplicação de Matriz por Escalar
 O sistema deve permitir a multiplicação de uma matriz 
 
-RF05 – Multiplicação de Matrizes
+##### RF05 – Multiplicação de Matrizes
 O sistema deve permitir a multiplicação de duas matrizes 
 
-RF06 – Cálculo do Determinante
+##### RF06 – Cálculo do Determinante
 O sistema deve calcular o determinante de uma matriz quadrada:
 	- Matrizes de ordem superior através da expansão por cofatores
 	- Caso a matriz não seja quadrada, o sistema deve informar o utilizador.
 
-RF07 – Cálculo da Matriz Inversa
+##### RF07 – Cálculo da Matriz Inversa
 O sistema deve calcular a matriz inversa de uma matriz quadrada, desde que o determinante seja diferente de zero.
 Caso contrário, o sistema deve apresentar uma mensagem de erro adequada.
 
-RF08 – Conversão de Texto para Matriz Numérica
+##### RF08 – Conversão de Texto para Matriz Numérica
 O sistema deve converter uma mensagem de texto numa matriz numérica com base numa tabela de codificação pré-definida (A=1, B=2, …, Z=26, sinais especiais).
 
-RF09 – Criptografia de Mensagens
+##### RF09 – Criptografia de Mensagens
 O sistema deve permitir a criptografia de mensagens através da multiplicação da matriz da mensagem por uma matriz de codificação.
 
-RF10 – Descriptografia de Mensagens
+##### RF10 – Descriptografia de Mensagens
 O sistema deve permitir a recuperação da mensagem original através da multiplicação da matriz criptografada pela matriz inversa de decodificação.
 
-RF11 – Validação de Dados
+##### RF11 – Validação de Dados
 O sistema deve validar:
-	- Dimensões das matrizes
-	- Valores numéricos introduzidos
-	- Condições matemáticas necessárias para cada operação
+- Dimensões das matrizes
+- Valores numéricos introduzidos
+- Condições matemáticas necessárias para cada operação
 
-- Requisitos Não Funcionais
+## Requisitos não funcionais
 
-RNF01 – Desempenho
+##### RNF01 – Desempenho
 O sistema deve executar operações matriciais de pequena e média dimensão num tempo de resposta inferior a 1 segundo, garantindo fluidez na interação com o utilizador.
 
-RNF02 – Usabilidade
+##### RNF02 – Usabilidade
 O sistema deve apresentar uma interface simples e intuitiva, permitindo que utilizadores com conhecimentos básicos de matemática consigam realizar operações sem dificuldade.
 
-RNF03 – Fiabilidade
+##### RNF03 – Fiabilidade
 O sistema deve garantir resultados matematicamente corretos, respeitando rigorosamente as definições formais das operações matriciais.
 
-RNF04 – Segurança dos Dados
+##### RNF04 – Segurança dos Dados
 O sistema não deve armazenar permanentemente mensagens introduzidas para criptografia, garantindo a confidencialidade dos dados do utilizador durante a execução.
 
-RNF05 – Robustez
+##### RNF05 – Robustez
 O sistema deve lidar corretamente com erros, como:
     - Matrizes incompatíveis
     - Determinantes nulos
     - Introdução de dados inválidos
-    - Apresentando mensagens claras ao utilizador.
+    - Apresentar mensagens claras ao utilizador.
 
-RNF06 – Escalabilidade
+##### RNF06 – Escalabilidade
 O sistema deve ser projetado de forma a permitir, no futuro, a adição de novas operações matemáticas ou métodos de criptografia sem necessidade de reestruturação profunda.
 
-RNF07 – Conformidade
+##### RNF07 – Conformidade
 O sistema deve respeitar boas práticas de desenvolvimento de software e normas académicas, garantindo clareza, organização e manutenção do código.

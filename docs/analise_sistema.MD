@@ -71,16 +71,16 @@ O sistema deve ser projetado de forma a permitir, no futuro, a adição de novas
 O sistema deve respeitar boas práticas de desenvolvimento de software e normas académicas, garantindo clareza, organização e manutenção do código.
 
 ### Casos de uso
-![casos_uso](./assets/casos_uso.png)
+![casos_uso](./UMLS/casos_uso.png)
 
 ### Diagrama de classes
 Neste diagrama, representamos a estrutura e relações da classe Matriz:
-![diagrama_classes](./assets/matrix_class.png)
+![diagrama_classes](./UMLS/matrix_class.png)
 
 ### Diagrama de sequências
 O seguinte diagrama mostra a sequência dos processos e a estrutura do nossso projeto:
-![diagrama_sequencia](./assets/Sequence_Diagram.png)
+![diagrama_sequencia](./UMLS/Sequence_Diagram.png)
 
 ### Fluxograma - unit test
 O seguinte fluxograma descreve como seria o fluxo enquanto se executa os testes:
-![fluxograma_unittest](./assets/unit_tests_diagram.png)
+![fluxograma_unittest](./UMLS/unit_tests_diagram.png)

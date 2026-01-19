@@ -6,47 +6,42 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     """Página inicial/menu."""
-    pass
+    return render_template('index.html')
 
-@app.route('/sum', methods=['GET', 'POST'])
+@app.route('/sum-sub', methods=['GET', 'POST'])
 def sum_sub():
     """Soma/Subtração de matrizes."""
-    pass
-
-@app.route('/scalar', methods=['GET', 'POST'])
-def scalar():
-    """Multiplicação de matriz por escalar."""
-    pass
+    return render_template('sum_sub.html')
 
 @app.route('/multiply', methods=['GET', 'POST'])
 def multiply():
     """Multiplicação de matrizes."""
-    pass
+    return render_template('multiply.html')
+
+@app.route('/scalar', methods=['GET', 'POST'])
+def scalar():
+    """Multiplicação de matriz por escalar."""
+    return render_template('scalar.html')
 
 @app.route('/determinant', methods=['GET', 'POST'])
 def determinant():
     """Cálculo de determinante."""
-    pass
+    return render_template('determinant.html')
 
 @app.route('/inverse', methods=['GET', 'POST'])
 def inverse():
     """Cálculo de matriz inversa."""
-    pass
+    return render_template('inverse.html')
 
 @app.route('/encrypt', methods=['GET', 'POST'])
 def encrypt():
     """Criptografia de mensagens usando multiplicação matricial."""
-    pass
+    return render_template('encrypt.html')
 
 @app.route('/decrypt', methods=['GET', 'POST'])
 def decrypt():
     """Descriptografia de mensagens usando multiplicação matricial."""
-    pass
-
-@app.route('/check_matrix', methods=['POST'])
-def check_matrix():
-    """Endpoint para verificar se uma matriz é válida para criptografia."""
-    pass
+    return render_template('decrypt.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

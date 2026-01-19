@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Determinante - Calculadora de Matrizes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <main>
+        <h2>Cálculo de Determinante</h2>
+        
+        <form id="matrix-form">
+            <label for="size">Tamanho da Matriz:</label>
+            <input type="number" id="size" name="size" min="1" value="3">
+            
+            <button type="button" id="generate-btn">Gerar Matriz</button>
+            
+            <div id="matrix-inputs"></div>
+            
+            <button type="submit">Calcular</button>
+        </form>
+        
+        <div id="result"></div>
+    </main>
+</body>
+</html>

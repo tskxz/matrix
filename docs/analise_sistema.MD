@@ -1,6 +1,6 @@
-Análise de sistema
-Authors: Tanjil Khan, Dmytro Bohutsky, Luís Martins, Ricardo Magalhães
-Date: 01/19/2026
+Análise de sistema  
+Authors: Tanjil Khan, Dmytro Bohutsky, Luís Martins, Ricardo Magalhães  
+Date: 01/19/2026  
 
 ## Requisitos funcionais
 O sistema deve ter as seguintes funcionalidades:

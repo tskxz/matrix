@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desencriptação - Calculadora de Matrizes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desencriptação - Calculadora de Matrizes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
 </head>
 <body>
-    {% include 'header.html' %}
+  {% include 'header.html' %}
+  
+  <main>
+    <h2>Desencriptação de Mensagens</h2>
     
-    <main>
-        <h2>Desencriptação de Mensagens</h2>
-        
-        <form id="encrypt-form">
-            <label for="message">Mensagem:</label>
-            <textarea id="message" name="message" rows="4"></textarea>
-            
-            <label for="size">Tamanho da Matriz de Codificação:</label>
-            <input type="number" id="size" name="size" min="2" value="2">
-            
-            <button type="button" id="generate-btn">Gerar Matriz de Codificação</button>
-            
-            <div id="matrix-inputs"></div>
-            
-            <button type="button" id="decrypt-btn">Desencriptar</button>
-        </form>
-        
-        <div id="result"></div>
-    </main>
+    <form id="decrypt-form">
+      <label for="size">Tamanho da Matriz:</label>
+      <input type="number" id="size" name="size" min="2" max="10" value="2">
+      
+      <label for="encrypted-cols">Colunas da Matriz Encriptada:</label>
+      <input type="number" id="encrypted-cols" name="encrypted-cols" min="1" max="50" value="14">
+      
+      <button type="button" id="generate-btn" class="btn-secondary">Gerar Matrizes</button>
+      
+      <div id="matrix-inputs"></div>
+      
+      <button type="submit" class="btn-primary">Desencriptar</button>
+    </form>
+    
+    <div id="result"></div>
+    <div id="error" class="error-message"></div>
+  </main>
+  
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/matrix-builder.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/decrypt.js') }}"></script>
 </body>
 </html>

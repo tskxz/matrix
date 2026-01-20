@@ -64,12 +64,12 @@ def multiply():
         return render_template('multiply.html')
     
     data = request.get_json()
-    matrix_a = Matrix(data['rows'], 
-                      data['cols'], 
+    matrix_a = Matrix(data['rows_a'], 
+                      data['cols_a'], 
                       data['matrix_a'])
     
-    matrix_b = Matrix(data['rows'], 
-                      data['cols'], 
+    matrix_b = Matrix(data['rows_b'], 
+                      data['cols_b'], 
                       data['matrix_b'])
     
     return handle_matrix_operation(matrix_a.multiply, matrix_b)

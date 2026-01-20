@@ -5,13 +5,13 @@ class Matrix:
         'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9, 'J': 10,
         'K': 11, 'L': 12, 'M': 13, 'N': 14, 'O': 15, 'P': 16, 'Q': 17, 'R': 18, 'S': 19,
         'T': 20, 'U': 21, 'V': 22, 'W': 23, 'X': 24, 'Y': 25, 'Z': 26,
-        '.': 27, ',': 28, '_': 29, ' ': 29, '-': 30
+        '.': 27, ',': 28, ' ': 29, '_': 29, '-': 30
     }
 
     # Reverse mapping from numbers to characters using CHAR_TO_NUM
-    NUM_TO_CHAR = {v: k for k, v in CHAR_TO_NUM.items() if k != ' '}
-    # Ensure '_' space maps to 29 as well
-    NUM_TO_CHAR[29] = '_'
+    NUM_TO_CHAR = {v: k for k, v in CHAR_TO_NUM.items()}
+    # Ensure ' ' space maps to 29 as well
+    NUM_TO_CHAR[29] = ' '
     
     def __init__(self, rows, cols, data=None):
         # Intialize matrix with given rows and columns
@@ -20,8 +20,17 @@ class Matrix:
         if data is None:
             self.data = [[0 for _ in range(cols)] for _ in range(rows)]
         else:
-            if len(data) != rows or any(len(row) != cols for row in data):
-                raise ValueError(f"Dimensões incorretas: esperado {rows}×{cols}")
+            if not isinstance(data, list):
+                raise ValueError("Data deve ser uma lista")
+            if len(data) != rows:
+                raise ValueError(f"Número de linhas incorreto: esperado {rows}, recebido {len(data)}")
+
+            for i, row in enumerate(data):
+                if not isinstance(row, list):
+                    raise ValueError(f"Linha {i} não é uma lista")
+                if len(row) != cols:
+                    raise ValueError(f"Linha {i}: esperado {cols} colunas, recebido {len(row)} colunas")
+            
             self.data = [row[:] for row in data]
     
     def __str__(self):
@@ -144,7 +153,7 @@ class Matrix:
         return Matrix(self.rows - 1, self.cols - 1, minor_data)
     
     def _get_cofactor(self, row, col):
-        # Get cofactor of element at specified row and column (for determinant calculation)
+        # Get cofactor of element at specified row and column (for inverse calculation)
         minor = self._get_minor(row, col)
         sign = (-1) ** (row + col)
         return sign * minor.determinant()
@@ -164,7 +173,7 @@ class Matrix:
     @staticmethod
     def num_to_char(num):
         # Convert number to corresponding character based on CHAR_TO_NUM mapping "decryption"
-        return Matrix.NUM_TO_CHAR.get(num, '_')
+        return Matrix.NUM_TO_CHAR.get(num, ' ')
     
     def encrypt_message(self, message):
         # Encrypt message using matrix multiplication (message_matrix * encoding_matrix = encrypted_matrix)
@@ -187,7 +196,7 @@ class Matrix:
                 numeric_sequence.append(int(encrypted_matrix.data[rows][cols]))
         
         return {
-            'message_matrix': message_matrix,
+            'message_matrix': message_matrix.to_list(),
             'encrypted_matrix': encrypted_matrix,
             'numeric_sequence': numeric_sequence
         }
@@ -205,7 +214,7 @@ class Matrix:
         decrypted_message = ''.join(Matrix.num_to_char(num) for num in numbers)
         
         return {
-            'message_matrix': message_matrix,
+            'message_matrix': message_matrix.to_list(),
             'decrypted_message': decrypted_message,
             'numeric_sequence': numbers
         }

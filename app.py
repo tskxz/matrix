@@ -64,8 +64,13 @@ def multiply():
         return render_template('multiply.html')
     
     data = request.get_json()
-    matrix_a = Matrix(data['rows_a'], data['cols_a'], data['matrix_a'])
-    matrix_b = Matrix(data['rows_b'], data['cols_b'], data['matrix_b'])
+    matrix_a = Matrix(data['rows'], 
+                      data['cols'], 
+                      data['matrix_a'])
+    
+    matrix_b = Matrix(data['rows'], 
+                      data['cols'], 
+                      data['matrix_b'])
     
     return handle_matrix_operation(matrix_a.multiply, matrix_b)
 
@@ -76,7 +81,9 @@ def transpose():
         return render_template('transpose.html')
     
     data = request.get_json()
-    matrix = Matrix(data['rows'], data['cols'], data['matrix'])
+    matrix = Matrix(data['rows'],
+                    data['cols'],
+                    data['matrix'])
     
     return handle_matrix_operation(matrix.transpose)
 
@@ -87,7 +94,9 @@ def scalar():
         return render_template('scalar.html')
     
     data = request.get_json()
-    matrix = Matrix(data['rows'], data['cols'], data['matrix'])
+    matrix = Matrix(data['rows'], 
+                    data['cols'], 
+                    data['matrix'])
     
     return handle_matrix_operation(matrix.scalar_multiply, data['scalar'])
 
@@ -98,7 +107,9 @@ def determinant():
         return render_template('determinant.html')
     
     data = request.get_json()
-    matrix = Matrix(data['size'], data['size'], data['matrix'])
+    matrix = Matrix(data['size'], 
+                    data['size'], 
+                    data['matrix'])
     
     return handle_matrix_operation(matrix.determinant)
 
@@ -109,7 +120,9 @@ def inverse():
         return render_template('inverse.html')
     
     data = request.get_json()
-    matrix = Matrix(data['size'], data['size'], data['matrix'])
+    matrix = Matrix(data['size'], 
+                    data['size'], 
+                    data['matrix'])
     
     return handle_matrix_operation(matrix.inverse)
 
@@ -120,7 +133,10 @@ def encrypt():
         return render_template('encrypt.html')
     
     data = request.get_json()
-    encoding_matrix = Matrix(data['size'], data['size'], data['encoding_matrix'])
+    encoding_matrix = Matrix(data['size'], 
+                             data['size'], 
+                             data['encoding_matrix'])
+    
     result = encoding_matrix.encrypt_message(data['message'])
     
     return jsonify({
@@ -135,8 +151,13 @@ def decrypt():
         return render_template('decrypt.html')
     
     data = request.get_json()
-    encoding_matrix = Matrix(data['size'], data['size'], data['encoding_matrix'])
-    encrypted_matrix = Matrix(data['size'], data['encrypted_cols'], data['encrypted_matrix'])
+    encoding_matrix = Matrix(data['size'], 
+                             data['size'], 
+                             data['encoding_matrix'])
+    
+    encrypted_matrix = Matrix(data['size'], 
+                              data['encrypted_cols'], 
+                              data['encrypted_matrix'])
     
     return handle_matrix_operation(encoding_matrix.decrypt_message, encrypted_matrix)
 

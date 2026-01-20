@@ -560,6 +560,7 @@
                                 <p><strong>Erro:</strong> ${data.error || 'Erro desconhecido'}</p>
                             </div>
                         `;
+                        elements.result.scrollIntoView({ behavior: 'smooth' });
                     }
                 } catch (error) {
                     console.error("Erro:", error);
@@ -568,6 +569,7 @@
                             <p>Erro de comunicação com o servidor</p>
                         </div>
                     `;
+                    elements.result.scrollIntoView({ behavior: 'smooth' });
                 } finally {
                     elements.calculateBtn.disabled = false;
                     elements.calculateBtn.textContent = 'Executar';

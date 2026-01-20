@@ -21,8 +21,18 @@ form.addEventListener('submit', async function(e) {
     encoding_matrix: readMatrixValues('encoding-matrix'),
     message: document.getElementById('message').value
   };
+
+  const payload_determinant = {
+    size: parseInt(document.getElementById('size').value),
+    matrix: readMatrixValues('encoding-matrix')
+  };
   
   try {
+    const detResult = await apiCall('/determinant', payload_determinant);
+    if (detResult.result === 0) {
+      showError('A matriz de codificação deve ser invertível (determinante diferente de zero).');
+      return;
+    }
     const result = await apiCall('/encrypt', payload);
     displayMatrix(result.encrypted_matrix, 'Mensagem Encriptada');
   } catch (error) {

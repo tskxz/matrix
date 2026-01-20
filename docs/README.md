@@ -1,4 +1,4 @@
-# Matrix Project
+# Matrix
 
 ## How to use
 - Clone the project using ```git clone https://github.com/tskxz/matrix``` 

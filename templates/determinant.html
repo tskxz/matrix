@@ -1,315 +1,35 @@
-{% extends "base.html" %}
-
-{% block title %}Determinante{% endblock %}
-{% block header_text %}Cálculo de Determinante{% endblock %}
-
-{% block content %}
-    <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Determinante - Calculadora de Matrizes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+</head>
+<body>
+  {% include 'header.html' %}
+  
+  <main>
+    <h2>Cálculo de Determinante</h2>
     
-    <div class="info-box">
-        <p><strong>Regras importantes:</strong></p>
-        <ul>
-            <li>Só existe determinante para matrizes quadradas</li>
-            <li>Se determinante = 0, a matriz é <strong>singular</strong> (não tem inversa)</li>
-            <li>Métodos usados:
-                <ul>
-                    <li>1×1: Direto</li>
-                    <li>2×2: Fórmula ad - bc</li>
-                    <li>3×3: Regra de Sarrus</li>
-                    <li>4×4+: Expansão por cofatores</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    
-    <form id="matrixForm">
-        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
-            <div>
-                <label for="size">Tamanho (n×n):</label>
-                <input type="number" id="size" min="1" max="6" value="2" required>
-            </div>
-            <button type="button" id="generateBtn" class="btn-secondary">Gerar Matriz</button>
-        </div>
-        
-        <div id="matrixInput"></div>
-        
-        <div style="margin: 1rem 0;">
-            <label for="method">Método de cálculo:</label>
-            <select id="method">
-                <option value="auto">Automático (recomendado)</option>
-                <option value="direct">Cálculo direto (1×1, 2×2, 3×3)</option>
-                <option value="laplace">Expansão de Laplace (todos os tamanhos)</option>
-            </select>
-        </div>
-        
-        <button type="submit" class="btn-success" id="calculateBtn">Calcular Determinante</button>
+    <form id="matrix-form">
+      <label for="size">Tamanho da Matriz:</label>
+      <input type="number" id="size" name="size" min="1" max="10" value="3">
+      
+      <button type="button" id="generate-btn" class="btn-secondary">Gerar Matriz</button>
+      
+      <div id="matrix-inputs"></div>
+      
+      <button type="submit" class="btn-primary">Calcular</button>
     </form>
     
     <div id="result"></div>
-    
-    <style>
-        /* Estilos adicionais para garantir que o resultado seja visível */
-        .result-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #28a745;
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        .result-container.show {
-            display: block !important;
-        }
-        
-        .matrix-display {
-            margin-bottom: 1.5rem;
-        }
-        
-        .determinant-value {
-            font-size: 1.5rem;
-            text-align: center;
-            padding: 1rem;
-            background: white;
-            border-radius: 6px;
-            margin: 1rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .value-type {
-            font-size: 0.8rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-        }
-        
-        .value-type.integer {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .value-type.float {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .alert {
-            padding: 0.75rem;
-            border-radius: 4px;
-            margin: 1rem 0;
-        }
-        
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .alert-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-        
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .matrix-result table {
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-        
-        .matrix-result td {
-            padding: 0.5rem 1rem;
-            border: 1px solid #dee2e6;
-            text-align: center;
-            min-width: 50px;
-        }
-        
-        .matrix-result td.integer {
-            font-weight: bold;
-        }
-        
-        .matrix-result td.decimal {
-            color: #495057;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = {
-                size: document.getElementById("size"),
-                matrixInput: document.getElementById("matrixInput"),
-                form: document.getElementById("matrixForm"),
-                result: document.getElementById("result"),
-                generateBtn: document.getElementById("generateBtn"),
-                calculateBtn: document.getElementById("calculateBtn"),
-                method: document.getElementById("method")
-            };
-
-            function generateInputs() {
-                const n = parseInt(elements.size.value);
-                
-                elements.matrixInput.innerHTML = `
-                    <div class="matrix-input">
-                        <h3>Matriz ${n}×${n}</h3>
-                        ${Array(n).fill().map((_, i) => `
-                            <div class="matrix-row" style="display: flex; gap: 0.5rem; margin: 0.5rem 0; justify-content: center;">
-                                ${Array(n).fill().map((_, j) => `
-                                    <input type="number" step="0.01" value="${i === j ? 1 : 0}" 
-                                           data-row="${i}" data-col="${j}" required
-                                           placeholder="${i}.${j}"
-                                           style="width: 70px; padding: 0.5rem; text-align: center; border: 1px solid #ccc; border-radius: 4px;">
-                                `).join('')}
-                            </div>
-                        `).join('')}
-                        <p class="hint" style="text-align: center; color: #666; font-size: 0.9rem; margin-top: 1rem;">
-                            Preencha todos os elementos da matriz quadrada
-                        </p>
-                    </div>
-                `;
-                
-                elements.calculateBtn.disabled = false;
-            }
-
-            function collectMatrixData() {
-                const n = parseInt(elements.size.value);
-                const matrix = [];
-                
-                for (let i = 0; i < n; i++) {
-                    matrix[i] = [];
-                    for (let j = 0; j < n; j++) {
-                        const input = document.querySelector(
-                            `input[data-row="${i}"][data-col="${j}"]`
-                        );
-                        matrix[i][j] = parseFloat(input.value) || 0;
-                    }
-                }
-                
-                return matrix;
-            }
-
-            function matrixToHTML(matrix) {
-                return `
-                    <table style="margin: 0 auto; border-collapse: collapse;">
-                        <tbody>
-                            ${matrix.map(row => `
-                                <tr>
-                                    ${row.map(val => {
-                                        const num = parseFloat(val);
-                                        const isInteger = Math.abs(num - Math.round(num)) < 0.0001;
-                                        const formatted = isInteger ? num.toFixed(0) : num.toFixed(2);
-                                        const cellClass = isInteger ? 'integer' : 'decimal';
-                                        
-                                        return `<td class="${cellClass}" style="padding: 0.5rem 1rem; border: 1px solid #dee2e6; text-align: center; min-width: 50px;">
-                                            ${formatted}
-                                        </td>`;
-                                    }).join('')}
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                `;
-            }
-
-            function displayResult(data) {
-                console.log("Dados recebidos para exibição:", data);
-                
-                const detValue = parseFloat(data.determinant);
-                const isInteger = Math.abs(detValue - Math.round(detValue)) < 0.0001;
-                const formattedDet = isInteger ? detValue.toFixed(0) : detValue.toFixed(4);
-                const valueType = isInteger ? 'integer' : 'float';
-                
-                elements.result.innerHTML = `
-                    <div class="result-container" style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
-                        <h3 style="margin-top: 0; text-align: center;">Resultado do Determinante</h3>
-                        
-                        <div class="matrix-display" style="margin-bottom: 1.5rem;">
-                            <h4 style="text-align: center;">Matriz Informada (${data.size}×${data.size})</h4>
-                            ${matrixToHTML(data.matrix)}
-                        </div>
-                        
-                        <div class="result-details">
-                            <div class="determinant-value" style="font-size: 1.5rem; text-align: center; padding: 1rem; background: white; border-radius: 6px; margin: 1rem 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                <strong style="color: #28a745;">det(A) = ${formattedDet}</strong>
-                                <span class="value-type" style="font-size: 0.8rem; padding: 0.2rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle; background: ${isInteger ? '#d4edda' : '#fff3cd'}; color: ${isInteger ? '#155724' : '#856404'};">
-                                    ${isInteger ? 'INTEIRO' : 'DECIMAL'}
-                                </span>
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 1rem;">
-                                ${data.determinant === 0 ? 
-                                    '<div class="alert alert-warning" style="padding: 0.75rem; border-radius: 4px; background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;">⚠️ Matriz SINGULAR (determinante = 0)</div>' : 
-                                    '<div class="alert alert-success" style="padding: 0.75rem; border-radius: 4px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb;">✓ Matriz NÃO-SINGULAR (determinante ≠ 0)</div>'}
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
-                                Método usado: <strong>${data.method}</strong> | Tamanho: ${data.size}×${data.size}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-
-            function showError(msg) {
-                elements.result.innerHTML = `
-                    <div class="alert alert-error" style="padding: 1rem; border-radius: 4px; background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; margin-top: 1rem;">
-                        <p style="margin: 0;"><strong>Erro:</strong> ${msg}</p>
-                    </div>
-                `;
-            }
-
-            // Event listeners
-            elements.generateBtn.addEventListener('click', generateInputs);
-            elements.size.addEventListener('change', generateInputs);
-
-            elements.form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const matrix = collectMatrixData();
-                const size = parseInt(elements.size.value);
-                const method = elements.method.value;
-                
-                const payload = {
-                    size: size,
-                    matrix: matrix,
-                    method: method
-                };
-                
-                console.log("Enviando para servidor:", payload);
-                
-                try {
-                    const response = await fetch("/determinant", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    const data = await response.json();
-                    console.log("Resposta do servidor:", data);
-                    
-                    if (response.ok) {
-                        displayResult(data);
-                    } else {
-                        showError(data.error || "Erro desconhecido");
-                    }
-                } catch (error) {
-                    console.error("Erro:", error);
-                    showError("Erro de comunicação com o servidor");
-                }
-            });
-
-            // Inicializar
-            generateInputs();
-        });
-    </script>
-{% endblock %}
+    <div id="error" class="error-message"></div>
+  </main>
+  
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/matrix-builder.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/determinant.js') }}"></script>
+</body>
+</html>

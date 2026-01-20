@@ -24,12 +24,12 @@ function showError(message) {
 }
 
 function hideCalculateButton(){
-  const btn = document.getElementById('calcular-btn');
+  const btn = document.getElementById('calculate-btn');
   if (btn) btn.style.display = 'none';
 }
 
 function showCalculateButton() {
-  const btn = document.getElementById('calcular-btn');
+  const btn = document.getElementById('calculate-btn');
   if (btn) btn.style.display = 'block';
 }
 

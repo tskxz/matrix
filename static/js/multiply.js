@@ -18,7 +18,7 @@ generateBtn.addEventListener('click', function() {
   }
   generateMatrixInput(rowsA, colsA, 'matrix-inputs', 'Matriz A', 'matrix-a');
   generateMatrixInput(rowsB, colsB, 'matrix-inputs', 'Matriz B', 'matrix-b');
-  showCalcularBotao();
+  showCalculateButton();
 });
 
 form.addEventListener('submit', async function(e) {

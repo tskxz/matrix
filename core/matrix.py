@@ -144,7 +144,7 @@ class Matrix:
         return Matrix(self.rows - 1, self.cols - 1, minor_data)
     
     def _get_cofactor(self, row, col):
-        # Get cofactor of element at specified row and column (for determinant calculation)
+        # Get cofactor of element at specified row and column (for inverse calculation)
         minor = self._get_minor(row, col)
         sign = (-1) ** (row + col)
         return sign * minor.determinant()

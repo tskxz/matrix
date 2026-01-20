@@ -21,8 +21,10 @@ form.addEventListener('submit', async function(e) {
   hideResult();
   
   const payload = {
-    rows: parseInt(document.getElementById('rows-a').value),
-    cols: parseInt(document.getElementById('cols-a').value),
+    rows_a: parseInt(document.getElementById('rows-a').value),
+    cols_a: parseInt(document.getElementById('cols-a').value),
+    rows_b: parseInt(document.getElementById('rows-b').value),
+    cols_b: parseInt(document.getElementById('cols-b').value),
     matrix_a: readMatrixValues('matrix-a'),
     matrix_b: readMatrixValues('matrix-b')
   };

@@ -10,16 +10,23 @@ generateBtn.addEventListener('click', function() {
   clearMatrixInputs();
   hideError();
   hideResult();
-  
+  hideCalculateButton();
+
+  if(colsA !== rowsB) {
+    showError('Error: As Colunas de A tem de ter a mesma quantidade das Linhas de B ( col_a = row_b )');
+    return;
+  }
   generateMatrixInput(rowsA, colsA, 'matrix-inputs', 'Matriz A', 'matrix-a');
   generateMatrixInput(rowsB, colsB, 'matrix-inputs', 'Matriz B', 'matrix-b');
+  showCalculateButton();
 });
 
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
   hideError();
   hideResult();
-  
+  showCalculateButton();
+
   const payload = {
     rows_a: parseInt(document.getElementById('rows-a').value),
     cols_a: parseInt(document.getElementById('cols-a').value),

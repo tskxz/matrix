@@ -10,16 +10,23 @@ generateBtn.addEventListener('click', function() {
   clearMatrixInputs();
   hideError();
   hideResult();
-  
+  hideCalcularBotao();
+
+  if(colsA !== rowsB) {
+    showError('numero de colunas a tem que ser igual ao numero de linhas b para multiplicação.');
+    return;
+  }
   generateMatrixInput(rowsA, colsA, 'matrix-inputs', 'Matriz A', 'matrix-a');
   generateMatrixInput(rowsB, colsB, 'matrix-inputs', 'Matriz B', 'matrix-b');
+  showCalcularBotao();
 });
 
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
   hideError();
   hideResult();
-  
+  showCalcularBotao();
+
   const payload = {
     rows_a: parseInt(document.getElementById('rows-a').value),
     cols_a: parseInt(document.getElementById('cols-a').value),

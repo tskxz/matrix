@@ -23,6 +23,16 @@ function showError(message) {
   }
 }
 
+function hideCalcularBotao(){
+  const btn = document.getElementById('calcular-btn');
+  if (btn) btn.style.display = 'none';
+}
+
+function showCalcularBotao() {
+  const btn = document.getElementById('calcular-btn');
+  if (btn) btn.style.display = 'block';
+}
+
 function hideError() {
   document.getElementById('error')?.classList.remove('show');
 }

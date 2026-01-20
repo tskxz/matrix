@@ -197,10 +197,10 @@ class TestMatrixEncryption(unittest.TestCase):
         
         decrypted = encoding_matrix.decrypt_message(encrypted['encrypted_matrix'])
         
-        original_upper = message.upper().replace(' ', '_')
+        original_upper = message.upper()
         decrypted_text = decrypted['decrypted_message']
-        decrypted_text = decrypted_text.rstrip('_')
-        original_upper = original_upper.rstrip('_')
+        decrypted_text = decrypted_text.rstrip(' ')
+        original_upper = original_upper.rstrip(' ')
         
         self.assertEqual(decrypted_text, original_upper)
     
@@ -214,7 +214,7 @@ class TestMatrixEncryption(unittest.TestCase):
         self.assertEqual(Matrix.num_to_char(1), 'A')
         self.assertEqual(Matrix.num_to_char(26), 'Z')
         self.assertEqual(Matrix.num_to_char(27), '.')
-        self.assertEqual(Matrix.num_to_char(29), '_')
+        self.assertEqual(Matrix.num_to_char(29), ' ')
 
 
 if __name__ == '__main__':

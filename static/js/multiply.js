@@ -13,7 +13,7 @@ generateBtn.addEventListener('click', function() {
   hideCalculateButton();
 
   if(colsA !== rowsB) {
-    showError('numero de colunas a tem que ser igual ao numero de linhas b para multiplicação.');
+    showError('Error: As Colunas de A tem de ter a mesma quantidade das Linhas de B ( col_a = row_b )');
     return;
   }
   generateMatrixInput(rowsA, colsA, 'matrix-inputs', 'Matriz A', 'matrix-a');

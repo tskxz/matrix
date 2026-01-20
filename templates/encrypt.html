@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encriptação - Calculadora de Matrizes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encriptação - Calculadora de Matrizes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
 </head>
 <body>
-    {% include 'header.html' %}
+  {% include 'header.html' %}
+  
+  <main>
+    <h2>Encriptação de Mensagens</h2>
     
-    <main>
-        <h2>Encriptação de Mensagens</h2>
-        
-        <form id="encrypt-form">
-            <label for="message">Mensagem:</label>
-            <textarea id="message" name="message" rows="4"></textarea>
-            
-            <label for="size">Tamanho da Matriz de Codificação:</label>
-            <input type="number" id="size" name="size" min="2" value="2">
-            
-            <button type="button" id="generate-btn">Gerar Matriz de Codificação</button>
-            
-            <div id="matrix-inputs"></div>
-            
-            <button type="button" id="encrypt-btn">Encriptar</button>
-        </form>
-        
-        <div id="result"></div>
-    </main>
+    <form id="encrypt-form">
+      <label for="message">Mensagem:</label>
+      <textarea id="message" name="message" rows="3" placeholder="Digite sua mensagem..."></textarea>
+      
+      <label for="size">Tamanho da Matriz:</label>
+      <input type="number" id="size" name="size" min="2" max="10" value="2">
+      
+      <button type="button" id="generate-btn" class="btn-secondary">Gerar Matriz</button>
+      
+      <div id="matrix-inputs"></div>
+      
+      <button type="submit" class="btn-primary">Encriptar</button>
+    </form>
+    
+    <div id="result"></div>
+    <div id="error" class="error-message"></div>
+  </main>
+  
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/matrix-builder.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/encrypt.js') }}"></script>
 </body>
 </html>

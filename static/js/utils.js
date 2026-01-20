@@ -23,12 +23,12 @@ function showError(message) {
   }
 }
 
-function hideCalcularBotao(){
+function hideCalculateButton(){
   const btn = document.getElementById('calcular-btn');
   if (btn) btn.style.display = 'none';
 }
 
-function showCalcularBotao() {
+function showCalculateButton() {
   const btn = document.getElementById('calcular-btn');
   if (btn) btn.style.display = 'block';
 }

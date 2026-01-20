@@ -10,7 +10,7 @@ generateBtn.addEventListener('click', function() {
   clearMatrixInputs();
   hideError();
   hideResult();
-  hideCalcularBotao();
+  hideCalculateButton();
 
   if(colsA !== rowsB) {
     showError('numero de colunas a tem que ser igual ao numero de linhas b para multiplicação.');
@@ -25,7 +25,7 @@ form.addEventListener('submit', async function(e) {
   e.preventDefault();
   hideError();
   hideResult();
-  showCalcularBotao();
+  showCalculateButton();
 
   const payload = {
     rows_a: parseInt(document.getElementById('rows-a').value),

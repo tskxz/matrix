@@ -30,7 +30,7 @@ form.addEventListener('submit', async function(e) {
   try {
     const detResult = await apiCall('/determinant', payload_determinant);
     if (detResult.result === 0) {
-      showError('A matriz de codificação deve ser invertível (determinante diferente de zero).');
+      showError('A matriz de codificação deve ser invertível (det ≠ 0).');
       return;
     }
     const result = await apiCall('/encrypt', payload);

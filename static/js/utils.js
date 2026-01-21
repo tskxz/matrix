@@ -19,7 +19,6 @@ function showError(message) {
   if (errorDiv) {
     errorDiv.textContent = message;
     errorDiv.classList.add('show');
-    setTimeout(() => errorDiv.classList.remove('show'), 2000);
   }
 }
 

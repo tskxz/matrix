@@ -33,9 +33,53 @@ form.addEventListener('submit', async function(e) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `<h3>Mensagem Desencriptada</h3><p style="font-size: 1.2rem; padding: 1rem; background: #f8f9fa; border-radius: 4px;">${result.decrypted_message}</p>`;
     showResult();
+
+    const exportBtn = document.createElement('button');
+          exportBtn.textContent = 'Exportar como JSON';
+          exportBtn.className = 'btn-secondary';
+          exportBtn.style.marginTop = '1rem';
+
+          exportBtn.onclick = () => exportDecryptAsJSON(
+          payload.encoding_matrix,
+          payload.encrypted_matrix,
+    result.decrypted_message
+);
+
+resultDiv.appendChild(exportBtn);
+
+showResult();
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
+
+function formatMatrix(matrix, indent = 2) {
+  const space = ' '.repeat(indent);
+  return '[\n' +
+    matrix
+      .map(row => `${space}[${row.join(', ')}]`)
+      .join(',\n') +
+    '\n]';
+}
+
+function exportDecryptAsJSON(encodingMatrix, encryptedMatrix, decryptedMessage) {
+  const json =
+`{
+  "operation": "decrypt",
+  "encodingMatrix": ${formatMatrix(encodingMatrix, 4)},
+  "encryptedMatrix": ${formatMatrix(encryptedMatrix, 4)},
+  "decryptedMessage": "${decryptedMessage}"
+}`;
+
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'desencriptacao.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}

@@ -59,14 +59,7 @@ document.getElementById('result').appendChild(exportBtn);
 
 generateBtn.click();
 
-function formatMatrix(matrix, indent = 2) {
-  const space = ' '.repeat(indent);
-  return '[\n' +
-    matrix
-      .map(row => `${space}[${row.join(', ')}]`)
-      .join(',\n') +
-    '\n]';
-}
+const json = formatMatrix(matrixA, 4); 
 
 function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const json =

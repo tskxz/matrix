@@ -54,14 +54,7 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-function formatMatrix(matrix, indent = 2) {
-  const space = ' '.repeat(indent);
-  return '[\n' +
-    matrix
-      .map(row => `${space}[${row.join(', ')}]`)
-      .join(',\n') +
-    '\n]';
-}
+const json = formatMatrix(matrixA, 4); 
 
 function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
   const json =

@@ -31,10 +31,11 @@ form.addEventListener('submit', async function(e) {
               exportBtn.textContent = 'Exportar como JSON';
               exportBtn.className = 'btn-secondary';
               exportBtn.style.marginTop = '1rem';
+			  
 
               exportBtn.onclick = () => exportInverseAsJSON(
               payload.matrix,
-        result.result
+              roundMatrix(result.result, 2) // ← aqui arredonda
 );
 
     document.getElementById('result').appendChild(exportBtn);
@@ -46,14 +47,7 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-function formatMatrix(matrix, indent = 2) {
-  const space = ' '.repeat(indent);
-  return '[\n' +
-    matrix
-      .map(row => `${space}[${row.join(', ')}]`)
-      .join(',\n') +
-    '\n]';
-}
+const json = formatMatrix(matrixA, 4); 
 
 
 function exportInverseAsJSON(originalMatrix, inverseMatrix) {

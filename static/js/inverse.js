@@ -34,7 +34,7 @@ form.addEventListener('submit', async function(e) {
 
 		exportBtn.onclick = () => exportInverseAsJSON(
 			payload.matrix,
-			roundMatrix(result.result, 2)
+			decimalMatrix(result.result, 2)
 		);
 
 		document.getElementById('result').appendChild(exportBtn);
@@ -46,15 +46,15 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 
 function exportInverseAsJSON(originalMatrix, inverseMatrix) {
 	const json =
 `{
   "operation": "inverse",
-  "originalMatrix": ${formatMatrix(originalMatrix, 4)},
-  "inverseMatrix": ${formatMatrix(inverseMatrix, 4)}
+  "originalMatrix": ${prettyJson(originalMatrix, 4)},
+  "inverseMatrix": ${prettyJson(inverseMatrix, 4)}
 }`;
 	
 	const blob = new Blob([json], { type: 'application/json' });

@@ -49,13 +49,13 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportDeterminantAsJSON(matrix, determinant) {
   const json =
 `{
   "operation": "determinant",
-  "matrix": ${formatMatrix(matrix, 4)},
+  "matrix": ${prettyJson(matrix, 4)},
   "result": ${determinant}
 }`;
 

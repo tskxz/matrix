@@ -54,15 +54,15 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
   const json =
 `{
   "operation": "encrypt",
   "message": "${message}",
-  "encodingMatrix": ${formatMatrix(encodingMatrix, 4)},
-  "encryptedMatrix": ${formatMatrix(encryptedMatrix, 4)}
+  "encodingMatrix": ${prettyJson(encodingMatrix, 4)},
+  "encryptedMatrix": ${prettyJson(encryptedMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });

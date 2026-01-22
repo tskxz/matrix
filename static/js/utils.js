@@ -44,7 +44,7 @@ function hideResult() {
   document.getElementById('result')?.classList.remove('show');
 }
 
-function formatMatrix(matrix, indent = 2) {
+function prettyJson(matrix, indent = 2) {
   const space = ' '.repeat(indent);
   return '[\n' +
   matrix
@@ -53,7 +53,7 @@ function formatMatrix(matrix, indent = 2) {
   '\n]';
 }
 
-function roundMatrix(matrix, decimals = 2) {
+function decimalMatrix(matrix, decimals = 2) {
   return matrix.map(row =>
     row.map(num => Number(num.toFixed(decimals)))
   );

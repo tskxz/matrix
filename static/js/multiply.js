@@ -59,15 +59,15 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const json =
 `{
   "operation": "multiply",
-  "matrixA": ${formatMatrix(matrixA, 4)},
-  "matrixB": ${formatMatrix(matrixB, 4)},
-  "result": ${formatMatrix(resultMatrix, 4)}
+  "matrixA": ${prettyJson(matrixA, 4)},
+  "matrixB": ${prettyJson(matrixB, 4)},
+  "result": ${prettyJson(resultMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });

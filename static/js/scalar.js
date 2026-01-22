@@ -47,15 +47,15 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   const json =
 `{
   "operation": "scalar",
   "scalar": ${scalar},
-  "matrix": ${formatMatrix(matrix, 4)},
-  "result": ${formatMatrix(resultMatrix, 4)}
+  "matrix": ${prettyJson(matrix, 4)},
+  "result": ${prettyJson(resultMatrix, 4)}
 }`;
   
   const blob = new Blob([json], { type: 'application/json' });

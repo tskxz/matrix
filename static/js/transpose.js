@@ -45,14 +45,14 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportTransposeAsJSON(matrix, transposedMatrix) {
   const json =
 `{
   "operation": "transpose",
-  "matrix": ${formatMatrix(matrix, 4)},
-  "result": ${formatMatrix(transposedMatrix, 4)}
+  "matrix": ${prettyJson(matrix, 4)},
+  "result": ${prettyJson(transposedMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });

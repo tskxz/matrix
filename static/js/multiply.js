@@ -39,9 +39,51 @@ form.addEventListener('submit', async function(e) {
   try {
     const result = await apiCall('/multiply', payload);
     displayMatrix(result.result, 'Resultado (A × B)');
+
+    const exportBtn = document.createElement('button');
+          exportBtn.textContent = 'Exportar como JSON';
+          exportBtn.className = 'btn-secondary';
+          exportBtn.style.marginTop = '1rem';
+
+          exportBtn.onclick = () => exportMultiplyAsJSON(
+          payload.matrix_a,
+          payload.matrix_b,
+  result.result
+);
+
+document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
+
+function formatMatrix(matrix, indent = 2) {
+  const space = ' '.repeat(indent);
+  return '[\n' +
+    matrix
+      .map(row => `${space}[${row.join(', ')}]`)
+      .join(',\n') +
+    '\n]';
+}
+
+function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
+  const json =
+`{
+  "operation": "multiply",
+  "matrixA": ${formatMatrix(matrixA, 4)},
+  "matrixB": ${formatMatrix(matrixB, 4)},
+  "result": ${formatMatrix(resultMatrix, 4)}
+}`;
+
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'multiplicacao_matrizes.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}

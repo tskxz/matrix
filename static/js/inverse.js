@@ -35,7 +35,7 @@ form.addEventListener('submit', async function(e) {
 
               exportBtn.onclick = () => exportInverseAsJSON(
               payload.matrix,
-              roundMatrix(result.result, 2) // ← aqui arredonda
+              roundMatrix(result.result, 2)
 );
 
     document.getElementById('result').appendChild(exportBtn);

@@ -58,7 +58,7 @@ function formatMatrix(matrix, indent = 2) {
   const space = ' '.repeat(indent);
   return '[\n' +
     matrix
-      .map(row => `${space}[ ${row.join(', ')} ]`)
+      .map(row => `${space}[${row.join(', ')}]`)
       .join(',\n') +
     '\n]';
 }

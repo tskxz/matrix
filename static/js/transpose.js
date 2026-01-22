@@ -28,16 +28,16 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.result, 'Matriz Transposta');
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportTransposeAsJSON(
+      payload.matrix,
+      result.result
+    );
 
-          exportBtn.onclick = () => exportTransposeAsJSON(
-          payload.matrix,
-    result.result
-);
-
-document.getElementById('result').appendChild(exportBtn);
+    document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }

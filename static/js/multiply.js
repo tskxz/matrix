@@ -41,17 +41,17 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.result, 'Resultado (A × B)');
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
-
-          exportBtn.onclick = () => exportMultiplyAsJSON(
-          payload.matrix_a,
-          payload.matrix_b,
-  result.result
-);
-
-document.getElementById('result').appendChild(exportBtn);
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportMultiplyAsJSON(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result
+    );
+    
+    document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }

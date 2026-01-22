@@ -30,18 +30,18 @@ form.addEventListener('submit', async function(e) {
     showResult();
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
-
-          exportBtn.onclick = () => exportDeterminantAsJSON(
-        payload.matrix,
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportDeterminantAsJSON(
+      payload.matrix,
       result.result
-);
+    );
 
-resultDiv.appendChild(exportBtn);
+    resultDiv.appendChild(exportBtn);
 
-showResult();
+    showResult();
   } catch (error) {
     showError(error.message);
   }

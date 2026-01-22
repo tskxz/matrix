@@ -37,16 +37,16 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.encrypted_matrix, 'Mensagem Encriptada');
     
     const exportBtn = document.createElement('button');
-      exportBtn.textContent = 'Exportar como JSON';
-      exportBtn.className = 'btn-secondary';
-      exportBtn.style.marginTop = '1rem';
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
 
-      exportBtn.onclick = () => exportEncryptAsJSON(
-       payload.message,
-       payload.encoding_matrix,
-       result.encrypted_matrix
-   );
-       document.getElementById('result').appendChild(exportBtn);
+    exportBtn.onclick = () => exportEncryptAsJSON(
+      payload.message,
+      payload.encoding_matrix,
+      result.encrypted_matrix
+    );
+    document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }

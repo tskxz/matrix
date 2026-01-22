@@ -36,7 +36,7 @@ form.addEventListener('submit', async function(e) {
     exportBtn.className = 'btn-secondary';
     exportBtn.style.marginTop = '1rem';
 
-   exportBtn.onclick = () => exportAsJSON(
+    exportBtn.onclick = () => exportAsJSON(
       payload.matrix_a,
       payload.matrix_b,
       result.result,
@@ -62,14 +62,14 @@ function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   "matrixB": ${formatMatrix(matrixB, 4)},
   "result": ${formatMatrix(matrixResult, 4)}
 }`;
-
+  
   const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-
+  
   const a = document.createElement('a');
   a.href = url;
   a.download = 'matrizes.json';
   a.click();
-
+  
   URL.revokeObjectURL(url);
 }

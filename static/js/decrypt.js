@@ -35,19 +35,19 @@ form.addEventListener('submit', async function(e) {
     showResult();
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
 
-          exportBtn.onclick = () => exportDecryptAsJSON(
-          payload.encoding_matrix,
-          payload.encrypted_matrix,
-    result.decrypted_message
-);
+    exportBtn.onclick = () => exportDecryptAsJSON(
+      payload.encoding_matrix,
+      payload.encrypted_matrix,
+      result.decrypted_message
+    );
 
-resultDiv.appendChild(exportBtn);
+    resultDiv.appendChild(exportBtn);
 
-showResult();
+    showResult();
   } catch (error) {
     showError(error.message);
   }

@@ -30,9 +30,46 @@ form.addEventListener('submit', async function(e) {
     const result = await apiCall('/sum-sub', payload);
     const title = payload.operation === 'add' ? 'Resultado (A + B)' : 'Resultado (A - B)';
     displayMatrix(result.result, title);
+
+    const exportBtn = document.createElement('button');
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+
+   exportBtn.onclick = () => exportAsJSON(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result,
+      payload.operation
+    );
+
+    document.getElementById('result').appendChild(exportBtn);
+
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
+
+const json = formatMatrix(matrixA, 4); 
+
+function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
+  const json =
+`{
+  "operation": "${operation}",
+  "matrixA": ${formatMatrix(matrixA, 4)},
+  "matrixB": ${formatMatrix(matrixB, 4)},
+  "result": ${formatMatrix(matrixResult, 4)}
+}`;
+
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matrizes.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}

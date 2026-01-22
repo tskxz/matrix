@@ -26,9 +26,42 @@ form.addEventListener('submit', async function(e) {
   try {
     const result = await apiCall('/transpose', payload);
     displayMatrix(result.result, 'Matriz Transposta');
+
+    const exportBtn = document.createElement('button');
+          exportBtn.textContent = 'Exportar como JSON';
+          exportBtn.className = 'btn-secondary';
+          exportBtn.style.marginTop = '1rem';
+
+          exportBtn.onclick = () => exportTransposeAsJSON(
+          payload.matrix,
+    result.result
+);
+
+document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
+
+const json = formatMatrix(matrixA, 4); 
+
+function exportTransposeAsJSON(matrix, transposedMatrix) {
+  const json =
+`{
+  "operation": "transpose",
+  "matrix": ${formatMatrix(matrix, 4)},
+  "result": ${formatMatrix(transposedMatrix, 4)}
+}`;
+
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matriz_transposta.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}

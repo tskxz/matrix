@@ -35,9 +35,50 @@ form.addEventListener('submit', async function(e) {
     }
     const result = await apiCall('/encrypt', payload);
     displayMatrix(result.encrypted_matrix, 'Mensagem Encriptada');
+    
+    const exportBtn = document.createElement('button');
+      exportBtn.textContent = 'Exportar como JSON';
+      exportBtn.className = 'btn-secondary';
+      exportBtn.style.marginTop = '1rem';
+
+      exportBtn.onclick = () => exportEncryptAsJSON(
+       payload.message,
+       payload.encoding_matrix,
+       result.encrypted_matrix
+   );
+       document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
+
+function formatMatrix(matrix, indent = 2) {
+  const space = ' '.repeat(indent);
+  return '[\n' +
+    matrix
+      .map(row => `${space}[ ${row.join(', ')} ]`)
+      .join(',\n') +
+    '\n]';
+}
+
+function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
+  const json =
+`{
+  "operation": "encrypt",
+  "message": "${message}",
+  "encodingMatrix": ${formatMatrix(encodingMatrix, 4)},
+  "encryptedMatrix": ${formatMatrix(encryptedMatrix, 4)}
+}`;
+
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'encriptacao.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}

@@ -84,15 +84,15 @@ function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportScalarAsXML(scalar, matrix, resultMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="scalar">
   <scalar>${scalar}</scalar>
-${formatMatrixXML(matrix, 'matrix')}
-${formatMatrixXML(resultMatrix, 'result')}
+${prettyXML(matrix, 'matrix')}
+${prettyXML(resultMatrix, 'result')}
 </operation>`;
 
   const blob = new Blob([xml], { type: 'application/xml' });

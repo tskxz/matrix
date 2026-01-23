@@ -88,15 +88,15 @@ function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportAsXML(matrixA, matrixB, matrixResult, operation) {
   const xml =
   `<?xml version="1.0" encoding="UTF-8"?>
   <operation type="${operation}">
-  ${formatMatrixXML(matrixA, 'matrixA')}
-  ${formatMatrixXML(matrixB, 'matrixB')}
-  ${formatMatrixXML(matrixResult, 'result')}
+  ${prettyXML(matrixA, 'matrixA')}
+  ${prettyXML(matrixB, 'matrixB')}
+  ${prettyXML(matrixResult, 'result')}
   </operation>`;
 
   const blob = new Blob([xml], { type: 'application/xml' });

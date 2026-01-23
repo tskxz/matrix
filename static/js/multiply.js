@@ -94,15 +94,15 @@ function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportMultiplyAsXML(matrixA, matrixB, resultMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="multiply">
-${formatMatrixXML(matrixA, 'matrixA')}
-${formatMatrixXML(matrixB, 'matrixB')}
-${formatMatrixXML(resultMatrix, 'result')}
+${prettyXML(matrixA, 'matrixA')}
+${prettyXML(matrixB, 'matrixB')}
+${prettyXML(resultMatrix, 'result')}
 </operation>`;
 
   const blob = new Blob([xml], { type: 'application/xml' });

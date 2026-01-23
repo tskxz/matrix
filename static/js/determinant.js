@@ -83,13 +83,13 @@ function exportDeterminantAsJSON(matrix, determinant) {
   URL.revokeObjectURL(url);
 } 
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportDeterminantAsXML(matrix, determinant) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="determinant">
-  ${formatMatrixXML(matrix, 'matrix')}
+  ${prettyXML(matrix, 'matrix')}
   <result>${determinant}</result>
 </operation>`;
 

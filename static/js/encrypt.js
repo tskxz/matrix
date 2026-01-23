@@ -90,15 +90,15 @@ function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportEncryptAsXML(message, encodingMatrix, encryptedMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="encrypt">
   <message>${message}</message>
-  ${formatMatrixXML(encodingMatrix, 'encodingMatrix')}
-  ${formatMatrixXML(encryptedMatrix, 'encryptedMatrix')}
+  ${prettyXML(encodingMatrix, 'encodingMatrix')}
+  ${prettyXML(encryptedMatrix, 'encryptedMatrix')}
 </operation>`;
 
   const blob = new Blob([xml], { type: 'application/xml' });

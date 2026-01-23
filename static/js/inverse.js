@@ -80,14 +80,14 @@ function exportInverseAsJSON(originalMatrix, inverseMatrix) {
 	URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportInverseAsXML(originalMatrix, inverseMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="inverse">
-${formatMatrixXML(originalMatrix, 'originalMatrix')}
-${formatMatrixXML(inverseMatrix, 'inverseMatrix')}
+${prettyXML(originalMatrix, 'originalMatrix')}
+${prettyXML(inverseMatrix, 'inverseMatrix')}
 </operation>`;
 
   const blob = new Blob([xml], { type: 'application/xml' });

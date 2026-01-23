@@ -78,14 +78,14 @@ function exportTransposeAsJSON(matrix, transposedMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportTransposeAsXML(matrix, transposedMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="transpose">
-${formatMatrixXML(matrix, 'matrix')}
-${formatMatrixXML(transposedMatrix, 'result')}
+${prettyXML(matrix, 'matrix')}
+${prettyXML(transposedMatrix, 'result')}
 </operation>`;
 
   const blob = new Blob([xml], { type: 'application/xml' });

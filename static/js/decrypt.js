@@ -92,14 +92,14 @@ function exportDecryptAsJSON(encodingMatrix, encryptedMatrix, decryptedMessage) 
   URL.revokeObjectURL(url);
 }
 
-const xml = formatMatrixXML(matrix, tagName);
+const xml = prettyXML(matrix, tagName);
 
 function exportDecryptAsXML(encodingMatrix, encryptedMatrix, decryptedMessage) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="decrypt">
-  ${formatMatrixXML(encodingMatrix, 'encodingMatrix')}
-  ${formatMatrixXML(encryptedMatrix, 'encryptedMatrix')}
+  ${prettyXML(encodingMatrix, 'encodingMatrix')}
+  ${prettyXML(encryptedMatrix, 'encryptedMatrix')}
   <decryptedMessage>${decryptedMessage}</decryptedMessage>
 </operation>`;
 

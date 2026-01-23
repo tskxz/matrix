@@ -59,8 +59,8 @@ function decimalMatrix(matrix, decimals = 2) {
   );
 }
 
-function formatMatrixXML(matrix, tagName) {
-  let xml = `<${tagName}>\n`;
+function prettyXML(matrix, tagName) {
+  let xml =`<${tagName}>\n`;
 
   matrix.forEach(row => {
     xml += `    <row>${row.join(', ')}</row>\n`;

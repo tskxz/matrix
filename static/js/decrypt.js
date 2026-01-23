@@ -48,6 +48,21 @@ form.addEventListener('submit', async function(e) {
     resultDiv.appendChild(exportBtn);
 
     showResult();
+
+
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+    exportXMLBtn.onclick = () => exportDecryptAsXML(
+      payload.encoding_matrix,
+      payload.encrypted_matrix,
+      result.decrypted_message
+    );
+
+    resultDiv.appendChild(exportXMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
@@ -72,6 +87,28 @@ function exportDecryptAsJSON(encodingMatrix, encryptedMatrix, decryptedMessage) 
   const a = document.createElement('a');
   a.href = url;
   a.download = 'desencriptacao.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+const xml = formatMatrixXML(matrix, tagName);
+
+function exportDecryptAsXML(encodingMatrix, encryptedMatrix, decryptedMessage) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="decrypt">
+  ${formatMatrixXML(encodingMatrix, 'encodingMatrix')}
+  ${formatMatrixXML(encryptedMatrix, 'encryptedMatrix')}
+  <decryptedMessage>${decryptedMessage}</decryptedMessage>
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'desencriptacao.xml';
   a.click();
 
   URL.revokeObjectURL(url);

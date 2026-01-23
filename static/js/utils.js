@@ -58,3 +58,14 @@ function decimalMatrix(matrix, decimals = 2) {
     row.map(num => Number(num.toFixed(decimals)))
   );
 }
+
+function formatMatrixXML(matrix, tagName) {
+  let xml = `  <${tagName}>\n`;
+
+  matrix.forEach(row => {
+    xml += `    <row>${row.join(' ')}</row>\n`;
+  });
+
+  xml += `  </${tagName}>\n`;
+  return xml;
+}

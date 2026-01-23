@@ -45,6 +45,20 @@ form.addEventListener('submit', async function(e) {
 
     document.getElementById('result').appendChild(exportBtn);
 
+    const exportXMLBtn = document.createElement('button');
+          exportXMLBtn.textContent = 'Exportar como XML';
+          exportXMLBtn.className = 'btn-secondary';
+          exportXMLBtn.style.marginTop = '0.5rem';
+
+          exportXMLBtn.onclick = () => exportAsXML(
+          payload.matrix_a,
+          payload.matrix_b,
+          result.result,
+          payload.operation
+);
+
+document.getElementById('result').appendChild(exportXMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
@@ -71,5 +85,27 @@ function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   a.download = 'matrizes.json';
   a.click();
   
+  URL.revokeObjectURL(url);
+}
+
+const xml = formatMatrixXML(matrix, tagName);
+
+function exportAsXML(matrixA, matrixB, matrixResult, operation) {
+  const xml =
+  `<?xml version="1.0" encoding="UTF-8"?>
+  <operation type="${operation}">
+  ${formatMatrixXML(matrixA, 'matrixA')}
+  ${formatMatrixXML(matrixB, 'matrixB')}
+  ${formatMatrixXML(matrixResult, 'result')}
+  </operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matrizes.xml';
+  a.click();
+
   URL.revokeObjectURL(url);
 }

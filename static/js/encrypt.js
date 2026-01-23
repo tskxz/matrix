@@ -37,16 +37,16 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.encrypted_matrix, 'Mensagem Encriptada');
     
     const exportBtn = document.createElement('button');
-      exportBtn.textContent = 'Exportar como JSON';
-      exportBtn.className = 'btn-secondary';
-      exportBtn.style.marginTop = '1rem';
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
 
-      exportBtn.onclick = () => exportEncryptAsJSON(
-       payload.message,
-       payload.encoding_matrix,
-       result.encrypted_matrix
-   );
-       document.getElementById('result').appendChild(exportBtn);
+    exportBtn.onclick = () => exportEncryptAsJSON(
+      payload.message,
+      payload.encoding_matrix,
+      result.encrypted_matrix
+    );
+    document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }
@@ -54,15 +54,15 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
   const json =
 `{
   "operation": "encrypt",
   "message": "${message}",
-  "encodingMatrix": ${formatMatrix(encodingMatrix, 4)},
-  "encryptedMatrix": ${formatMatrix(encryptedMatrix, 4)}
+  "encodingMatrix": ${prettyJson(encodingMatrix, 4)},
+  "encryptedMatrix": ${prettyJson(encryptedMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });

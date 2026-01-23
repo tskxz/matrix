@@ -41,17 +41,17 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.result, 'Resultado (A × B)');
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
-
-          exportBtn.onclick = () => exportMultiplyAsJSON(
-          payload.matrix_a,
-          payload.matrix_b,
-  result.result
-);
-
-document.getElementById('result').appendChild(exportBtn);
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportMultiplyAsJSON(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result
+    );
+    
+    document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }
@@ -59,15 +59,15 @@ document.getElementById('result').appendChild(exportBtn);
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const json =
 `{
   "operation": "multiply",
-  "matrixA": ${formatMatrix(matrixA, 4)},
-  "matrixB": ${formatMatrix(matrixB, 4)},
-  "result": ${formatMatrix(resultMatrix, 4)}
+  "matrixA": ${prettyJson(matrixA, 4)},
+  "matrixB": ${prettyJson(matrixB, 4)},
+  "result": ${prettyJson(resultMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });

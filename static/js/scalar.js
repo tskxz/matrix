@@ -27,19 +27,19 @@ form.addEventListener('submit', async function(e) {
   try {
     const result = await apiCall('/scalar', payload);
     displayMatrix(result.result, `Resultado (${payload.scalar} × Matriz)`);
-
+    
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
-
-          exportBtn.onclick = () => exportScalarAsJSON(
-          payload.scalar,
-          payload.matrix,
-  result.result
-);
-
-document.getElementById('result').appendChild(exportBtn);
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportScalarAsJSON(
+      payload.scalar,
+      payload.matrix,
+      result.result
+    );
+    
+    document.getElementById('result').appendChild(exportBtn);
   } catch (error) {
     showError(error.message);
   }
@@ -47,24 +47,24 @@ document.getElementById('result').appendChild(exportBtn);
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
+const json = prettyJson(matrixA, 4); 
 
 function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   const json =
 `{
   "operation": "scalar",
   "scalar": ${scalar},
-  "matrix": ${formatMatrix(matrix, 4)},
-  "result": ${formatMatrix(resultMatrix, 4)}
+  "matrix": ${prettyJson(matrix, 4)},
+  "result": ${prettyJson(resultMatrix, 4)}
 }`;
-
+  
   const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-
+  
   const a = document.createElement('a');
   a.href = url;
   a.download = 'scalar_multiplication.json';
   a.click();
-
+  
   URL.revokeObjectURL(url);
 }

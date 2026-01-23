@@ -38,6 +38,18 @@ form.addEventListener('submit', async function(e) {
     );
 
     document.getElementById('result').appendChild(exportBtn);
+
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+    exportXMLBtn.onclick = () => exportTransposeAsXML(
+     payload.matrix,
+     result.result
+);
+
+document.getElementById('result').appendChild(exportXMLBtn);
   } catch (error) {
     showError(error.message);
   }
@@ -61,6 +73,27 @@ function exportTransposeAsJSON(matrix, transposedMatrix) {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'matriz_transposta.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+const xml = formatMatrixXML(matrix, tagName);
+
+function exportTransposeAsXML(matrix, transposedMatrix) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="transpose">
+${formatMatrixXML(matrix, 'matrix')}
+${formatMatrixXML(transposedMatrix, 'result')}
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matriz_transposta.xml';
   a.click();
 
   URL.revokeObjectURL(url);

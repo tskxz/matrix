@@ -60,10 +60,10 @@ function decimalMatrix(matrix, decimals = 2) {
 }
 
 function formatMatrixXML(matrix, tagName) {
-  let xml = `  <${tagName}>\n`;
+  let xml = `<${tagName}>\n`;
 
   matrix.forEach(row => {
-    xml += `    <row>${row.join(' ')}</row>\n`;
+    xml += `    <row>${row.join(', ')}</row>\n`;
   });
 
   xml += `  </${tagName}>\n`;

@@ -163,6 +163,8 @@ button[type="button"]:hover,
 	display: block;
 }
 
+/*Cartões na Página Inicial*/
+
 ul {
 	display: grid;
 	list-style: none;
@@ -192,6 +194,43 @@ ul li:hover {
 	background-color: #22262f;
 	border-color: #e8eaf0;
 }
+
+.card-tittle {
+	color: #e8eaf0;
+	padding-left: 1rem;
+	margin-top: 13px;
+	padding-bottom: 15px;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.card-description {
+	color: #e8eaf0;
+	padding-left: 1rem;
+	margin-top: -15px;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.card-icon {
+	margin-left: 1rem;
+	margin-top: 1rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.button-go {
+	display: flex;
+	flex-direction: row;
+}
+
+.icon-go {
+	width: 17px;
+	height: 17px;
+}
+
+
+/*Responsividade*/
 
 @media (max-width: 768px) {
 	header h1 {

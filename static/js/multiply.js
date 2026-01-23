@@ -52,6 +52,19 @@ form.addEventListener('submit', async function(e) {
     );
     
     document.getElementById('result').appendChild(exportBtn);
+
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+    exportXMLBtn.onclick = () => exportMultiplyAsXML(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result
+);
+
+document.getElementById('result').appendChild(exportXMLBtn);
   } catch (error) {
     showError(error.message);
   }
@@ -76,6 +89,28 @@ function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'multiplicacao_matrizes.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+const xml = prettyXML(matrix, tagName);
+
+function exportMultiplyAsXML(matrixA, matrixB, resultMatrix) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="multiply">
+${prettyXML(matrixA, 'matrixA')}
+${prettyXML(matrixB, 'matrixB')}
+${prettyXML(resultMatrix, 'result')}
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'multiplicacao_matrizes.xml';
   a.click();
 
   URL.revokeObjectURL(url);

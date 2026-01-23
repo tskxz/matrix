@@ -40,6 +40,21 @@ form.addEventListener('submit', async function(e) {
     );
     
     document.getElementById('result').appendChild(exportBtn);
+
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+
+    exportXMLBtn.onclick = () => exportScalarAsXML(
+      payload.scalar,
+      payload.matrix,
+      result.result
+);
+
+document.getElementById('result').appendChild(exportXMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
@@ -66,5 +81,27 @@ function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   a.download = 'scalar_multiplication.json';
   a.click();
   
+  URL.revokeObjectURL(url);
+}
+
+const xml = prettyXML(matrix, tagName);
+
+function exportScalarAsXML(scalar, matrix, resultMatrix) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="scalar">
+  <scalar>${scalar}</scalar>
+${prettyXML(matrix, 'matrix')}
+${prettyXML(resultMatrix, 'result')}
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'scalar_multiplication.xml';
+  a.click();
+
   URL.revokeObjectURL(url);
 }

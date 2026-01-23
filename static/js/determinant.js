@@ -42,6 +42,19 @@ form.addEventListener('submit', async function(e) {
     resultDiv.appendChild(exportBtn);
 
     showResult();
+
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+    exportXMLBtn.onclick = () => exportDeterminantAsXML(
+      payload.matrix,
+      result.result
+    );
+
+    resultDiv.appendChild(exportXMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
@@ -69,3 +82,24 @@ function exportDeterminantAsJSON(matrix, determinant) {
 
   URL.revokeObjectURL(url);
 } 
+
+const xml = prettyXML(matrix, tagName);
+
+function exportDeterminantAsXML(matrix, determinant) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="determinant">
+  ${prettyXML(matrix, 'matrix')}
+  <result>${determinant}</result>
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'determinante.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}

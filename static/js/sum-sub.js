@@ -84,9 +84,9 @@ function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   const json =
 `{
   "operation": "${operation}",
-  "matrixA": ${formatMatrix(matrixA, 4)},
-  "matrixB": ${formatMatrix(matrixB, 4)},
-  "result": ${formatMatrix(matrixResult, 4)}
+  "matrixA": ${prettyJson(matrixA, 4)},
+  "matrixB": ${prettyJson(matrixB, 4)},
+  "result": ${prettyJson(matrixResult, 4)}
 }`;
   
   const blob = new Blob([json], { type: 'application/json' });

@@ -1,119 +1,117 @@
-const form = document.getElementById('matrix-form');
-const generateBtn = document.getElementById('generate-btn');
+const form = document.getElementById("matrix-form");
+const generateBtn = document.getElementById("generate-btn");
 
-generateBtn.addEventListener('click', function() {
-	const size = parseInt(document.getElementById('size').value);
-	
-	clearMatrixInputs();
-	hideError();
-	hideResult();
-	
-	generateMatrixInput(size, size, 'matrix-inputs', 'Matriz', 'matrix-a');
+generateBtn.addEventListener("click", function () {
+        const size = parseInt(document.getElementById("size").value);
+
+        clearMatrixInputs();
+        hideError();
+        hideResult();
+
+        generateMatrixInput(size, size, "matrix-inputs", "Matriz", "matrix-a");
 });
 
-form.addEventListener('submit', async function(e) {
-	e.preventDefault();
-	hideError();
-	hideResult();
-	
-	const size = parseInt(document.getElementById('size').value);
-	
-	const payload = {
-		size: size,
-		matrix: readMatrixValues('matrix-a')
-	};
-	
-	try {
-		const result = await apiCall('/inverse', payload);
-		displayMatrix(result.result, 'Matriz Inversa');
+form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        hideError();
+        hideResult();
 
-		const exportBtn = document.createElement('button');
-		exportBtn.textContent = 'Exportar como JSON';
-		exportBtn.className = 'btn-secondary';
-		exportBtn.style.marginTop = '1rem';		
+        const size = parseInt(document.getElementById("size").value);
 
-		exportBtn.onclick = () => exportInverseAsJSON(
-			payload.matrix,
-			decimalMatrix(result.result, 2)
-		);
+        const payload = {
+                size: size,
+                matrix: readMatrixValues("matrix-a"),
+        };
 
-		document.getElementById('result').appendChild(exportBtn);
+        try {
+                const result = await apiCall("/inverse", payload);
+                displayMatrix(result.result, "Matriz Inversa");
 
-		const exportXMLBtn = document.createElement('button');
-		exportXMLBtn.textContent = 'Exportar como XML';
-		exportXMLBtn.className = 'btn-secondary';
-		exportXMLBtn.style.marginTop = '0.5rem';
+                const exportBtn = document.createElement("button");
+                exportBtn.textContent = "Exportar como JSON";
+                exportBtn.className = "btn-secondary";
+                exportBtn.style.marginTop = "1rem";
 
-		exportXMLBtn.onclick = () => exportInverseAsXML(
-			payload.matrix,
-			decimalMatrix(result.result, 2)
-		);
+                exportBtn.onclick = () =>
+                        exportInverseAsJSON(
+                                payload.matrix,
+                                decimalMatrix(result.result, 2),
+                        );
 
-        document.getElementById('result').appendChild(exportXMLBtn);
+                document.getElementById("result").appendChild(exportBtn);
 
-		const exportHTMLBtn = document.createElement('button');
-		exportHTMLBtn.textContent = 'Exportar como HTML';
-		exportHTMLBtn.className = 'btn-secondary';
-		exportHTMLBtn.style.marginTop = '0.5rem';
+                const exportXMLBtn = document.createElement("button");
+                exportXMLBtn.textContent = "Exportar como XML";
+                exportXMLBtn.className = "btn-secondary";
+                exportXMLBtn.style.marginTop = "0.5rem";
 
-		exportHTMLBtn.onclick = () => exportInverseAsHTML(
-			payload.matrix,
-			decimalMatrix(result.result, 2)
-);
+                exportXMLBtn.onclick = () =>
+                        exportInverseAsXML(
+                                payload.matrix,
+                                decimalMatrix(result.result, 2),
+                        );
 
-document.getElementById('result').appendChild(exportHTMLBtn);
+                document.getElementById("result").appendChild(exportXMLBtn);
 
-	} catch (error) {
-		showError(error.message);
-	}
+                const exportHTMLBtn = document.createElement("button");
+                exportHTMLBtn.textContent = "Exportar como HTML";
+                exportHTMLBtn.className = "btn-secondary";
+                exportHTMLBtn.style.marginTop = "0.5rem";
+
+                exportHTMLBtn.onclick = () =>
+                        exportInverseAsHTML(
+                                payload.matrix,
+                                decimalMatrix(result.result, 2),
+                        );
+
+                document.getElementById("result").appendChild(exportHTMLBtn);
+        } catch (error) {
+                showError(error.message);
+        }
 });
 
 generateBtn.click();
 
-const json = prettyJson(matrixA, 4); 
-
+const json = prettyJson(matrixA, 4);
 
 function exportInverseAsJSON(originalMatrix, inverseMatrix) {
-	const json =
-`{
+        const json = `{
   "operation": "inverse",
   "originalMatrix": ${prettyJson(originalMatrix, 4)},
   "inverseMatrix": ${prettyJson(inverseMatrix, 4)}
 }`;
-	
-	const blob = new Blob([json], { type: 'application/json' });
-	const url = URL.createObjectURL(blob);
-	
-	const a = document.createElement('a');
-	a.href = url;
-	a.download = 'matriz_inversa.json';
-	a.click();
-	
-	URL.revokeObjectURL(url);
+
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "matriz_inversa.json";
+        a.click();
+
+        URL.revokeObjectURL(url);
 }
 
 function exportInverseAsXML(originalMatrix, inverseMatrix) {
-  const xml =
-`<?xml version="1.0" encoding="UTF-8"?>
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <operation type="inverse">
-${prettyXML(originalMatrix, 'originalMatrix')}
-${prettyXML(inverseMatrix, 'inverseMatrix')}
+${prettyXML(originalMatrix, "originalMatrix")}
+${prettyXML(inverseMatrix, "inverseMatrix")}
 </operation>`;
 
-  const blob = new Blob([xml], { type: 'application/xml' });
-  const url = URL.createObjectURL(blob);
+        const blob = new Blob([xml], { type: "application/xml" });
+        const url = URL.createObjectURL(blob);
 
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'matriz_inversa.xml';
-  a.click();
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "matriz_inversa.xml";
+        a.click();
 
-  URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);
 }
 
 function exportInverseAsHTML(originalMatrix, inverseMatrix) {
-  const html =
-`<!DOCTYPE html>
+        const html = `<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
@@ -122,18 +120,18 @@ function exportInverseAsHTML(originalMatrix, inverseMatrix) {
 <body>
   <h1>Operação: Matriz Inversa</h1>
 
-  ${prettyHTML(originalMatrix, 'Matriz Original')}
-  ${prettyHTML(inverseMatrix, 'Matriz Inversa')}
+  ${prettyHTML(originalMatrix, "Matriz Original")}
+  ${prettyHTML(inverseMatrix, "Matriz Inversa")}
 </body>
 </html>`;
 
-  const blob = new Blob([html], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
+        const blob = new Blob([html], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
 
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'matriz_inversa.html';
-  a.click();
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "matriz_inversa.html";
+        a.click();
 
-  URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);
 }

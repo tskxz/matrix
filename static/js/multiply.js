@@ -41,17 +41,44 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.result, 'Resultado (A × B)');
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportMultiplyAsJSON(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result
+    );
+    
+    document.getElementById('result').appendChild(exportBtn);
 
-          exportBtn.onclick = () => exportMultiplyAsJSON(
-          payload.matrix_a,
-          payload.matrix_b,
-  result.result
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+    exportXMLBtn.onclick = () => exportMultiplyAsXML(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result
 );
 
-document.getElementById('result').appendChild(exportBtn);
+document.getElementById('result').appendChild(exportXMLBtn);
+
+    const exportHTMLBtn = document.createElement('button');
+    exportHTMLBtn.textContent = 'Exportar como HTML';
+    exportHTMLBtn.className = 'btn-secondary';
+    exportHTMLBtn.style.marginTop = '0.5rem';
+
+    exportHTMLBtn.onclick = () => exportMultiplyAsHTML(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result
+);
+
+document.getElementById('result').appendChild(exportHTMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
@@ -59,15 +86,13 @@ document.getElementById('result').appendChild(exportBtn);
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
-
 function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const json =
 `{
   "operation": "multiply",
-  "matrixA": ${formatMatrix(matrixA, 4)},
-  "matrixB": ${formatMatrix(matrixB, 4)},
-  "result": ${formatMatrix(resultMatrix, 4)}
+  "matrixA": ${prettyJson(matrixA, 4)},
+  "matrixB": ${prettyJson(matrixB, 4)},
+  "result": ${prettyJson(resultMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });
@@ -76,6 +101,54 @@ function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'multiplicacao_matrizes.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportMultiplyAsXML(matrixA, matrixB, resultMatrix) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="multiply">
+${prettyXML(matrixA, 'matrixA')}
+${prettyXML(matrixB, 'matrixB')}
+${prettyXML(resultMatrix, 'result')}
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'multiplicacao_matrizes.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportMultiplyAsHTML(matrixA, matrixB, resultMatrix) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Multiplicação de Matrizes</title>
+</head>
+<body>
+  <h1>Operação: Multiplicação de Matrizes (A × B)</h1>
+
+  ${prettyHTML(matrixA, 'Matriz A')}
+  ${prettyHTML(matrixB, 'Matriz B')}
+  ${prettyHTML(resultMatrix, 'Resultado')}
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'multiplicacao_matrizes.html';
   a.click();
 
   URL.revokeObjectURL(url);

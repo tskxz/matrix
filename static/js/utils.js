@@ -44,17 +44,44 @@ function hideResult() {
   document.getElementById('result')?.classList.remove('show');
 }
 
-function formatMatrix(matrix, indent = 2) {
+function prettyJson(matrix, indent = 2) {
   const space = ' '.repeat(indent);
   return '[\n' +
-    matrix
-      .map(row => `${space}[${row.join(', ')}]`)
-      .join(',\n') +
-    '\n]';
+  matrix
+  .map(row => `${space}[${row.join(', ')}]`)
+  .join(',\n') +
+  '\n]';
 }
 
-function roundMatrix(matrix, decimals = 2) {
+function decimalMatrix(matrix, decimals = 2) {
   return matrix.map(row =>
     row.map(num => Number(num.toFixed(decimals)))
   );
+}
+
+function prettyXML(matrix, tagName) {
+  let xml =`<${tagName}>\n`;
+
+  matrix.forEach(row => {
+    xml += `    <row>${row.join(', ')}</row>\n`;
+  });
+
+  xml += `  </${tagName}>\n`;
+  return xml;
+}
+
+function prettyHTML(matrix, title) {
+  let html = `<h3>${title}</h3>`;
+  html += '<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-family: monospace;">';
+
+  matrix.forEach(row => {
+    html += '<tr>';
+    row.forEach(value => {
+      html += `<td>${value}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</table>';
+  return html;
 }

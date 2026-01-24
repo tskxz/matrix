@@ -28,31 +28,55 @@ form.addEventListener('submit', async function(e) {
     displayMatrix(result.result, 'Matriz Transposta');
 
     const exportBtn = document.createElement('button');
-          exportBtn.textContent = 'Exportar como JSON';
-          exportBtn.className = 'btn-secondary';
-          exportBtn.style.marginTop = '1rem';
+    exportBtn.textContent = 'Exportar como JSON';
+    exportBtn.className = 'btn-secondary';
+    exportBtn.style.marginTop = '1rem';
+    
+    exportBtn.onclick = () => exportTransposeAsJSON(
+      payload.matrix,
+      result.result
+    );
 
-          exportBtn.onclick = () => exportTransposeAsJSON(
-          payload.matrix,
+    document.getElementById('result').appendChild(exportBtn);
+
+    const exportXMLBtn = document.createElement('button');
+    exportXMLBtn.textContent = 'Exportar como XML';
+    exportXMLBtn.className = 'btn-secondary';
+    exportXMLBtn.style.marginTop = '0.5rem';
+
+    exportXMLBtn.onclick = () => exportTransposeAsXML(
+     payload.matrix,
+     result.result
+);
+
+document.getElementById('result').appendChild(exportXMLBtn);
+
+    const exportHTMLBtn = document.createElement('button');
+    exportHTMLBtn.textContent = 'Exportar como HTML';
+    exportHTMLBtn.className = 'btn-secondary';
+    exportHTMLBtn.style.marginTop = '0.5rem';
+
+    exportHTMLBtn.onclick = () => exportTransposeAsHTML(
+    payload.matrix,
     result.result
 );
 
-document.getElementById('result').appendChild(exportBtn);
+document.getElementById('result').appendChild(exportHTMLBtn);
+
+
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
-
-const json = formatMatrix(matrixA, 4); 
-
+ 
 function exportTransposeAsJSON(matrix, transposedMatrix) {
   const json =
 `{
   "operation": "transpose",
-  "matrix": ${formatMatrix(matrix, 4)},
-  "result": ${formatMatrix(transposedMatrix, 4)}
+  "matrix": ${prettyJson(matrix, 4)},
+  "result": ${prettyJson(transposedMatrix, 4)}
 }`;
 
   const blob = new Blob([json], { type: 'application/json' });
@@ -61,6 +85,53 @@ function exportTransposeAsJSON(matrix, transposedMatrix) {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'matriz_transposta.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportTransposeAsXML(matrix, transposedMatrix) {
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<operation type="transpose">
+${prettyXML(matrix, 'matrix')}
+${prettyXML(transposedMatrix, 'result')}
+</operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matriz_transposta.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportTransposeAsHTML(matrix, transposedMatrix) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Matriz Transposta</title>
+</head>
+<body>
+  <h2>Operação: Transposta</h2>
+
+  ${prettyHTML(matrix, 'Matriz Original')}
+  ${prettyHTML(transposedMatrix, 'Matriz Transposta')}
+
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matriz_transposta.html';
   a.click();
 
   URL.revokeObjectURL(url);

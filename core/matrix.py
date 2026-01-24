@@ -18,7 +18,12 @@ class Matrix:
         self.rows = rows
         self.cols = cols
         if data is None:
-            self.data = [[0 for _ in range(cols)] for _ in range(rows)]
+            self.data = []
+            for i in range(rows):
+                row = []
+                for j in range(cols):
+                    row.append(0)
+                self.data.append(row)
         else:
             if not isinstance(data, list):
                 raise ValueError("Data deve ser uma lista")
@@ -31,11 +36,20 @@ class Matrix:
                 if len(row) != cols:
                     raise ValueError(f"Linha {i}: esperado {cols} colunas, recebido {len(row)} colunas")
             
-            self.data = [row[:] for row in data]
+            self.data = []
+            for row in data:
+                self.data.append(row[:])
     
     def __str__(self):
         # String representation of the matrix
-        return "\n".join("[" + " ".join(f"{x:8.2f}" for x in row) + "]" for row in self.data)
+        result = []
+        for row in self.data:
+            row_str = "["
+            for x in row:
+                row_str += f"{x:8.2f} "
+            row_str += "]"
+            result.append(row_str)
+        return "\n".join(result)
     
     def __repr__(self):
         # Official representation in matrix form
@@ -43,7 +57,10 @@ class Matrix:
     
     def to_list(self):
         # Convert matrix data to a list of lists
-        return [row[:] for row in self.data]
+        result = []
+        for row in self.data:
+            result.append(row[:])
+        return result
     
     def get_element(self, row, col):
         # Get element at specified row and column
@@ -68,8 +85,12 @@ class Matrix:
         if self.rows != other.rows or self.cols != other.cols:
             raise ValueError(f"Dimensões incompatíveis: {self.dimensions()} vs {other.dimensions()}")
         
-        # i = rows, j = cols
-        result_data = [[self.data[i][j] + other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
+        result_data = []
+        for i in range(self.rows):
+            row = []
+            for j in range(self.cols):
+                row.append(self.data[i][j] + other.data[i][j])
+            result_data.append(row)
         return Matrix(self.rows, self.cols, result_data)
     
     def subtract(self, other):
@@ -79,13 +100,22 @@ class Matrix:
         if self.rows != other.rows or self.cols != other.cols:
             raise ValueError(f"Dimensões incompatíveis: {self.dimensions()} vs {other.dimensions()}")
         
-        # i = rows, j = cols
-        result_data = [[self.data[i][j] - other.data[i][j] for j in range(self.cols)] for i in range(self.rows)]
+        result_data = []
+        for i in range(self.rows):
+            row = []
+            for j in range(self.cols):
+                row.append(self.data[i][j] - other.data[i][j])
+            result_data.append(row)
         return Matrix(self.rows, self.cols, result_data)
     
     def scalar_multiply(self, scalar):
         # Multiply matrix by a scalar value (scalar number * A)
-        result_data = [[self.data[i][j] * scalar for j in range(self.cols)] for i in range(self.rows)]
+        result_data = []
+        for i in range(self.rows):
+            row = []
+            for j in range(self.cols):
+                row.append(self.data[i][j] * scalar)
+            result_data.append(row)
         return Matrix(self.rows, self.cols, result_data)
     
     def multiply(self, other):
@@ -95,13 +125,25 @@ class Matrix:
         if self.cols != other.rows:
             raise ValueError(f"Dimensões incompatíveis para multiplicar | Tem de ser igual {self.cols} = {other.rows}")
         
-        # i = rows, A(k)= cols, B(k) = rows, j = cols
-        result_data = [[sum(self.data[i][k] * other.data[k][j] for k in range(self.cols)) for j in range(other.cols)] for i in range(self.rows)]
+        result_data = []
+        for i in range(self.rows):
+            row = []
+            for j in range(other.cols):
+                sum_value = 0
+                for k in range(self.cols):
+                    sum_value += self.data[i][k] * other.data[k][j]
+                row.append(sum_value)
+            result_data.append(row)
         return Matrix(self.rows, other.cols, result_data)
     
     def transpose(self):
         # Transpose the matrix (A^T)
-        result_data = [[self.data[j][i] for j in range(self.rows)] for i in range(self.cols)]
+        result_data = []
+        for i in range(self.cols):
+            row = []
+            for j in range(self.rows):
+                row.append(self.data[j][i])
+            result_data.append(row)
         return Matrix(self.cols, self.rows, result_data)
     
     def determinant(self):
@@ -147,9 +189,14 @@ class Matrix:
     
     def _get_minor(self, row, col):
         # Get minor matrix after removing specified row and column (for determinant calculation)
-        
-        # i = rows, j = cols
-        minor_data = [[self.data[i][j] for j in range(self.cols) if j != col] for i in range(self.rows) if i != row]
+        minor_data = []
+        for i in range(self.rows):
+            if i != row:
+                row_data = []
+                for j in range(self.cols):
+                    if j != col:
+                        row_data.append(self.data[i][j])
+                minor_data.append(row_data)
         return Matrix(self.rows - 1, self.cols - 1, minor_data)
     
     def _get_cofactor(self, row, col):
@@ -160,7 +207,12 @@ class Matrix:
     
     def _adjugate(self):
         # Calculate the adjugate of the matrix (for inverse calculation)
-        cofactor_data = [[self._get_cofactor(i, j) for j in range(self.cols)] for i in range(self.rows)]
+        cofactor_data = []
+        for i in range(self.rows):
+            row = []
+            for j in range(self.cols):
+                row.append(self._get_cofactor(i, j))
+            cofactor_data.append(row)
         cofactor_matrix = Matrix(self.rows, self.cols, cofactor_data)
         return cofactor_matrix.transpose()
 
@@ -178,14 +230,20 @@ class Matrix:
     def encrypt_message(self, message):
         # Encrypt message using matrix multiplication (message_matrix * encoding_matrix = encrypted_matrix)
         message = message.upper()
-        numbers = [Matrix.char_to_num(a) for a in message]
+        numbers = []
+        for a in message:
+            numbers.append(Matrix.char_to_num(a))
         
         while len(numbers) % self.rows != 0:
             numbers.append(29)
         
         num_cols = len(numbers) // self.rows
-        # i = rows, j = cols
-        message_matrix_data = [[numbers[i * num_cols + j] for j in range(num_cols)] for i in range(self.rows)]
+        message_matrix_data = []
+        for i in range(self.rows):
+            row = []
+            for j in range(num_cols):
+                row.append(numbers[i * num_cols + j])
+            message_matrix_data.append(row)
         message_matrix = Matrix(self.rows, num_cols, message_matrix_data)
         
         encrypted_matrix = self.multiply(message_matrix)
@@ -211,7 +269,9 @@ class Matrix:
             for cols in range(message_matrix.cols):
                 numbers.append(round(message_matrix.data[rows][cols]))
         
-        decrypted_message = ''.join(Matrix.num_to_char(num) for num in numbers)
+        decrypted_message = ''
+        for num in numbers:
+            decrypted_message += Matrix.num_to_char(num)
         
         return {
             'message_matrix': message_matrix.to_list(),

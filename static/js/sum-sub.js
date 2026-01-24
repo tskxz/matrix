@@ -36,7 +36,7 @@ form.addEventListener('submit', async function(e) {
     exportBtn.className = 'btn-secondary';
     exportBtn.style.marginTop = '1rem';
 
-   exportBtn.onclick = () => exportAsJSON(
+    exportBtn.onclick = () => exportAsJSON(
       payload.matrix_a,
       payload.matrix_b,
       result.result,
@@ -45,6 +45,34 @@ form.addEventListener('submit', async function(e) {
 
     document.getElementById('result').appendChild(exportBtn);
 
+    const exportXMLBtn = document.createElement('button');
+          exportXMLBtn.textContent = 'Exportar como XML';
+          exportXMLBtn.className = 'btn-secondary';
+          exportXMLBtn.style.marginTop = '0.5rem';
+
+          exportXMLBtn.onclick = () => exportAsXML(
+          payload.matrix_a,
+          payload.matrix_b,
+          result.result,
+          payload.operation
+);
+
+document.getElementById('result').appendChild(exportXMLBtn);
+
+    const exportHTMLBtn = document.createElement('button');
+    exportHTMLBtn.textContent = 'Exportar como HTML';
+    exportHTMLBtn.className = 'btn-secondary';
+    exportHTMLBtn.style.marginTop = '0.5rem';
+
+    exportHTMLBtn.onclick = () => exportAsHTML(
+      payload.matrix_a,
+      payload.matrix_b,
+      result.result,
+      payload.operation
+);
+
+document.getElementById('result').appendChild(exportHTMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
@@ -52,23 +80,69 @@ form.addEventListener('submit', async function(e) {
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
-
 function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   const json =
 `{
   "operation": "${operation}",
-  "matrixA": ${formatMatrix(matrixA, 4)},
-  "matrixB": ${formatMatrix(matrixB, 4)},
-  "result": ${formatMatrix(matrixResult, 4)}
+  "matrixA": ${prettyJson(matrixA, 4)},
+  "matrixB": ${prettyJson(matrixB, 4)},
+  "result": ${prettyJson(matrixResult, 4)}
 }`;
-
+  
   const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matrizes.json';
+  a.click();
+  
+  URL.revokeObjectURL(url);
+}
+
+function exportAsXML(matrixA, matrixB, matrixResult, operation) {
+  const xml =
+  `<?xml version="1.0" encoding="UTF-8"?>
+  <operation type="${operation}">
+  ${prettyXML(matrixA, 'matrixA')}
+  ${prettyXML(matrixB, 'matrixB')}
+  ${prettyXML(matrixResult, 'result')}
+  </operation>`;
+
+  const blob = new Blob([xml], { type: 'application/xml' });
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'matrizes.json';
+  a.download = 'matrizes.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportAsHTML(matrixA, matrixB, matrixResult, operation) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado da Operação</title>
+</head>
+<body>
+  <h1>Operação: ${operation}</h1>
+
+  ${prettyHTML(matrixA, 'Matriz A')}
+  ${prettyHTML(matrixB, 'Matriz B')}
+  ${prettyHTML(matrixResult, 'Resultado')}
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matrizes.html';
   a.click();
 
   URL.revokeObjectURL(url);

@@ -55,14 +55,25 @@ form.addEventListener('submit', async function(e) {
 
 document.getElementById('result').appendChild(exportXMLBtn);
 
+      const exportHTMLBtn = document.createElement('button');
+      exportHTMLBtn.textContent = 'Exportar como HTML';
+      exportHTMLBtn.className = 'btn-secondary';
+      exportHTMLBtn.style.marginTop = '0.5rem';
+
+      exportHTMLBtn.onclick = () => exportScalarAsHTML(
+        payload.scalar,
+        payload.matrix,
+        result.result
+);
+
+document.getElementById('result').appendChild(exportHTMLBtn);
+
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
-
-const json = prettyJson(matrixA, 4); 
 
 function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   const json =
@@ -84,8 +95,6 @@ function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = prettyXML(matrix, tagName);
-
 function exportScalarAsXML(scalar, matrix, resultMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
@@ -101,6 +110,34 @@ ${prettyXML(resultMatrix, 'result')}
   const a = document.createElement('a');
   a.href = url;
   a.download = 'scalar_multiplication.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportScalarAsHTML(scalar, matrix, resultMatrix) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Multiplicação por Escalar</title>
+</head>
+<body>
+  <h1>Operação: Multiplicação por Escalar</h1>
+  <h3>Escalar: ${scalar}</h3>
+
+  ${prettyHTML(matrix, 'Matriz Original')}
+  ${prettyHTML(resultMatrix, 'Resultado')}
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'scalar_multiplication.html';
   a.click();
 
   URL.revokeObjectURL(url);

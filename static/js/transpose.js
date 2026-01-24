@@ -50,15 +50,27 @@ form.addEventListener('submit', async function(e) {
 );
 
 document.getElementById('result').appendChild(exportXMLBtn);
+
+    const exportHTMLBtn = document.createElement('button');
+    exportHTMLBtn.textContent = 'Exportar como HTML';
+    exportHTMLBtn.className = 'btn-secondary';
+    exportHTMLBtn.style.marginTop = '0.5rem';
+
+    exportHTMLBtn.onclick = () => exportTransposeAsHTML(
+    payload.matrix,
+    result.result
+);
+
+document.getElementById('result').appendChild(exportHTMLBtn);
+
+
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
-
-const json = prettyJson(matrixA, 4); 
-
+ 
 function exportTransposeAsJSON(matrix, transposedMatrix) {
   const json =
 `{
@@ -78,8 +90,6 @@ function exportTransposeAsJSON(matrix, transposedMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = prettyXML(matrix, tagName);
-
 function exportTransposeAsXML(matrix, transposedMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
@@ -94,6 +104,34 @@ ${prettyXML(transposedMatrix, 'result')}
   const a = document.createElement('a');
   a.href = url;
   a.download = 'matriz_transposta.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportTransposeAsHTML(matrix, transposedMatrix) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Matriz Transposta</title>
+</head>
+<body>
+  <h2>Operação: Transposta</h2>
+
+  ${prettyHTML(matrix, 'Matriz Original')}
+  ${prettyHTML(transposedMatrix, 'Matriz Transposta')}
+
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matriz_transposta.html';
   a.click();
 
   URL.revokeObjectURL(url);

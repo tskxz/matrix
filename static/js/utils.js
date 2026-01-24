@@ -69,3 +69,19 @@ function prettyXML(matrix, tagName) {
   xml += `  </${tagName}>\n`;
   return xml;
 }
+
+function prettyHTML(matrix, title) {
+  let html = `<h3>${title}</h3>`;
+  html += '<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-family: monospace;">';
+
+  matrix.forEach(row => {
+    html += '<tr>';
+    row.forEach(value => {
+      html += `<td>${value}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</table>';
+  return html;
+}

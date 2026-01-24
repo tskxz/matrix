@@ -61,14 +61,26 @@ form.addEventListener('submit', async function(e) {
 
     document.getElementById('result').appendChild(exportXMLBtn);
 
+    const exportHTMLBtn = document.createElement('button');
+    exportHTMLBtn.textContent = 'Exportar como HTML';
+    exportHTMLBtn.className = 'btn-secondary';
+    exportHTMLBtn.style.marginTop = '0.5rem';
+
+    exportHTMLBtn.onclick = () => exportEncryptAsHTML(
+      payload.message,
+      payload.encoding_matrix,
+      result.encrypted_matrix
+);
+
+document.getElementById('result').appendChild(exportHTMLBtn);
+
+
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
-
-const json = prettyJson(matrixA, 4); 
 
 function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
   const json =
@@ -90,8 +102,6 @@ function exportEncryptAsJSON(message, encodingMatrix, encryptedMatrix) {
   URL.revokeObjectURL(url);
 }
 
-const xml = prettyXML(matrix, tagName);
-
 function exportEncryptAsXML(message, encodingMatrix, encryptedMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>
@@ -107,6 +117,36 @@ function exportEncryptAsXML(message, encodingMatrix, encryptedMatrix) {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'encriptacao.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportEncryptAsHTML(message, encodingMatrix, encryptedMatrix) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Encriptação</title>
+</head>
+<body>
+  <h1>Operação: Encriptação</h1>
+
+  <h2>Mensagem Original</h2>
+  <p style="font-size:1.2rem; font-family: monospace;">${message}</p>
+
+  ${prettyHTML(encodingMatrix, 'Matriz de Codificação')}
+  ${prettyHTML(encryptedMatrix, 'Matriz Encriptada')}
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'encriptacao.html';
   a.click();
 
   URL.revokeObjectURL(url);

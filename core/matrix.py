@@ -42,7 +42,14 @@ class Matrix:
     
     def __str__(self):
         # String representation of the matrix
-        return "\n".join("[" + " ".join(f"{x:8.2f}" for x in row) + "]" for row in self.data)
+        result = []
+        for row in self.data:
+            row_str = "["
+            for x in row:
+                row_str += f"{x:8.2f} "
+            row_str += "]"
+            result.append(row_str)
+        return "\n".join(result)
     
     def __repr__(self):
         # Official representation in matrix form

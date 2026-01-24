@@ -70,9 +70,7 @@ document.getElementById('result').appendChild(exportHTMLBtn);
 });
 
 generateBtn.click();
-
-const json = prettyJson(matrixA, 4); 
-
+ 
 function exportTransposeAsJSON(matrix, transposedMatrix) {
   const json =
 `{
@@ -91,8 +89,6 @@ function exportTransposeAsJSON(matrix, transposedMatrix) {
 
   URL.revokeObjectURL(url);
 }
-
-const xml = prettyXML(matrix, tagName);
 
 function exportTransposeAsXML(matrix, transposedMatrix) {
   const xml =

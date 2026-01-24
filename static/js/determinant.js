@@ -66,15 +66,13 @@ form.addEventListener('submit', async function(e) {
 );
 
     document.getElementById('result').appendChild(exportHTMLBtn);
-    
+
   } catch (error) {
     showError(error.message);
   }
 });
 
 generateBtn.click();
-
-const json = prettyJson(matrixA, 4); 
 
 function exportDeterminantAsJSON(matrix, determinant) {
   const json =
@@ -94,8 +92,6 @@ function exportDeterminantAsJSON(matrix, determinant) {
 
   URL.revokeObjectURL(url);
 } 
-
-const xml = prettyXML(matrix, tagName);
 
 function exportDeterminantAsXML(matrix, determinant) {
   const xml =

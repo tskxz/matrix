@@ -75,8 +75,6 @@ document.getElementById('result').appendChild(exportHTMLBtn);
 
 generateBtn.click();
 
-const json = prettyJson(matrixA, 4); 
-
 function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   const json =
 `{
@@ -96,8 +94,6 @@ function exportScalarAsJSON(scalar, matrix, resultMatrix) {
   
   URL.revokeObjectURL(url);
 }
-
-const xml = prettyXML(matrix, tagName);
 
 function exportScalarAsXML(scalar, matrix, resultMatrix) {
   const xml =

@@ -86,8 +86,6 @@ document.getElementById('result').appendChild(exportHTMLBtn);
 
 generateBtn.click();
 
-const json = prettyJson(matrixA, 4); 
-
 function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
   const json =
 `{
@@ -107,8 +105,6 @@ function exportMultiplyAsJSON(matrixA, matrixB, resultMatrix) {
 
   URL.revokeObjectURL(url);
 }
-
-const xml = prettyXML(matrix, tagName);
 
 function exportMultiplyAsXML(matrixA, matrixB, resultMatrix) {
   const xml =

@@ -92,8 +92,6 @@ function exportInverseAsJSON(originalMatrix, inverseMatrix) {
 	URL.revokeObjectURL(url);
 }
 
-const xml = prettyXML(matrix, tagName);
-
 function exportInverseAsXML(originalMatrix, inverseMatrix) {
   const xml =
 `<?xml version="1.0" encoding="UTF-8"?>

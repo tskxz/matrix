@@ -80,8 +80,6 @@ document.getElementById('result').appendChild(exportHTMLBtn);
 
 generateBtn.click();
 
-const json = formatMatrix(matrixA, 4); 
-
 function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   const json =
 `{
@@ -101,8 +99,6 @@ function exportAsJSON(matrixA, matrixB, matrixResult, operation) {
   
   URL.revokeObjectURL(url);
 }
-
-const xml = prettyXML(matrix, tagName);
 
 function exportAsXML(matrixA, matrixB, matrixResult, operation) {
   const xml =

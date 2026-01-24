@@ -83,8 +83,6 @@ document.getElementById('result').appendChild(exportHTMLBtn);
 
 generateBtn.click();
 
-const json = prettyJson(matrixA, 4); 
-
 function exportDecryptAsJSON(encodingMatrix, encryptedMatrix, decryptedMessage) {
   const json =
 `{
@@ -104,8 +102,6 @@ function exportDecryptAsJSON(encodingMatrix, encryptedMatrix, decryptedMessage) 
 
   URL.revokeObjectURL(url);
 }
-
-const xml = prettyXML(matrix, tagName);
 
 function exportDecryptAsXML(encodingMatrix, encryptedMatrix, decryptedMessage) {
   const xml =

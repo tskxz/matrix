@@ -50,7 +50,19 @@ form.addEventListener('submit', async function(e) {
 		);
 
         document.getElementById('result').appendChild(exportXMLBtn);
-		
+
+		const exportHTMLBtn = document.createElement('button');
+		exportHTMLBtn.textContent = 'Exportar como HTML';
+		exportHTMLBtn.className = 'btn-secondary';
+		exportHTMLBtn.style.marginTop = '0.5rem';
+
+		exportHTMLBtn.onclick = () => exportInverseAsHTML(
+			payload.matrix,
+			decimalMatrix(result.result, 2)
+);
+
+document.getElementById('result').appendChild(exportHTMLBtn);
+
 	} catch (error) {
 		showError(error.message);
 	}
@@ -96,6 +108,33 @@ ${prettyXML(inverseMatrix, 'inverseMatrix')}
   const a = document.createElement('a');
   a.href = url;
   a.download = 'matriz_inversa.xml';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportInverseAsHTML(originalMatrix, inverseMatrix) {
+  const html =
+`<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Matriz Inversa</title>
+</head>
+<body>
+  <h1>Operação: Matriz Inversa</h1>
+
+  ${prettyHTML(originalMatrix, 'Matriz Original')}
+  ${prettyHTML(inverseMatrix, 'Matriz Inversa')}
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'matriz_inversa.html';
   a.click();
 
   URL.revokeObjectURL(url);

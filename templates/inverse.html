@@ -1,316 +1,37 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inversa - Calculadora de Matrizes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+</head>
+<body>
+  {% include 'header.html' %}
+  
+  <div class="grid-background"></div>
 
-{% block title %}Matriz Inversa{% endblock %}
-{% block header_text %}Cálculo de Matriz Inversa{% endblock %}
-
-{% block content %}
-    <a href="{{ url_for('index') }}" class="back-link">← Voltar</a>
+  <main>
+    <h2>Matriz Inversa</h2>
     
-    <div class="info-box">
-        <p><strong>Regras importantes:</strong></p>
-        <ul>
-            <li>Só existe inversa para matrizes quadradas</li>
-            <li>Determinante deve ser diferente de zero (matriz não-singular)</li>
-            <li>Propriedade: A × A⁻¹ = I (matriz identidade)</li>
-            <li>Métodos disponíveis:
-                <ul>
-                    <li>Adjunta: A⁻¹ = (1/det(A)) × adj(A)</li>
-                    <li>Gauss-Jordan: Eliminação na matriz aumentada [A|I]</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    
-    <form id="matrixForm">
-        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
-            <div>
-                <label for="size">Tamanho (n×n):</label>
-                <input type="number" id="size" min="1" max="6" value="2" required>
-            </div>
-            <button type="button" id="generateBtn" class="btn-secondary">Gerar Matriz</button>
-        </div>
-        
-        <div id="matrixInput"></div>
-        
-        <div style="margin: 1rem 0;">
-            <label for="method">Método de cálculo:</label>
-            <select id="method">
-                <option value="adjugate">Adjunta (recomendado)</option>
-                <option value="gauss-jordan">Gauss-Jordan</option>
-            </select>
-        </div>
-        
-        <button type="submit" class="btn-success" id="calculateBtn">Calcular Inversa</button>
+    <form id="matrix-form">
+      <label for="size">Tamanho da Matriz:</label>
+      <input type="number" id="size" name="size" min="1" max="30" value="2">
+      
+      <button type="button" id="generate-btn" class="btn-secondary">Gerar Matriz</button>
+      
+      <div id="matrix-inputs"></div>
+      
+      <button type="submit" class="btn-primary">Calcular</button>
     </form>
     
     <div id="result"></div>
-    
-    <style>
-        .result-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #007bff;
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        .matrix-pair {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-        
-        .matrix-box {
-            background: white;
-            padding: 1rem;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .verification-box {
-            background: #e7f3ff;
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-            border: 1px solid #b8daff;
-        }
-        
-        .det-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #28a745;
-            text-align: center;
-            margin: 1rem 0;
-        }
-        
-        .singular-alert {
-            background: #fff3cd;
-            color: #856404;
-            padding: 1rem;
-            border-radius: 6px;
-            border: 1px solid #ffeaa7;
-            text-align: center;
-            margin: 1rem 0;
-        }
-        
-        table {
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-        
-        td {
-            padding: 0.5rem 1rem;
-            border: 1px solid #dee2e6;
-            text-align: center;
-            min-width: 50px;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = {
-                size: document.getElementById("size"),
-                matrixInput: document.getElementById("matrixInput"),
-                form: document.getElementById("matrixForm"),
-                result: document.getElementById("result"),
-                generateBtn: document.getElementById("generateBtn"),
-                calculateBtn: document.getElementById("calculateBtn"),
-                method: document.getElementById("method")
-            };
-
-            function generateInputs() {
-                const n = parseInt(elements.size.value);
-                
-                elements.matrixInput.innerHTML = `
-                    <div class="matrix-input">
-                        <h3>Matriz ${n}×${n}</h3>
-                        ${Array(n).fill().map((_, i) => `
-                            <div class="matrix-row" style="display: flex; gap: 0.5rem; margin: 0.5rem 0; justify-content: center;">
-                                ${Array(n).fill().map((_, j) => `
-                                    <input type="number" step="0.01" value="${i === j ? 1 : 0}" 
-                                           data-row="${i}" data-col="${j}" required
-                                           placeholder="${i}.${j}"
-                                           style="width: 70px; padding: 0.5rem; text-align: center; border: 1px solid #ccc; border-radius: 4px;">
-                                `).join('')}
-                            </div>
-                        `).join('')}
-                        <p class="hint" style="text-align: center; color: #666; font-size: 0.9rem; margin-top: 1rem;">
-                            Preencha todos os elementos da matriz quadrada
-                        </p>
-                    </div>
-                `;
-                
-                elements.calculateBtn.disabled = false;
-            }
-
-            function collectMatrixData() {
-                const n = parseInt(elements.size.value);
-                const matrix = [];
-                
-                for (let i = 0; i < n; i++) {
-                    matrix[i] = [];
-                    for (let j = 0; j < n; j++) {
-                        const input = document.querySelector(
-                            `input[data-row="${i}"][data-col="${j}"]`
-                        );
-                        matrix[i][j] = parseFloat(input.value) || 0;
-                    }
-                }
-                
-                return matrix;
-            }
-
-            function matrixToHTML(matrix, title) {
-                return `
-                    <div class="matrix-box">
-                        <h4 style="text-align: center; margin-top: 0;">${title}</h4>
-                        <table>
-                            <tbody>
-                                ${matrix.map(row => `
-                                    <tr>
-                                        ${row.map(val => {
-                                            const num = parseFloat(val);
-                                            const isInteger = Math.abs(num - Math.round(num)) < 0.0001;
-                                            const formatted = isInteger ? num.toFixed(0) : num.toFixed(3);
-                                            return `<td>${formatted}</td>`;
-                                        }).join('')}
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-
-            function displayResult(data) {
-                console.log("Dados recebidos:", data);
-                
-                if (data.is_singular) {
-                    elements.result.innerHTML = `
-                        <div class="result-container">
-                            <h3 style="text-align: center; color: #dc3545;">Matriz Singular</h3>
-                            
-                            <div class="matrix-box" style="max-width: 400px; margin: 0 auto;">
-                                <h4 style="text-align: center;">Matriz Original</h4>
-                                ${matrixToHTML(data.matrix, '')}
-                            </div>
-                            
-                            <div class="singular-alert">
-                                ⚠️ <strong>Matriz Singular</strong><br>
-                                Determinante = ${data.determinant}<br>
-                                Esta matriz não possui inversa.
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 1rem; color: #666;">
-                                Tamanho: ${data.size}×${data.size}
-                            </div>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                const verification = data.verification;
-                
-                elements.result.innerHTML = `
-                    <div class="result-container">
-                        <h3 style="text-align: center; color: #28a745;">Matriz Inversa Calculada</h3>
-                        
-                        <div class="det-value">
-                            Determinante = ${data.determinant.toFixed(4)}
-                        </div>
-                        
-                        <div class="matrix-pair">
-                            ${matrixToHTML(data.matrix, 'Matriz Original (A)')}
-                            ${matrixToHTML(data.inverse, 'Matriz Inversa (A⁻¹)')}
-                        </div>
-                        
-                        <div class="verification-box">
-                            <h4 style="margin-top: 0; text-align: center;">Verificação: A × A⁻¹ = I</h4>
-                            <div class="matrix-pair">
-                                ${matrixToHTML(verification.product_matrix, 'A × A⁻¹')}
-                                ${matrixToHTML(verification.identity_matrix, 'Matriz Identidade (I)')}
-                            </div>
-                            <div style="text-align: center; margin-top: 1rem;">
-                                ${verification.is_correct ? 
-                                    '<span style="color: #28a745; font-weight: bold;">✓ Verificação OK</span>' : 
-                                    '<span style="color: #dc3545; font-weight: bold;">✗ Erro na verificação</span>'}
-                                <br>
-                                <small>Erro máximo: ${verification.max_error.toExponential(2)}</small>
-                            </div>
-                        </div>
-                        
-                        ${data.formula_details ? `
-                            <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin-top: 1rem; font-family: monospace; font-size: 0.9rem;">
-                                <strong>Fórmula aplicada:</strong><br>
-                                ${data.formula_details}
-                            </div>
-                        ` : ''}
-                        
-                        <div style="text-align: center; margin-top: 1rem; color: #666;">
-                            Método: <strong>${data.method}</strong> | Tamanho: ${data.size}×${data.size}
-                        </div>
-                    </div>
-                `;
-            }
-
-            function showError(msg) {
-                elements.result.innerHTML = `
-                    <div style="padding: 1rem; border-radius: 4px; background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; margin-top: 1rem;">
-                        <p style="margin: 0;"><strong>Erro:</strong> ${msg}</p>
-                    </div>
-                `;
-            }
-
-            // Event listeners
-            elements.generateBtn.addEventListener('click', generateInputs);
-            elements.size.addEventListener('change', generateInputs);
-
-            elements.form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const matrix = collectMatrixData();
-                const size = parseInt(elements.size.value);
-                const method = elements.method.value;
-                
-                const payload = {
-                    size: size,
-                    matrix: matrix,
-                    method: method
-                };
-                
-                console.log("Enviando para /inverse:", payload);
-                
-                try {
-                    const response = await fetch("/inverse", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    const data = await response.json();
-                    console.log("Resposta do servidor:", data);
-                    
-                    if (response.ok) {
-                        displayResult(data);
-                    } else {
-                        showError(data.error || "Erro desconhecido");
-                    }
-                } catch (error) {
-                    console.error("Erro:", error);
-                    showError("Erro de comunicação com o servidor");
-                }
-            });
-
-            // Inicializar
-            generateInputs();
-        });
-    </script>
-{% endblock %}
+    <div id="error" class="error-message"></div>
+  </main>
+  
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/matrix-builder.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/inverse.js') }}"></script>
+</body>
+</html>

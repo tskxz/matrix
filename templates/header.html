@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+<script src="{{ url_for('static', filename='js/menu-sidebar.js') }}" defer></script>
+
+<header>
+
+  {% include 'sidebar.html' %}
+
+  <div class="header-content">
+    <a href="/">
+      <h1>Calculadora de Matrizes</h1>
+    </a>
+
+    <button class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+   
+</header>

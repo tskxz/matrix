@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+<script src="{{ url_for('static', filename='js/menu-sidebar.js') }}" defer></script>
+
+<!-- SideBar -->
+<div class="overlay" id="overlay" onclick="toggleMenu">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="sidebar-header-left">
+                <span>Menu</span>
+            </div>
+
+            <button class="close-sidebar" onclick="toggleMenu()">Fechar</button>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="/" class="active">
+                <span>Inicio</span>
+            </a>
+
+            <p>Operações</p>
+            <div class="divider"></div>
+
+            <a href="/sum-sub">
+                <div class="nav-item-text">
+                    <span>Soma & Subtração</span>
+                    </br>
+                    <span>Somar ou subtrair Matrizes</span>
+                </div>
+            </a>
+
+            <a href="/multiply">
+                <div class="nav-item-text">
+                    <span>Multiplicação</span>
+                    </br>
+                    <span>Multiplicar duas Matrizes</span>
+                </div>
+            </a>
+
+            <a href="/transpose">
+                <div class="nav-item-text">
+                    <span>Transposta</span>
+                    </br>
+                    <span>Inverter linhas e colunas</span>
+                </div>
+            </a>
+
+            <a href="/scalar">
+                <div class="nav-item-text">
+                    <span>Escalar</span>
+                    </br>
+                    <span>Multiplicar por um valor</span>
+                </div>
+            </a>
+
+            <a href="/determinant">
+                <div class="nav-item-text">
+                    <span>Determinante</span>
+                    </br>
+                    <span>Calcular o determinante</span>
+                </div>
+            </a>
+
+            <a href="/inverse">
+                <div class="nav-item-text">
+                    <span>Inversa</span>
+                    </br>
+                    <span>Encontrar a matriz inversa</span>
+                </div>
+            </a>
+
+            <a href="/encrypt">
+                <div class="nav-item-text">
+                    <span>Encriptação</span>
+                    </br>
+                    <span>Encriptar mensagens</span>
+                </div>
+            </a>
+
+            <a href="/decrypt">
+                <div class="nav-item-text">
+                    <span>Desencriptação</span>
+                    </br>
+                    <span>Desencriptar mensagens</span>
+                </div>
+            </a>
+
+        </nav>
+
+    </aside>
+
+</div>

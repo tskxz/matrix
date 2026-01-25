@@ -150,6 +150,14 @@
   margin: 0.5rem 1rem;
 }
 
+.header-content a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-content a:hover {
+  text-decoration: none;
+}
 
 /* Estilo dos Formulários */
 

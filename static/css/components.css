@@ -1,3 +1,158 @@
+/* Estilo do Menu & SideBar */
+
+.menu-toggle {
+	height: 40px;
+  width: 40px;
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+	gap: 5px;
+  background-color: #1a1d26;
+  border: 1px solid #2a2e38;
+  transition: all 0.3s;
+}
+
+.menu-toggle:hover {
+  background: #e8eaed;
+}
+
+.menu-toggle span {
+	width: 20px;
+	height: 2px;
+	background-color: #6b7280;
+	transition: 0.3s;
+}
+
+.overlay {
+	position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0;
+  background: #0f1219dc;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.overlay.active {
+	opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay a {
+	text-decoration: none !important;
+	color: white !important;
+	padding: 12px 20px;
+}
+
+.overlay a:hover {
+  text-decoration: none !important;
+  background-color: yellow;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #0f1219;
+  backdrop-filter: blur(12px);
+  border-left: 1px solid #2a2e38;
+  padding: 2rem 1rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #2a2e38;
+}
+
+.sidebar-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidebar-header span {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.close-sidebar {
+  width: 75px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7280;
+  transition: all 0.3s;
+  border: none;
+  border-radius: 8px;
+}
+
+.close-sidebar:hover {
+  background: #2a2e38;
+  color: #e8eaed;
+}
+
+.sidebar-menu {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.sidebar-menu p {
+  font-weight: 500;
+  color: #6b7280;
+  padding: 1rem;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #6b7280;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.sidebar-menu a:hover {
+  background: #2a2e38;
+  color: #e8eaed;
+}
+
+.sidebar-menu a.active {
+  color: #e8eaed;
+}
+
+.divider {
+  height: 1px;
+  background: #2a2e38;
+  margin: 0.5rem 1rem;
+}
+
+
+/* Estilo dos Formulários */
+
 .matrix-input-grid {
   display: grid;
   gap: 2px;
@@ -80,7 +235,7 @@
 .matrix-section h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #2c3e50;
+  color: #e8eaf0;
   font-weight: bold;
 }
 

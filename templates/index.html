@@ -10,17 +10,123 @@
 <body>
   {% include 'header.html' %}
   
+  <div class="grid-background"></div>
+
   <main>
-    <h2>Selecione uma Operação</h2>
+    <h2>Seleciona uma Operação</h2>
     <ul>
-      <li><a href="/sum-sub">Adição / Subtração</a></li>
-      <li><a href="/multiply">Multiplicação</a></li>
-      <li><a href="/transpose">Transposta</a></li>
-      <li><a href="/scalar">Escalar</a></li>
-      <li><a href="/determinant">Determinante</a></li>
-      <li><a href="/inverse">Inversa</a></li>
-      <li><a href="/encrypt">Encriptação</a></li>
-      <li><a href="/decrypt">Desencriptação</a></li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="https://img.icons8.com/?size=100&id=pY1CjHvHcJ9i&format=png&color=6b7280" alt="sum&sub"/>
+            </div> 
+            
+            <div class="button-go">
+                <p class="card-tittle">Soma & Subtração</p>
+                <a href="/sum-sub">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Somar ou subtrair Matrizes</p>
+      </li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="https://img.icons8.com/?size=100&id=6483&format=png&color=6b7280" alt="multiply"/>
+            </div> 
+
+           <div class="button-go">
+                <p class="card-tittle">Multiplicação</p>
+                <a href="/multiply">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Multiplicar duas Matrizes</p>
+      </li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="data:image/svg+xml;utf8,%3Csvg%20id%3D%22Transpose--Streamline-Carbon%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%2050%22%20height%3D%2250%22%20width%3D%2250%22%3E%0A%20%20%3Cdesc%3E%0A%20%20%20%20Transpose%20Streamline%20Icon%3A%20https%3A%2F%2Fstreamlinehq.com%0A%20%20%3C%2Fdesc%3E%0A%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%3Cpath%20d%3D%22M29.6875%2040.625h-7.8125v-3.125h7.8125a7.821093749999999%207.821093749999999%200%200%200%207.8125%20-7.8125v-7.8125h3.125v7.8125a10.9496875%2010.9496875%200%200%201%20-10.9375%2010.9375Z%22%20fill%3D%22%236b7280%22%20stroke-width%3D%221.5625%22%3E%3C%2Fpath%3E%0A%20%20%3Cpath%20d%3D%22M12.5%2046.875H6.25a3.12859375%203.12859375%200%200%201%20-3.125%20-3.125V21.875a3.12859375%203.12859375%200%200%201%203.125%20-3.125h6.25a3.12859375%203.12859375%200%200%201%203.125%203.125v21.875a3.12859375%203.12859375%200%200%201%20-3.125%203.125ZM6.25%2021.875v21.875h6.25V21.875Z%22%20fill%3D%22%236b7280%22%20stroke-width%3D%221.5625%22%3E%3C%2Fpath%3E%0A%20%20%3Cpath%20d%3D%22M43.75%2015.625H21.875a3.12859375%203.12859375%200%200%201%20-3.125%20-3.125V6.25a3.12859375%203.12859375%200%200%201%203.125%20-3.125h21.875a3.12859375%203.12859375%200%200%201%203.125%203.125v6.25a3.12859375%203.12859375%200%200%201%20-3.125%203.125ZM21.875%206.25v6.25h21.875V6.25Z%22%20fill%3D%22%236b7280%22%20stroke-width%3D%221.5625%22%3E%3C%2Fpath%3E%0A%20%20%3Cpath%20id%3D%22_Transparent_Rectangle_%22%20d%3D%22M0%200h50v50H0Z%22%20fill%3D%22none%22%20stroke-width%3D%221.5625%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E" alt="logo-invert"/>
+            </div> 
+
+            <div class="button-go">
+                <p class="card-tittle">Transposta</p>
+                <a href="/transpose">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Inverter linhas e colunas</p>
+      </li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="https://img.icons8.com/?size=100&id=3859&format=png&color=6b7280" alt="logo-invert"/>
+            </div> 
+
+            <div class="button-go">
+                <p class="card-tittle">Escalar</p>
+                <a href="/scalar">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Multiplicar por um valor</p>
+      </li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="https://img.icons8.com/?size=100&id=vzxOBDhFVxNW&format=png&color=6b7280" alt="logo-invert"/>
+            </div> 
+
+            <div class="button-go">
+                <p class="card-tittle">Determinante</p>
+                <a href="/determinant">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Calcular o determinante</p>
+      </li>
+      <li>  
+            <div class="card-icon">
+                    <img width="50" height="50" src="https://img.icons8.com/?size=100&id=8168&format=png&color=6b7280" alt="logo-invert"/>
+            </div> 
+
+            <div class="button-go">
+                <p class="card-tittle">Inversa</p>
+                <a href="/inverse">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Encontrar a matriz inversa</p>
+      </li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="https://img.icons8.com/?size=100&id=82747&format=png&color=6b7280" alt="logo-invert"/>
+            </div> 
+
+            <div class="button-go">
+                <p class="card-tittle">Encriptação</p>
+                <a href="/encrypt">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Encriptar mensagens</p>
+      </li>
+      <li>
+            <div class="card-icon">
+                <img width="50" height="50" src="https://img.icons8.com/?size=100&id=bTp3qsgxQ1zU&format=png&color=6b7280" alt="logo-invert"/>
+            </div> 
+
+            <div class="button-go">
+                <p class="card-tittle">Desencriptação</p>
+                <a href="/decrypt">
+                    <img class="icon-go" src="https://img.icons8.com/?size=100&id=7I0jLuRiqx3E&format=png&color=e8eaf0" alt="go">
+                </a>
+            </div>
+
+            <p class="card-description">Desencriptar mensagens</p>
+      </li>
     </ul>
   </main>
 </body>

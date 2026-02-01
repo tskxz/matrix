@@ -85,3 +85,75 @@ function prettyHTML(matrix, title) {
   html += '</table>';
   return html;
 }
+
+function importMatrixFromCSV(csvText, matrixId, expectedRows, expectedCols) {
+  try {
+    // Divide o CSV em linhas
+    const lines = csvText.trim().split('\n').filter(line => line.trim() !== '');
+    
+    if (lines.length === 0) {
+      throw new Error('Arquivo CSV vazio.');
+    }
+    
+    // Parse da matriz
+    const matrix = lines.map(line => 
+      line.split(',').map(num => {
+        const val = num.trim();
+        return val === '' ? 0 : parseFloat(val);
+      })
+    );
+    
+    // Verifica se todas as linhas têm o mesmo número de colunas
+    const cols = matrix[0].length;
+    if (!matrix.every(row => row.length === cols)) {
+      throw new Error('Todas as linhas devem ter o mesmo número de elementos.');
+    }
+    
+    // Verifica se as dimensões correspondem às esperadas
+    if (expectedRows && expectedCols) {
+      if (matrix.length !== expectedRows || cols !== expectedCols) {
+        throw new Error(`Dimensões incorretas. Esperado: ${expectedRows}x${expectedCols}, Obtido: ${matrix.length}x${cols}`);
+      }
+    }
+    
+    // Preenche os inputs da matriz
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        const input = document.querySelector(`#${matrixId} [data-row="${i}"][data-col="${j}"]`);
+        if (input) {
+          input.value = matrix[i][j];
+          input.dispatchEvent(new Event('input'));
+        }
+      }
+    }
+    
+    showSuccess(`Matriz ${matrixId === 'matrix-a' ? 'A' : 'B'} importada com sucesso!`);
+    
+  } catch (error) {
+    console.error('Erro ao importar CSV:', error);
+    showError('Erro ao importar CSV: ' + error.message);
+  }
+}
+
+function showSuccess(message) {
+  hideError();
+  const successDiv = document.createElement('div');
+  successDiv.className = 'success-message';
+  successDiv.textContent = message;
+  successDiv.style.margin = '0.5rem 0';
+  successDiv.style.padding = '0.5rem';
+  successDiv.style.backgroundColor = '#d4edda';
+  successDiv.style.color = '#155724';
+  successDiv.style.border = '1px solid #c3e6cb';
+  successDiv.style.borderRadius = '0.25rem';
+  successDiv.style.fontSize = '0.9rem';
+  
+  setTimeout(() => {
+    if (successDiv.parentNode) {
+      successDiv.parentNode.removeChild(successDiv);
+    }
+  }, 3000);
+  
+  const form = document.getElementById('matrix-form');
+  form.parentNode.insertBefore(successDiv, form.nextSibling);
+}

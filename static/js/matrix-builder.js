@@ -4,6 +4,45 @@ function generateMatrixInput(rows, cols, containerId, label, gridId) {
   const section = document.createElement('div');
   section.className = 'matrix-section';
   section.innerHTML = `<h3>${label}</h3>`;
+
+  const header = document.createElement('div');
+  const importBtn = document.createElement('button');
+  const fileInput = document.createElement('input');
+  importBtn.textContent = 'Importar CSV';
+  importBtn.type = 'button';
+  fileInput.type = 'file';
+  fileInput.accept = '.csv,text/csv';
+  fileInput.style.display = 'none';
+  fileInput.dataset.matrixId = gridId;
+
+  importBtn.addEventListener('click', function() {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      const csvText = e.target.result;
+      importMatrixFromCSV(csvText, gridId, rows, cols);
+    };
+    
+    reader.onerror = function() {
+      showError('Erro ao ler o ficheiro CSV.');
+    };
+    
+    reader.readAsText(file);
+    
+    event.target.value = '';
+  });
+
+  header.appendChild(importBtn);
+  header.appendChild(fileInput);
+
+  section.appendChild(header);
   
   const grid = document.createElement('div');
   grid.className = 'matrix-input-grid';
